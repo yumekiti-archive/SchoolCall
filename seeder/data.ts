@@ -1,100 +1,77 @@
-export const students = {
-  address: 3601,
-  seat: [
-    { num: 2, name: '11 飯田 夢基', call_time: '2022-10-14T20:36:05.821Z'},
-    { num: 3, name: '09', call_time: '' },
-    { num: 4, name: '07', call_time: '' },
-    { num: 5, name: '01', call_time: '' },
-    { num: 8, name: '14', call_time: '' },
-    { num: 9, name: '13', call_time: '' },
-    { num: 10, name: '12', call_time: '' },
-    { num: 11, name: '27', call_time: '' },
-    { num: 12, name: '10', call_time: '' },
-    { num: 13, name: '08', call_time: '' },
-    { num: 14, name: '06', call_time: '' },
-    { num: 15, name: '21', call_time: '2022-10-14T20:42:05.821Z' },
-    { num: 16, name: '15', call_time: '' },
-    { num: 17, name: '18 ', call_time: '' },
-    { num: 18, name: '05', call_time: '' },
-    { num: 20, name: '28', call_time: '' },
-    { num: 21, name: '04', call_time: '' },
-    { num: 22, name: '24', call_time: '' },
-    { num: 23, name: '29', call_time: '' },
-    { num: 24, name: '02', call_time: '' },
-    { num: 25, name: '19', call_time: '' },
-    { num: 26, name: '25', call_time: '' },
-    { num: 27, name: '20', call_time: '' },
-    { num: 28, name: '26', call_time: '' },
-    { num: 29, name: '16', call_time: '' },
-    { num: 30, name: '17', call_time: '' },
-    { num: 32, name: '22', call_time: '' },
-    { num: 33, name: '23', call_time: '' },
-    { num: 34, name: '03', call_time: '' },
-  ]
+import ClassRoom from "@/types/classroom"
+import Desk from "@/types/desk"
+import Student from "@/types/student"
+import Call from "@/types/call"
+
+let class_rooms: ClassRoom[] = [
+  {
+    id: 1,
+    name: "3601",
+    capacity: 48,
+    gap: [0, 7, 8, 15, 16, 23, 24, 31, 32, 39, 47],
+    placement: [
+      { gap: 15, name: '教卓' },
+      { gap: 39, name: '柱' },
+      { gap: 47, name: '3Dプリンター' },
+    ],
+    created_at: "2021-10-14T20:36:05.821Z",
+    updated_at: "2021-10-14T20:36:05.821Z"
+  }
+]
+
+let students: Student[] = []
+for (let i = 0; i < 36; i++) {
+  students.push({
+    id: i + 1,
+    name: String(i + 1),
+    created_at: "2021-10-14T20:36:05.821Z",
+    updated_at: "2021-10-14T20:36:05.821Z"
+  })
 }
 
-export const classroom = {
-  address: 3601,
-  seat: [
-    [
-      { num: 0, name: '' },
-      { num: 1, name: '' },
-      { num: 2, name: '' },
-      { num: 3, name: '' },
-      { num: 4, name: '' },
-      { num: 5, name: '' },
-      { num: 6, name: '' },
-      { num: 0, name: '' }, 
-    ],
-    [
-      { num: 0, name: '' },
-      { num: 7, name: '' },
-      { num: 8, name: '' },
-      { num: 9, name: '' },
-      { num: 10, name: '' },
-      { num: 11, name: '' },
-      { num: 12, name: '' },
-      { num: 0, name: '教卓' }, 
-    ],
-    [
-      { num: 0, name: '' },
-      { num: 13, name: '' },
-      { num: 14, name: '' },
-      { num: 15, name: '' },
-      { num: 16, name: '' },
-      { num: 17, name: '' },
-      { num: 18, name: '' },
-      { num: 0, name: '' }, 
-    ],
-    [
-      { num: 0, name: '' },
-      { num: 19, name: '' },
-      { num: 20, name: '' },
-      { num: 21, name: '' },
-      { num: 22, name: '' },
-      { num: 23, name: '' },
-      { num: 24, name: '' },
-      { num: 0, name: '' }, 
-    ],
-    [
-      { num: 0, name: '' },
-      { num: 25, name: '' },
-      { num: 26, name: '' },
-      { num: 27, name: '' },
-      { num: 28, name: '' },
-      { num: 29, name: '' },
-      { num: 30, name: '' },
-      { num: 0, name: '柱' }, 
-    ],
-    [
-      { num: 31, name: '' },
-      { num: 32, name: '' },
-      { num: 33, name: '' },
-      { num: 34, name: '' },
-      { num: 35, name: '' },
-      { num: 36, name: '' },
-      { num: 0, name: '' },
-      { num: 0, name: '3Dプリンター' }, 
-    ]
-  ]
+let desks: Desk[] = []
+let seat_number = 1
+for (let i = 0; i < class_rooms[0].capacity; i++) {
+  if (class_rooms[0].gap.includes(i)) {
+    // オブジェクトがある場合はここで処理
+    const obj = class_rooms[0].placement.find((obj) => obj.gap === i)
+    desks.push({
+      id: i + 1,
+      name: obj ? obj.name : '',
+      seat_number: 0,
+      class_room: class_rooms[0],
+      student: null,
+      created_at: "2021-10-14T20:36:05.821Z",
+      updated_at: "2021-10-14T20:36:05.821Z",
+      class_room_id: 1,
+      student_id: null
+    })
+  } else {
+    desks.push({
+      id: i + 1,
+      name: '',
+      seat_number: seat_number++,
+      class_room: class_rooms[0],
+      student: students[i],
+      created_at: "2021-10-14T20:36:05.821Z",
+      updated_at: "2021-10-14T20:36:05.821Z",
+      class_room_id: 1,
+      student_id: i + 1
+    })
+  }
 }
+
+let calls: Call[] = []
+calls.push({
+  id: 1,
+  status: false,
+  student: students[0],
+  class_room: class_rooms[0],
+  seat_number: 1,
+  created_at: "2021-10-14T20:36:05.821Z",
+  updated_at: "2021-10-14T20:36:05.821Z",
+  student_id: 1,
+  classroom_id: 1
+})
+
+export { class_rooms, students, desks, calls }

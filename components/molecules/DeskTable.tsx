@@ -1,16 +1,16 @@
 import { FC } from 'react';
 
 type Props = {
-  num: number;
+  seat_number: number;
   name?: string;
   connect?: boolean;
   turn_num?: number;
 };
 
-const DeskTable: FC<Props> = ({ num, name, connect=false, turn_num }) => {
+const DeskTable: FC<Props> = ({ seat_number, name, connect=false, turn_num }) => {
   return (
-    num === 0 && name === '' ? (
-      <td className="h-full row-span-1 text-xl">&nbsp;</td>
+    seat_number === 0 && name === '' ? (
+      <td className="h-full row-span-1">&nbsp;</td>
     ) : (
       <td className="w-full h-full row-span-1">
         {
@@ -27,7 +27,7 @@ const DeskTable: FC<Props> = ({ num, name, connect=false, turn_num }) => {
               <div className="w-2/12">
                 <p className="text-left">
                   {
-                    num === 0 ? <>&nbsp;</> : num
+                    seat_number === 0 ? <>&nbsp;</> : seat_number
                   }
                 </p>
               </div>
@@ -37,7 +37,7 @@ const DeskTable: FC<Props> = ({ num, name, connect=false, turn_num }) => {
               <div className="w-2/12">
                 <p className="text-right">
                   {
-                    num === 0 ? <>&nbsp;</> : num
+                    seat_number === 0 ? <>&nbsp;</> : seat_number
                   }
                 </p>
               </div>
