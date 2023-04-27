@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  app:
+    image: node:18-alpine
+    container_name: 'SchoolCall'
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - '3000:3000'
+      - '5555:5555'
+    command: >
+      sh -c "
+        yarn &&
+        yarn dev
+      "
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
