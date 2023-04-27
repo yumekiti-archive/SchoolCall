@@ -5,6 +5,7 @@ type Props = {
   name?: string;
   connect?: boolean;
   turn_num?: number;
+  status?: boolean;
 };
 
 const DeskTable: FC<Props> = ({
@@ -12,6 +13,7 @@ const DeskTable: FC<Props> = ({
   name,
   connect = false,
   turn_num,
+  status,
 }) => {
   return seat_number === 0 && name === '' ? (
     <td className='h-full row-span-1'>&nbsp;</td>
@@ -42,11 +44,15 @@ const DeskTable: FC<Props> = ({
               {seat_number === 0 ? <>&nbsp;</> : seat_number}
             </p>
           </div>
-          <div className='w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-xs'>
+          <div
+            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-xs ${
+              !status && turn_num ? 'bg-green-200' : ''
+            }`}
+          >
             <div>{name ? name : <>&nbsp;</>}</div>
 
-            <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl'>
-              {turn_num ? turn_num : ''}
+            <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl font-bold text-gray-700'>
+              {!status && turn_num ? turn_num : ''}
             </p>
           </div>
         </div>

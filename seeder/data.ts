@@ -31,6 +31,7 @@ for (let i = 0; i < 36; i++) {
 
 let desks: Desk[] = [];
 let seat_number = 1;
+let student_number = 0;
 for (let i = 0; i < class_rooms[0].capacity; i++) {
   if (class_rooms[0].gap.includes(i)) {
     // オブジェクトがある場合はここで処理
@@ -52,11 +53,11 @@ for (let i = 0; i < class_rooms[0].capacity; i++) {
       name: '',
       seat_number: seat_number++,
       class_room: class_rooms[0],
-      student: students[i],
+      student: students[student_number++],
       created_at: '2021-10-14T20:36:05.821Z',
       updated_at: '2021-10-14T20:36:05.821Z',
       class_room_id: 1,
-      student_id: i + 1,
+      student_id: student_number + 1,
     });
   }
 }
@@ -69,6 +70,30 @@ calls.push({
   class_room: class_rooms[0],
   seat_number: 1,
   created_at: '2021-10-14T20:36:05.821Z',
+  updated_at: '2021-10-14T20:36:05.821Z',
+  student_id: 1,
+  classroom_id: 1,
+});
+
+calls.push({
+  id: 2,
+  status: true,
+  student: students[0],
+  class_room: class_rooms[0],
+  seat_number: 9,
+  created_at: '2021-10-14T20:40:05.821Z',
+  updated_at: '2021-10-14T20:36:05.821Z',
+  student_id: 1,
+  classroom_id: 1,
+});
+
+calls.push({
+  id: 3,
+  status: false,
+  student: students[0],
+  class_room: class_rooms[0],
+  seat_number: 9,
+  created_at: '2021-10-14T20:40:05.821Z',
   updated_at: '2021-10-14T20:36:05.821Z',
   student_id: 1,
   classroom_id: 1,
