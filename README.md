@@ -72,37 +72,36 @@ classDiagram
     }
 ```
 
-## students テーブル
+## Student テーブル
 
 | カラム名   | 説明         | 型        | Unique | Nullable |
 | ---------- | ------------ | --------- | ------ | -------- |
 | id         | ID           | integer   | ✓      |          |
-| name       | 名称         | string    |        |          |
-| capacity   | 収容人数     | integer   |        |          |
-| gap        | 窓の位置     | integer[] |        | ✓        |
-| placement  | 生徒席の配置 | object[]  |        | ✓        |
+| name       | 名前         | string    |        |          |
 | created_at | 作成日時     | datetime  |        |          |
 | updated_at | 更新日時     | datetime  |        |          |
 
-## classrooms テーブル
+## ClassRoom テーブル
 
 | カラム名   | 説明     | 型       | Unique | Nullable |
 | ---------- | -------- | -------- | ------ | -------- |
 | id         | ID       | integer  | ✓      |          |
-| name       | 名称     | string   |        |          |
+| name       | 教室名     | string   |        |          |
+| capacity   | 収容人数     | integer   |        |          |
+| gap        | 間隔の位置     | integer[] |        | ✓        |
+| placement  | 備品の配置 | { gap: number; name: string }[]  |        | ✓        |
 | created_at | 作成日時 | datetime |        |          |
 | updated_at | 更新日時 | datetime |        |          |
 
-## desks テーブル
+## Desk テーブル
 
 | カラム名     | 説明       | 型       | Unique | Nullable |
 | ------------ | ---------- | -------- | ------ | -------- |
 | id           | ID         | integer  | ✓      |          |
-| name         | 名称       | string   |        |          |
+| name         | 備品名       | string   |        |          |
 | seat_number  | 座席番号   | integer  |        |          |
-| status       | ステータス | boolean  |        |          |
-| student_id   | 学生 ID    | integer  |        | ✓        |
-| classroom_id | 教室 ID    | integer  |        |          |
+| class_room  | 教室       | ClassRoom  |        |          |
+| student      | 学生       | Student  |        |          |
 | created_at   | 作成日時   | datetime |        |          |
 | updated_at   | 更新日時   | datetime |        |          |
 
@@ -111,9 +110,9 @@ classDiagram
 | カラム名     | 説明     | 型       | Unique | Nullable |
 | ------------ | -------- | -------- | ------ | -------- |
 | id           | ID       | integer  | ✓      |          |
-| name         | 名称     | string   |        |          |
 | seat_number  | 座席番号 | integer  |        |          |
-| student_id   | 学生 ID  | integer  |        | ✓        |
-| classroom_id | 教室 ID  | integer  |        |          |
+| status       | 呼び出し完了 | boolean  |        |          |
+| class_room | 教室 ID  | ClassRoom  |        |          |
+| student   | 学生 ID  | Student  |        | ✓        |
 | created_at   | 作成日時 | datetime |        |          |
 | updated_at   | 更新日時 | datetime |        |          |
