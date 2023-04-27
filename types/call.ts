@@ -11,6 +11,6 @@ type CallOrder = {
   updated_at: string;
   student_id: number;
   classroom_id: number;
-}
+};
 
 export default CallOrder;

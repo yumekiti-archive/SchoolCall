@@ -1,5 +1,5 @@
-import Student from "./student";
-import ClassRoom from "./classroom";
+import Student from './student';
+import ClassRoom from './classroom';
 
 type Desk = {
   id: number;
@@ -11,6 +11,6 @@ type Desk = {
   updated_at: string;
   class_room_id: number;
   student_id: number | null;
-}
+};
 
 export default Desk;

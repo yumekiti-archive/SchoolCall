@@ -8,7 +8,7 @@ export const classroom = {
       { seat_number: 4, name: '' },
       { seat_number: 5, name: '' },
       { seat_number: 6, name: '' },
-      { seat_number: 0, name: '' }, 
+      { seat_number: 0, name: '' },
     ],
     [
       { seat_number: 0, name: '' },
@@ -18,7 +18,7 @@ export const classroom = {
       { seat_number: 10, name: '' },
       { seat_number: 11, name: '' },
       { seat_number: 12, name: '' },
-      { seat_number: 0, name: '教卓' }, 
+      { seat_number: 0, name: '教卓' },
     ],
     [
       { seat_number: 0, name: '' },
@@ -28,7 +28,7 @@ export const classroom = {
       { seat_number: 16, name: '' },
       { seat_number: 17, name: '' },
       { seat_number: 18, name: '' },
-      { seat_number: 0, name: '' }, 
+      { seat_number: 0, name: '' },
     ],
     [
       { seat_number: 0, name: '' },
@@ -38,7 +38,7 @@ export const classroom = {
       { seat_number: 22, name: '' },
       { seat_number: 23, name: '' },
       { seat_number: 24, name: '' },
-      { seat_number: 0, name: '' }, 
+      { seat_number: 0, name: '' },
     ],
     [
       { seat_number: 0, name: '' },
@@ -48,7 +48,7 @@ export const classroom = {
       { seat_number: 28, name: '' },
       { seat_number: 29, name: '' },
       { seat_number: 30, name: '' },
-      { seat_number: 0, name: '柱' }, 
+      { seat_number: 0, name: '柱' },
     ],
     [
       { seat_number: 31, name: '' },
@@ -58,16 +58,16 @@ export const classroom = {
       { seat_number: 35, name: '' },
       { seat_number: 36, name: '' },
       { seat_number: 0, name: '' },
-      { seat_number: 0, name: '3Dプリンター' }, 
-    ]
-  ]
-}
+      { seat_number: 0, name: '3Dプリンター' },
+    ],
+  ],
+};
 
 export const classwork = {
   classroom: classroom,
-  class_name: "IE3A",
+  class_name: 'IE3A',
   students: [
-    { seat_number: 2, name: '11', call_time: '2022-10-14T20:36:05.821Z'},
+    { seat_number: 2, name: '11', call_time: '2022-10-14T20:36:05.821Z' },
     { seat_number: 3, name: '09', call_time: '' },
     { seat_number: 4, name: '07', call_time: '' },
     { seat_number: 5, name: '01', call_time: '' },
@@ -96,5 +96,5 @@ export const classwork = {
     { seat_number: 32, name: '22', call_time: '' },
     { seat_number: 33, name: '23', call_time: '' },
     { seat_number: 34, name: '03', call_time: '' },
-  ]
-}
+  ],
+};
