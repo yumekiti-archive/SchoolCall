@@ -39,7 +39,7 @@ const ClassRoom: FC<Props> = ({ desks, calls }) => {
                           seat_number={seat.seat_number}
                           name={call.student.name}
                           turn_num={
-                            calls.findIndex(
+                            shaping_calls.findIndex(
                               (call) => call.seat_number === seat.seat_number,
                             ) + 1
                           }
