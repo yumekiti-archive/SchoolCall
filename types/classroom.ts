@@ -1,7 +1,7 @@
 type ClassRoom = {
   id: number;
   name: string;
-  capacity: number;
+  breadth: number;
   gap: number[];
   placement: { gap: number; name: string }[];
   created_at: string;

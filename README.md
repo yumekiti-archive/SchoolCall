@@ -87,7 +87,7 @@ classDiagram
 | ---------- | -------- | -------- | ------ | -------- |
 | id         | ID       | integer  | ✓      |          |
 | name       | 教室名     | string   |        |          |
-| capacity   | 収容人数     | integer   |        |          |
+| breadth    | 広さ       | integer   |        |          |
 | gap        | 間隔の位置     | integer[] |        | ✓        |
 | placement  | 備品の配置 | { gap: number; name: string }[]  |        | ✓        |
 | created_at | 作成日時 | datetime |        |          |

@@ -7,7 +7,7 @@ let class_rooms: ClassRoom[] = [
   {
     id: 1,
     name: '3601',
-    capacity: 48,
+    breadth: 48,
     gap: [0, 7, 8, 15, 16, 23, 24, 31, 32, 39, 47],
     placement: [
       { gap: 15, name: '教卓' },
@@ -32,7 +32,7 @@ for (let i = 0; i < 36; i++) {
 let desks: Desk[] = [];
 let seat_number = 1;
 let student_number = 0;
-for (let i = 0; i < class_rooms[0].capacity; i++) {
+for (let i = 0; i < class_rooms[0].breadth; i++) {
   if (class_rooms[0].gap.includes(i)) {
     // オブジェクトがある場合はここで処理
     const obj = class_rooms[0].placement.find((obj) => obj.gap === i);

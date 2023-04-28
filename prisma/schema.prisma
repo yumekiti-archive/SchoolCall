@@ -20,15 +20,15 @@ model Student {
 }
 
 model ClassRoom {
-  id         Int         @id @default(autoincrement())
-  name       String
-  capacity   Int
-  gap        Int[]
-  placement  Json[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  desks      Desk[]
-  callOrders CallOrder[]
+  id        Int         @id @default(autoincrement())
+  name      String
+  breadth   Int
+  gap       Int[]
+  placement Json[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Desk      Desk[]
+  CallOrder CallOrder[]
 }
 
 model Desk {
@@ -48,9 +48,9 @@ model CallOrder {
   seatNumber  Int
   status      Boolean
   classRoomId Int
-  studentId   Int?
+  studentId   Int
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   classRoom   ClassRoom @relation(fields: [classRoomId], references: [id])
-  student     Student?  @relation(fields: [studentId], references: [id])
+  student     Student   @relation(fields: [studentId], references: [id])
 }
