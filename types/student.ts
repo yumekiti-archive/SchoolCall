@@ -6,3 +6,5 @@ type Student = {
 };
 
 export default Student;
+
+// curl -X POST -H "Content-Type: application/json" -d '{"name":"John"}' http://localhost:3000/api/student
