@@ -1,6 +1,7 @@
 dc := docker compose -f ./docker-compose.yml
 
 up:
+	cp ./.env.example ./.env
 	$(dc) up -d
 
 down:
