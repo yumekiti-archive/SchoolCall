@@ -1,4 +1,4 @@
-type ClassRoom = {
+type Classroom = {
   id: number;
   name: string;
   breadth: number;
@@ -8,4 +8,4 @@ type ClassRoom = {
   updated_at: string;
 };
 
-export default ClassRoom;
+export default Classroom;

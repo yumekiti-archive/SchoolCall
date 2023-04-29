@@ -19,7 +19,7 @@ model Student {
   CallOrder CallOrder[]
 }
 
-model ClassRoom {
+model Classroom {
   id        Int         @id @default(autoincrement())
   name      String
   breadth   Int
@@ -35,11 +35,11 @@ model Desk {
   id          Int       @id @default(autoincrement())
   name        String
   seatNumber  Int
-  classRoomId Int
+  classroomId Int
   studentId   Int?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  classRoom   ClassRoom @relation(fields: [classRoomId], references: [id])
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
   student     Student?  @relation(fields: [studentId], references: [id])
 }
 
@@ -47,10 +47,10 @@ model CallOrder {
   id          Int       @id @default(autoincrement())
   seatNumber  Int
   status      Boolean
-  classRoomId Int
+  classroomId Int
   studentId   Int
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  classRoom   ClassRoom @relation(fields: [classRoomId], references: [id])
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
   student     Student   @relation(fields: [studentId], references: [id])
 }

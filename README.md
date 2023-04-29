@@ -81,7 +81,7 @@ classDiagram
 | created_at | 作成日時     | datetime  |        |          |
 | updated_at | 更新日時     | datetime  |        |          |
 
-## ClassRoom テーブル
+## Classroom テーブル
 
 | カラム名   | 説明     | 型       | Unique | Nullable |
 | ---------- | -------- | -------- | ------ | -------- |
@@ -100,7 +100,7 @@ classDiagram
 | id           | ID         | integer  | ✓      |          |
 | name         | 備品名       | string   |        |          |
 | seat_number  | 座席番号   | integer  |        |          |
-| class_room  | 教室       | ClassRoom  |        |          |
+| class_room  | 教室       | Classroom  |        |          |
 | student      | 学生       | Student  |        |          |
 | created_at   | 作成日時   | datetime |        |          |
 | updated_at   | 更新日時   | datetime |        |          |
@@ -112,7 +112,7 @@ classDiagram
 | id           | ID       | integer  | ✓      |          |
 | seat_number  | 座席番号 | integer  |        |          |
 | status       | 呼び出し完了 | boolean  |        |          |
-| class_room | 教室 ID  | ClassRoom  |        |          |
+| class_room | 教室 ID  | Classroom  |        |          |
 | student   | 学生 ID  | Student  |        | ✓        |
 | created_at   | 作成日時 | datetime |        |          |
 | updated_at   | 更新日時 | datetime |        |          |

@@ -1,9 +1,9 @@
-import ClassRoom from '@/types/classroom';
+import Classroom from '@/types/classroom';
 import Desk from '@/types/desk';
 import Student from '@/types/student';
 import Call from '@/types/call';
 
-let class_rooms: ClassRoom[] = [
+let class_rooms: Classroom[] = [
   {
     id: 1,
     name: '3601',

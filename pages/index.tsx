@@ -1,12 +1,12 @@
 import Layout from '@/components/template/Layout';
-import ClassRoom from '@/components/organisms/ClassRoom';
+import Classroom from '@/components/organisms/Classroom';
 
 import { desks, calls } from '@/seeder/data';
 
 const Home = () => {
   return (
     <Layout>
-      <ClassRoom desks={desks} calls={calls} />
+      <Classroom desks={desks} calls={calls} />
     </Layout>
   );
 };
