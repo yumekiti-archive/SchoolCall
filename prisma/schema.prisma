@@ -27,7 +27,7 @@ model Classroom {
   name      String
   breadth   Int
   gap       Int[]
-  placement Json[]
+  placement Placement[]
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Desk      Desk[]
@@ -43,6 +43,16 @@ model Desk {
   updatedAt   DateTime  @updatedAt
   classroom   Classroom @relation(fields: [classroomId], references: [id])
   student     Student?  @relation(fields: [studentId], references: [id])
+}
+
+model Placement {
+  id          Int        @id @default(autoincrement())
+  seatNumber  Int
+  name        String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Classroom   Classroom? @relation(fields: [classroomId], references: [id])
+  classroomId Int?
 }
 
 model CallOrder {

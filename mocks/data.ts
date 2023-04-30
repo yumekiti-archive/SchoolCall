@@ -2,21 +2,23 @@ import Classroom from '@/types/classroom';
 import Desk from '@/types/desk';
 import Student from '@/types/student';
 import CallOrder from '@/types/callorder';
+import Placement from '@/types/placement';
 
 let classrooms: Classroom[] = [
   {
     id: 1,
     name: '3601',
     breadth: 48,
-    gap: [0, 7, 8, 15, 16, 23, 24, 31, 32, 39, 47],
-    placement: [
-      { gap: 15, name: '教卓' },
-      { gap: 39, name: '柱' },
-      { gap: 47, name: '3Dプリンター' },
-    ],
+    gaps: [1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 48],
     created_at: '2021-10-14T20:36:05.821Z',
     updated_at: '2021-10-14T20:36:05.821Z',
   },
+];
+
+let placements: Placement[] = [
+  { id: 1, seat_number: 16, name: '教卓', createdAt: '2021-10-14T20:36:05.821Z', updatedAt: '2021-10-14T20:36:05.821Z' },
+  { id: 2, seat_number: 40, name: '柱', createdAt: '2021-10-14T20:36:05.821Z', updatedAt: '2021-10-14T20:36:05.821Z' },
+  { id: 3, seat_number: 48, name: '3Dプリンター', createdAt: '2021-10-14T20:36:05.821Z', updatedAt: '2021-10-14T20:36:05.821Z' },
 ];
 
 let students: Student[] = [];
@@ -33,14 +35,10 @@ let desks: Desk[] = [];
 let seat_number = 1;
 let student_number = 0;
 for (let i = 0; i < classrooms[0].breadth; i++) {
-  if (classrooms[0].gap.includes(i)) {
-    // オブジェクトがある場合はここで処理
-    const obj = classrooms[0].placement.find((obj) => obj.gap === i);
+  if (classrooms[0].gaps.includes(i)) {
     desks.push({
       id: i + 1,
-      name: obj ? obj.name : '',
       seat_number: 0,
-      classroom: classrooms[0],
       student: null,
       created_at: '2021-10-14T20:36:05.821Z',
       updated_at: '2021-10-14T20:36:05.821Z',
@@ -50,9 +48,7 @@ for (let i = 0; i < classrooms[0].breadth; i++) {
   } else {
     desks.push({
       id: i + 1,
-      name: '',
       seat_number: seat_number++,
-      classroom: classrooms[0],
       student: students[student_number++],
       created_at: '2021-10-14T20:36:05.821Z',
       updated_at: '2021-10-14T20:36:05.821Z',
@@ -67,7 +63,6 @@ call_orders.push({
   id: 1,
   status: false,
   student: students[0],
-  class_room: classrooms[0],
   seat_number: 1,
   created_at: '2021-10-14T20:36:05.821Z',
   updated_at: '2021-10-14T20:36:05.821Z',
@@ -79,7 +74,6 @@ call_orders.push({
   id: 2,
   status: true,
   student: students[0],
-  class_room: classrooms[0],
   seat_number: 9,
   created_at: '2021-10-14T20:40:05.821Z',
   updated_at: '2021-10-14T20:36:05.821Z',
@@ -91,7 +85,6 @@ call_orders.push({
   id: 3,
   status: false,
   student: students[0],
-  class_room: classrooms[0],
   seat_number: 9,
   created_at: '2021-10-14T20:40:05.821Z',
   updated_at: '2021-10-14T20:36:05.821Z',
@@ -99,4 +92,4 @@ call_orders.push({
   classroom_id: 1,
 });
 
-export { classrooms, students, desks, call_orders };
+export { classrooms, placements, students, desks, call_orders };

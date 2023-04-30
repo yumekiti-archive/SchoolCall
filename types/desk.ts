@@ -1,11 +1,8 @@
 import Student from './student';
-import Classroom from './classroom';
 
 type Desk = {
   id: number;
-  name: string;
   seat_number: number;
-  classroom: Classroom;
   student: Student | null;
   created_at: string;
   updated_at: string;

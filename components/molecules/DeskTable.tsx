@@ -15,7 +15,7 @@ const DeskTable: FC<Props> = ({
   turn_num,
   status,
 }) => {
-  return seat_number === 0 && name === '' ? (
+  return seat_number === 0 && name === undefined ? (
     <td className='h-full row-span-1'>&nbsp;</td>
   ) : (
     <td className='w-full h-full row-span-1'>
