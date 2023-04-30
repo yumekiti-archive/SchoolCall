@@ -11,12 +11,15 @@ datasource db {
 }
 
 model Student {
-  id        Int         @id @default(autoincrement())
-  name      String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  Desk      Desk[]
-  CallOrder CallOrder[]
+  id                Int         @id @default(autoincrement())
+  name              String
+  attendance_number Int
+  classId           Int?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  Desk              Desk[]
+  CallOrder         CallOrder[]
+  Class             Class?      @relation(fields: [classId], references: [id])
 }
 
 model Classroom {
@@ -33,7 +36,6 @@ model Classroom {
 
 model Desk {
   id          Int       @id @default(autoincrement())
-  name        String
   seatNumber  Int
   classroomId Int
   studentId   Int?
@@ -53,4 +55,12 @@ model CallOrder {
   updatedAt   DateTime  @updatedAt
   classroom   Classroom @relation(fields: [classroomId], references: [id])
   student     Student   @relation(fields: [studentId], references: [id])
+}
+
+model Class {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Student   Student[]
 }

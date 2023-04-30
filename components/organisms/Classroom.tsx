@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import DeskTable from '../molecules/DeskTable';
 import Desk from '../../types/desk';
-import Call from '../../types/call';
+import CallOrder from '../../types/callorder';
 
 type Props = {
   desks: Desk[];
-  calls: Call[];
+  call_orders: CallOrder[];
 };
 
-const ClassRoom: FC<Props> = ({ desks, calls }) => {
+const ClassRoom: FC<Props> = ({ desks, call_orders }) => {
   // 8人ずつに分割
   let shaping_desks = [];
   for (let i = 0; i < desks.length; i += 8) {
@@ -16,7 +16,7 @@ const ClassRoom: FC<Props> = ({ desks, calls }) => {
   }
 
   // statusがfalseのものを抽出
-  let shaping_calls = calls.filter((call) => !call.status);
+  let shaping_call_orders = call_orders.filter((call) => !call.status);
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
@@ -30,7 +30,7 @@ const ClassRoom: FC<Props> = ({ desks, calls }) => {
               <tr className='w-1/6 h-full grid grid-row-8' key={index}>
                 {row.map(
                   (seat, row_index) =>
-                    shaping_calls
+                    shaping_call_orders
                       .filter((call) => call.seat_number === seat.seat_number)
                       .map((call) => (
                         <DeskTable
@@ -39,7 +39,7 @@ const ClassRoom: FC<Props> = ({ desks, calls }) => {
                           seat_number={seat.seat_number}
                           name={call.student.name}
                           turn_num={
-                            shaping_calls.findIndex(
+                            shaping_call_orders.findIndex(
                               (call) => call.seat_number === seat.seat_number,
                             ) + 1
                           }
