@@ -5,7 +5,7 @@ import { classrooms, placements, desks, call_orders } from '@/mocks/data';
 
 const Home = () => {
   return (
-    <Layout>
+    <Layout Title='座席表'>
       <Classroom desks={desks} call_orders={call_orders} classroom={classrooms[0]} placements={placements} />
     </Layout>
   );

@@ -31,7 +31,7 @@ model Classroom {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Desk      Desk[]
-  CallOrder CallOrder[]
+  CallOrder CallOrder[] 
 }
 
 model Desk {
