@@ -1,15 +1,27 @@
+import Layout from '@/components/template/Layout';
+import { useEffect, useState } from 'react';
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import Layout from '@/components/template/Layout';
-import { useState } from 'react';
+import Classroom from '@/components/organisms/Classroom';
+
+import { useGetClassroomById } from '@/hooks/useClassroom';
 
 const ClassroomRegister = () => {
   const router = useRouter();
-  const { classroom, className } = router.query;
+  const { classroom_id } = router.query;
+  const [classroom, setClassroom] = useState<any>();
+
+  if (classroom_id && !classroom) {
+    useGetClassroomById(classroom_id).then((res) => {
+      setClassroom(res);
+    });
+  }
 
   return (
+    classroom &&
     <Layout Title='クラス作成'>
-      <p>{classroom}</p>
+      <Classroom classroom={classroom} />
     </Layout>
   );
 };

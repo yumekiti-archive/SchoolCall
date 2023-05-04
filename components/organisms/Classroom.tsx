@@ -6,10 +6,10 @@ import Classroom from '../../types/classroom';
 import Placement from '../../types/placement';
 
 type Props = {
-  desks: Desk[];
-  call_orders: CallOrder[];
   classroom: Classroom;
-  placements: Placement[];
+  desks?: Desk[];
+  call_orders?: CallOrder[];
+  placements?: Placement[];
 };
 
 const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => {
@@ -17,13 +17,13 @@ const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => 
   let seat_number = 1;
   for (let i = 1; i <= classroom.breadth; i++) {
     if(classroom.gaps.includes(i)) {
-      if (placements.filter((placement) => placement.seat_number === i).length !== 0) {
+      if (placements && placements.filter((placement) => placement.seat_number === i).length !== 0) {
         positions.push(placements.filter((placement) => placement.seat_number === i)[0]);
       } else {       
         positions.push({seat_number: 0});
       }
     } else {
-      if (desks.filter((desk) => desk.seat_number === seat_number).length !== 0) {
+      if (desks && desks.filter((desk) => desk.seat_number === seat_number).length !== 0) {
         positions.push(desks.filter((desk) => desk.seat_number === seat_number)[0]);
       }
       seat_number++;
@@ -37,7 +37,7 @@ const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => 
   }
 
   // statusがfalseのものを抽出
-  let shaping_call_orders = call_orders.filter((call) => !call.status);
+  let shaping_call_orders = call_orders?.filter((call) => !call.status);
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
@@ -52,13 +52,13 @@ const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => 
                 <tr className='w-1/6 h-full grid grid-row-8' key={index}>
                   {
                     row.map((seat: any, row_index: number) => (
-                      shaping_call_orders.filter((call) => call.seat_number === seat.seat_number).map((call) => (
+                      shaping_call_orders?.filter((call) => call.seat_number === seat.seat_number).map((call) => (
                         <DeskTable
                           key={row_index}
                           connect={index % 2 === 1}
                           seat_number={seat.seat_number}
                           name={call.student.name}
-                          turn_num={shaping_call_orders.findIndex((call) => call.seat_number === seat.seat_number) + 1}
+                          turn_num={shaping_call_orders && shaping_call_orders.findIndex((call) => call.seat_number === seat.seat_number) + 1}
                           status={call.status}
                         />
                       ))[0] || (

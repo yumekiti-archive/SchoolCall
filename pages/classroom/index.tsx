@@ -39,7 +39,7 @@ const ClassroomRegister = () => {
             </div>
             <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
               <span>間隔</span>
-              <input type="text" className='w-1/2 rounded-lg p-1' defaultValue={classroom.gap} onChange={(e) => {classroom.gap = e.target.value}} />
+              <input type="text" className='w-1/2 rounded-lg p-1' defaultValue={classroom.gaps} onChange={(e) => {classroom.gaps = e.target.value}} />
             </div>
             <div className='flex justify-end items-center w-8/12 rounded-lg grid grid-cols-4 gap-2'>
               <Link href={`/classroom/${classroom.id}`} className='col-span-1 rounded-lg p-2 bg-yellow-400 text-white' onClick={() => handleUpdate(classroom.id, classroom)}>

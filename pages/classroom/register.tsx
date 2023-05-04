@@ -8,13 +8,13 @@ import { usePostClassroom } from '@/hooks/useClassroom';
 const ClassroomRegister = () => {
   const [name, setName] = useState('3601');
   const [breadth, setBreadth] = useState(48);
-  const [gap, setGap] = useState('1,8,9,16,17,24,25,32,33,40,48');
+  const [gaps, setGaps] = useState('1,8,9,16,17,24,25,32,33,40,48');
 
   const handleClick = () => {
     const body = {
       name: name,
       breadth: breadth,
-      gap: gap.split(',').map((g) => Number(g)),
+      gaps: gaps.split(',').map((g) => Number(g)),
     };
 
     usePostClassroom(body);
@@ -34,7 +34,7 @@ const ClassroomRegister = () => {
           </div>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>間隔</span>
-            <input type="text" className='w-1/2 rounded-lg p-1' defaultValue={gap} onChange={(e) => setGap(e.target.value)} />
+            <input type="text" className='w-1/2 rounded-lg p-1' defaultValue={gaps} onChange={(e) => setGaps(e.target.value)} />
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
             <button className='w-1/2 rounded-lg p-2 bg-blue-400 text-white' onClick={handleClick}>
