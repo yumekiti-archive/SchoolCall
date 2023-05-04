@@ -9,6 +9,15 @@ export const useGetCallorder = async () => {
   return data;
 };
 
+export const useGetCallorderByClassroomId = async (classroom_id: any) => {
+  const fetch = fetchInstance();
+  
+  const { data } = await fetch.get(url, {
+    params: { classroom_id }
+  });
+  return data;
+}
+
 export const useGetCallorderById = async (id: any) => {
   const fetch = fetchInstance();
 

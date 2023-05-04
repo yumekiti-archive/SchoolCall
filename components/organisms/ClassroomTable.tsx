@@ -32,8 +32,6 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
     }
   }
 
-  console.log(placements)
-
   // 8人ずつに分割
   let split_positions = [];
   for (let i = 0; i < positions.length; i += 8) {
@@ -42,6 +40,8 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
 
   // statusがfalseのものを抽出
   let shaping_call_orders = call_orders?.filter((call) => !call.status);
+
+  console.log(shaping_call_orders)
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
@@ -56,13 +56,13 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
                 <tr className='w-1/6 h-full grid grid-row-8' key={index}>
                   {
                     row.map((seat: any, row_index: number) => (
-                      shaping_call_orders?.filter((call) => call.seat_number === seat.seat_number).map((call) => (
+                      shaping_call_orders?.filter((call) => call.seatNumber === seat.seatNumber).map((call) => (
                         <DeskTable
                           key={row_index}
                           connect={index % 2 === 1}
                           seat_number={seat.seatNumber}
-                          name={call.student.name}
-                          turn_num={shaping_call_orders && shaping_call_orders.findIndex((call) => call.seat_number === seat.seat_number) + 1}
+                          name={call.student?.name}
+                          turn_num={shaping_call_orders && shaping_call_orders.findIndex((call) => call.seatNumber === seat.seatNumber) + 1}
                           status={call.status}
                         />
                       ))[0] || (

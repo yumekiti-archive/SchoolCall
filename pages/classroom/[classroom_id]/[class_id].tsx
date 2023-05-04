@@ -14,6 +14,8 @@ import { useGetClassroomById } from '@/hooks/useClassroom';
 
 import { useGetDeskByClassroomIdandClassId } from '@/hooks/useDesk';
 
+import { useGetCallorderByClassroomId } from '@/hooks/useCallOrder';
+
 const ClassroomRegister = () => {
   const router = useRouter();
   const { classroom_id, class_id } = router.query;
@@ -33,11 +35,17 @@ const ClassroomRegister = () => {
     });
   }
 
+  if (classroom_id && !call_orders) {
+    useGetCallorderByClassroomId(classroom_id).then((res) => {
+      setCallOrders(res);
+    });
+  }
+
   return (
     classroom &&
     <Layout Title='クラス作成'>
       {/* <Classroom desks={desks} call_orders={call_orders} classroom={classroom} placements={placements} /> */}
-      <ClassroomTable desks={desks} classroom={classroom} placements={classroom.placement} />
+      <ClassroomTable desks={desks} classroom={classroom} placements={classroom.placement} call_orders={call_orders} />
     </Layout>
   );
 };
