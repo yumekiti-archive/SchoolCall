@@ -21,6 +21,7 @@ const ClassroomRegister = () => {
   return (
     classroom &&
     <Layout Title='クラス作成'>
+      {/* <Classroom desks={desks} call_orders={call_orders} classroom={classroom} placements={placements} /> */}
       <Classroom classroom={classroom} />
     </Layout>
   );
