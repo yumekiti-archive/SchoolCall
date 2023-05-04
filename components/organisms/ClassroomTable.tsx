@@ -12,23 +12,27 @@ type Props = {
   placements?: Placement[];
 };
 
-const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => {
+const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }) => {
   let positions: any = [];
   let seat_number = 1;
   for (let i = 1; i <= classroom.breadth; i++) {
     if(classroom.gaps.includes(i)) {
-      if (placements && placements.filter((placement) => placement.seat_number === i).length !== 0) {
-        positions.push(placements.filter((placement) => placement.seat_number === i)[0]);
+      if (placements && placements.filter((placement) => placement.potionNumber === i).length !== 0) {
+        positions.push(placements.filter((placement) => placement.potionNumber === i)[0]);
       } else {       
-        positions.push({seat_number: 0});
+        positions.push({seatNumber: 0});
       }
     } else {
-      if (desks && desks.filter((desk) => desk.seat_number === seat_number).length !== 0) {
-        positions.push(desks.filter((desk) => desk.seat_number === seat_number)[0]);
+      if (desks && desks.filter((desk) => desk.seatNumber === seat_number).length !== 0) {
+        positions.push(desks.filter((desk) => desk.seatNumber === seat_number)[0]);
+      } else {
+        positions.push({seatNumber: seat_number});
       }
       seat_number++;
     }
   }
+
+  console.log(placements)
 
   // 8人ずつに分割
   let split_positions = [];
@@ -56,7 +60,7 @@ const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => 
                         <DeskTable
                           key={row_index}
                           connect={index % 2 === 1}
-                          seat_number={seat.seat_number}
+                          seat_number={seat.seatNumber}
                           name={call.student.name}
                           turn_num={shaping_call_orders && shaping_call_orders.findIndex((call) => call.seat_number === seat.seat_number) + 1}
                           status={call.status}
@@ -65,8 +69,8 @@ const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => 
                         <DeskTable
                           key={row_index}
                           connect={index % 2 === 1}
-                          seat_number={seat.seat_number}
-                          name={seat.name}
+                          seat_number={seat.seatNumber}
+                          name={seat.student?.name || seat.name}
                           turn_num={0}
                           status={true}
                         />
@@ -83,4 +87,4 @@ const ClassRoom: FC<Props> = ({ desks, call_orders, classroom, placements }) => 
   );
 };
 
-export default ClassRoom;
+export default ClassroomTable;

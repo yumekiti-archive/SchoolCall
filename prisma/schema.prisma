@@ -39,20 +39,22 @@ model Desk {
   seatNumber  Int
   classroomId Int
   studentId   Int?
+  classId     Int?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   classroom   Classroom @relation(fields: [classroomId], references: [id])
   student     Student?  @relation(fields: [studentId], references: [id])
+  class       Class?    @relation(fields: [classId], references: [id])
 }
 
 model Placement {
-  id          Int        @id @default(autoincrement())
-  seatNumber  Int
-  name        String
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  Classroom   Classroom? @relation(fields: [classroomId], references: [id])
-  classroomId Int?
+  id           Int        @id @default(autoincrement())
+  potionNumber Int
+  name         String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Classroom    Classroom? @relation(fields: [classroomId], references: [id])
+  classroomId  Int?
 }
 
 model CallOrder {
@@ -73,4 +75,5 @@ model Class {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Student   Student[]
+  Desk      Desk[]
 }

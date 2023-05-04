@@ -33,7 +33,7 @@ const DeskTable: FC<Props> = ({
           </div>
           <div className='w-2/12'>
             <p className='text-left'>
-              {seat_number === 0 ? <>&nbsp;</> : seat_number}
+              {seat_number === 0 || !seat_number ? <>&nbsp;</> : seat_number}
             </p>
           </div>
         </div>
@@ -41,7 +41,7 @@ const DeskTable: FC<Props> = ({
         <div className='w-full h-full flex'>
           <div className='w-2/12'>
             <p className='text-right'>
-              {seat_number === 0 ? <>&nbsp;</> : seat_number}
+              {seat_number === 0 || !seat_number ? <>&nbsp;</> : seat_number}
             </p>
           </div>
           <div

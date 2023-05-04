@@ -12,8 +12,6 @@ export const useGetStudent = async () => {
 export const useGetStudentById = async (id: any) => {
   const fetch = fetchInstance();
 
-  console.log(id)
-
   const { data } = await fetch.get(url, {
     params: { id }
   });

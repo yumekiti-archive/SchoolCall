@@ -18,7 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
     case "GET": {
       try {
         if (id) {
-          const classroom = await prisma.classroom.findUnique({ where: { id: Number(id) } })
+          const classroom = await prisma.classroom.findUnique({ where: { id: Number(id) }, include: { placement: true } })
           res.status(200).json(classroom);
         } else {
           const classrooms = await prisma.classroom.findMany();

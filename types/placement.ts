@@ -1,7 +1,8 @@
 type Placement = {
   id: number;
-  seat_number: number;
   name: string;
+  potionNumber: number;
+  classroomId: number;
   createdAt: string;
   updatedAt: string;
 }

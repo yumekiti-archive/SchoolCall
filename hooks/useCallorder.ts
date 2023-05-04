@@ -12,8 +12,6 @@ export const useGetCallorder = async () => {
 export const useGetCallorderById = async (id: any) => {
   const fetch = fetchInstance();
 
-  console.log(id)
-
   const { data } = await fetch.get(url, {
     params: { id }
   });

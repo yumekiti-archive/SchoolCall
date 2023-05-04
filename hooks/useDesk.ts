@@ -9,10 +9,17 @@ export const useGetDesk = async () => {
   return data;
 };
 
-export const useGetDeskById = async (id: any) => {
+export const useGetDeskByClassroomIdandClassId = async (classroom_id: any, class_id: any) => {
   const fetch = fetchInstance();
 
-  console.log(id)
+  const { data } = await fetch.get(url, {
+    params: { classroom_id, class_id }
+  });
+  return data;
+}
+
+export const useGetDeskById = async (id: any) => {
+  const fetch = fetchInstance();
 
   const { data } = await fetch.get(url, {
     params: { id }
