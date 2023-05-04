@@ -41,8 +41,6 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
   // statusがfalseのものを抽出
   let shaping_call_orders = call_orders?.filter((call) => !call.status);
 
-  console.log(shaping_call_orders)
-
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
       <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>

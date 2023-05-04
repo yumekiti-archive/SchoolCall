@@ -28,6 +28,7 @@ model Classroom {
   breadth   Int
   gaps      Int[]
   placement Placement[]
+  class     Class[]
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Desk      Desk[]
@@ -51,10 +52,10 @@ model Placement {
   id           Int        @id @default(autoincrement())
   potionNumber Int
   name         String
+  classroomId  Int?
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   Classroom    Classroom? @relation(fields: [classroomId], references: [id])
-  classroomId  Int?
 }
 
 model CallOrder {
@@ -70,10 +71,12 @@ model CallOrder {
 }
 
 model Class {
-  id        Int       @id @default(autoincrement())
-  name      String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Student   Student[]
-  Desk      Desk[]
+  id          Int        @id @default(autoincrement())
+  name        String
+  classroomId Int?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Student     Student[]
+  Desk        Desk[]
+  Classroom   Classroom? @relation(fields: [classroomId], references: [id])
 }

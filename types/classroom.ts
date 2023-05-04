@@ -1,4 +1,5 @@
 import Placement from "./placement";
+import Class from "./class";
 
 type Classroom = {
   id: number;
@@ -8,6 +9,7 @@ type Classroom = {
   created_at: string;
   updated_at: string;
   placement: Placement[];
+  class: Class[];
 };
 
 export default Classroom;
