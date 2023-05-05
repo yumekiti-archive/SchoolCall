@@ -22,28 +22,24 @@ const ClassroomRegister = () => {
   const [classroom, setClassroom] = useState<Classroom>();
   const [desks, setDesks] = useState<Desk[]>();
   const [call_orders, setCallOrders] = useState<CallOrder[]>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { readDeskByClassroomIdandClassId } = useReadDeskByClassroomIdandClassId();
   const { readCallorderByClassroomId } = useReadCallorderByClassroomId();
 
   const { readClassroomById } = useReadClassroomById();
 
-  if (classroom_id && !classroom) {
+  if (loading && classroom_id && class_id) {
     readClassroomById(classroom_id).then((res) => {
       setClassroom(res);
     });
-  }
-
-  if (classroom_id && class_id && !desks) {
     readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
       setDesks(res);
     });
-  }
-
-  if (classroom_id && !call_orders) {
     readCallorderByClassroomId(classroom_id).then((res) => {
       setCallOrders(res);
     });
+    setLoading(false);
   }
 
   return (

@@ -21,7 +21,8 @@ const ClassroomRegister = () => {
   const { classroom_id, class_id } = router.query;
   const [classroom, setClassroom] = useState<Classroom>();
   const [desks, setDesks] = useState<Desk[]>();
-  const [call_orders, setCallOrders] = useState<CallOrder[]>();
+  const [call_orders, setCallOrders] = useState<CallOrder[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { readDeskByClassroomIdandClassId } = useReadDeskByClassroomIdandClassId();
   const { readCallorderByClassroomId } = useReadCallorderByClassroomId();
@@ -29,10 +30,11 @@ const ClassroomRegister = () => {
 
   const { readClassroomById } = useReadClassroomById();
 
-  if (classroom_id && !call_orders) {
+  if (classroom_id && loading) {
     readCallorderByClassroomId(classroom_id).then((res) => {
       setCallOrders(res);
     });
+    setLoading(false);
   }
 
   const handleComplete = (call_order_id: number) => {
@@ -48,11 +50,12 @@ const ClassroomRegister = () => {
     });
   }
 
+  const filterCallOrders = call_orders.filter((call_order) => !call_order.status);
+
   return (
     <Layout title='座席表'>
       {
-        call_orders && call_orders.map((call_order) => (
-          !call_order.status &&
+        filterCallOrders.length !== 0 ? filterCallOrders.map((call_order) => (
           <div key={call_order.id} className="bg-white shadow-md rounded-md p-4 m-4">
             <div className="flex justify-between items-center">
               <div className="text-lg font-bold">
@@ -66,7 +69,7 @@ const ClassroomRegister = () => {
               </button>
             </div>
           </div>
-        ))
+        )) : <div>現在呼び出し中の生徒はいません</div>
       }
     </Layout>
   );
