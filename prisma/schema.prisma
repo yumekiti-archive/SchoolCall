@@ -27,6 +27,7 @@ model Classroom {
   name      String
   breadth   Int
   gaps      Int[]
+  split     Int
   placement Placement[]
   class     Class[]
   createdAt DateTime    @default(now())
