@@ -53,9 +53,9 @@ const StudentRegister = () => {
   }
 
   return (
-    <Layout title='順番管理' href='/student'>
+    <Layout title='順番管理' href='/student/signin'>
       { alertFlag && <Alert message={alertMessage} /> }
-      <div className="flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4 w-full h-screen">
+      <div className="flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4">
         <div className="row-span-1 col-span-1 h-full p-4 m-4">
           <button className="bg-white shadow-md rounded-md w-full h-full flex justify-center items-center hover:bg-gray-200" onClick={handleColl}>
             <div className="flex flex-wrap justify-center items-center">

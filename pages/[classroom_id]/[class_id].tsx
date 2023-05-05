@@ -48,9 +48,12 @@ const ClassroomRegister = () => {
       readCallorderByClassroomId(classroom_id).then((res) => {
         setCallOrders(res);
       });
+      readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
+        setDesks(res);
+      });
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [classroom_id, class_id]);
 
   return (
     classroom &&

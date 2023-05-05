@@ -38,7 +38,7 @@ const ClassroomRegister = () => {
       });
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [classroom_id]);
 
   if (classroom_id && loading) {
     readCallorderByClassroomId(classroom_id).then((res) => {
