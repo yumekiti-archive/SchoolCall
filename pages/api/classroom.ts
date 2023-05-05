@@ -2,7 +2,7 @@ import type { NextApiHandler } from "next"
 import prisma from "../../libs/prisma"
 
 const handler: NextApiHandler = async (req, res) => {
-  const { method, body, query: { id } } = req;
+  const { method, body, query: { id, className } } = req;
 
   switch (method) {
     case "POST": {
@@ -32,11 +32,16 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case "PUT": {
       try {
-        const updatedClassroom = await prisma.classroom.update({
-          where: { id: Number(id) },
-          data: { ...body }
-        });
-        res.status(200).json(updatedClassroom);
+        if (className) {
+          const updatedClassroom = await prisma.classroom.update({
+            where: { id: Number(id) },
+            data: { ...body, class: { connectOrCreate: { where: { name: className }, create: { name: className } } } }
+          })
+          return res.status(200).json(updatedClassroom);
+        } else {
+          const updatedClassroom = await prisma.classroom.update({ where: { id: Number(id) }, data: { ...body } })
+          return res.status(200).json(updatedClassroom);
+        }
       } catch (error) {
         console.log(error)
         res.status(500).json(error)

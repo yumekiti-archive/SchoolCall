@@ -10,6 +10,7 @@ const ClassroomRegister = () => {
   const [name, setName] = useState('3601');
   const [breadth, setBreadth] = useState(48);
   const [gaps, setGaps] = useState('1,8,9,16,17,24,25,32,33,40,48');
+  const [split, setSplit] = useState(8);
 
   const { createClassroom } = useCreateClassroom();
 
@@ -17,6 +18,7 @@ const ClassroomRegister = () => {
     const body = {
       name: name,
       breadth: breadth,
+      split: split,
       gaps: gaps.split(',').map((g) => Number(g)),
     };
 
@@ -36,6 +38,10 @@ const ClassroomRegister = () => {
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>広さ</span>
             <input type="number" className='w-1/2 rounded-lg p-1' min="1" max="100" defaultValue={breadth} onChange={(e) => setBreadth(Number(e.target.value))} />
+          </div>
+          <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
+            <span>分割</span>
+            <input type="number" className='w-1/2 rounded-lg p-1' min="1" max="30" defaultValue={split} onChange={(e) => setSplit(Number(e.target.value))} />
           </div>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>間隔</span>

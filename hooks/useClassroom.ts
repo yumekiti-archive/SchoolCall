@@ -62,3 +62,16 @@ export const useDeleteClassroom = () => {
 
   return { deleteClassroom }
 }
+
+export const useAddClass = () => {
+  const fetch = fetchInstance();
+
+  const addClass = async (body: any, className: any) => {
+    const { data } = await fetch.put(url, body, {
+      params: { id: body.id, className: className }
+    });
+    return data;
+  }
+
+  return { addClass }
+}
