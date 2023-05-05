@@ -2,7 +2,7 @@ import type { NextApiHandler } from "next"
 import prisma from "../../libs/prisma"
 
 const handler: NextApiHandler = async (req, res) => {
-  const { method, body, query: { id } } = req;
+  const { method, body, query: { id, studentNumber } } = req;
 
   switch (method) {
     case "POST": {
@@ -17,7 +17,10 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case "GET": {
       try {
-        if (id) {
+        if (studentNumber) {
+          const student = await prisma.student.findUnique({ where: { studentNumber: Number(studentNumber) } })
+          res.status(200).json(student);
+        } else if (id) {
           const student = await prisma.student.findUnique({ where: { id: Number(id) } })
           res.status(200).json(student);
         } else {

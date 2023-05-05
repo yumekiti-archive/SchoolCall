@@ -1,6 +1,17 @@
 import Layout from "@/components/template/Layout"
+import { useRouter } from "next/router"
 
 const StudentRegister = () => {
+  const router = useRouter()
+
+  if (typeof window !== 'undefined') {
+    const studentNumber = localStorage.getItem('studentNumber')
+
+    if(!studentNumber) {
+      router.push('/student/signin')
+    }
+  }
+
   return (
     <Layout title='順番管理' href='/student'>
       <div className="flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4 w-full h-screen">

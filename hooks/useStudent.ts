@@ -62,3 +62,16 @@ export const useDeleteStudent = () => {
 
   return { deleteStudent }
 }
+
+export const useReadStudentByStudentNumber = () => {
+  const fetch = fetchInstance();
+
+  const readStudentByStudentNumber = async (studentNumber: any) => {
+    const { data } = await fetch.get(url, {
+      params: { studentNumber }
+    });
+    return data;
+  }
+
+  return { readStudentByStudentNumber }
+}

@@ -11,15 +11,16 @@ datasource db {
 }
 
 model Student {
-  id                Int         @id @default(autoincrement())
-  name              String
-  attendance_number Int
-  classId           Int?
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  Desk              Desk[]
-  CallOrder         CallOrder[]
-  Class             Class?      @relation(fields: [classId], references: [id])
+  id               Int         @id @default(autoincrement())
+  name             String
+  studentNumber    Int         @unique
+  attendanceNumber Int
+  classId          Int?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  Desk             Desk[]
+  CallOrder        CallOrder[]
+  Class            Class?      @relation(fields: [classId], references: [id])
 }
 
 model Classroom {
