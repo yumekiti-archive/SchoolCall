@@ -25,6 +25,9 @@ const handler: NextApiHandler = async (req, res) => {
             },
             include: {
               student: true
+            },
+            orderBy: {
+              id: "desc"
             }
           }); 
           res.status(200).json(desks);
