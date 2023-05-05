@@ -3,16 +3,17 @@ import Link from 'next/link';
 
 type Props = {
   children: ReactNode;
-  Title: string;
+  title: string;
+  href?: string;
 };
 
-const Layout: FC<Props> = ({ children, Title }) => {
+const Layout: FC<Props> = ({ children, title, href }) => {
   return (
     <div className='w-screen h-screen bg-gray-300'>
       <div className='w-full h-full flex flex-col'>
         <header className='h-12 bg-white flex items-center'>
-          <Link href='/'>
-            <div className='text-xl ml-4'>{Title}</div>
+          <Link href={href ? href : '/'}>
+            <div className='text-xl ml-4'>{title}</div>
           </Link>
         </header>
         {children}

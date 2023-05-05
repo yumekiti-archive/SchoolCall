@@ -2,7 +2,7 @@ import Layout from "@/components/template/Layout"
 
 const StudentRegister = () => {
   return (
-    <Layout Title='順番管理'>
+    <Layout title='順番管理' href='/student'>
       <div className="flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4 w-full h-screen">
         <div className="row-span-1 col-span-1 h-full p-4 m-4">
           <button className="bg-white shadow-md rounded-md w-full h-full flex justify-center items-center hover:bg-gray-200">

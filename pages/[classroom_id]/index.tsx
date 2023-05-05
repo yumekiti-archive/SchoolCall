@@ -19,7 +19,7 @@ const ClassroomRegister = () => {
 
   return (
     classroom &&
-    <Layout Title='クラス一覧'>
+    <Layout title='クラス一覧'>
       {classroom.class.map((classroom) => (
         <Link href={`/${classroom_id}/${classroom.id}`} key={classroom.id}>
           <div className="bg-white shadow-md rounded-md p-4 m-4">

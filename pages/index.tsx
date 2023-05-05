@@ -25,7 +25,7 @@ const ClassroomRegister = () => {
   if (classrooms.length === 0) return <></>;
   
   return (
-    <Layout Title='クラス作成'>
+    <Layout title='教室作成' href='/register'>
       <div className='w-full h-full grid grid-cols-3 grid-rows-3 gap-4 p-4'>
         {classrooms.map((classroom: any) => (
           <div key={classroom.id} className='col-span-1 row-span-1 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'>
