@@ -7,8 +7,8 @@ const handler: NextApiHandler = async (req, res) => {
   switch (method) {
     case "POST": {
       try {
-        const newClassroom = await prisma.classroom.create({ data: { ...body } })
-        res.status(200).json(newClassroom);
+        const newClass = await prisma.class.create({ data: { ...body } })
+        res.status(200).json(newClass);
       } catch (error) {
         console.log(error)
         res.status(500).json(error)
@@ -18,14 +18,14 @@ const handler: NextApiHandler = async (req, res) => {
     case "GET": {
       try {
         if (className) {
-          const classroom = await prisma.classroom.findUnique({ where: { name: String(className) }, include: { placement: true, class: true } })
-          res.status(200).json(classroom);
+          const Class = await prisma.class.findUnique({ where: { name: String(className) } })
+          res.status(200).json(Class);
         } else if (id) {
-          const classroom = await prisma.classroom.findUnique({ where: { id: Number(id) }, include: { placement: true, class: true } })
-          res.status(200).json(classroom);
+          const Class = await prisma.class.findUnique({ where: { id: Number(id) } })
+          res.status(200).json(Class);
         } else {
-          const classrooms = await prisma.classroom.findMany();
-          res.status(200).json(classrooms);
+          const classes = await prisma.class.findMany();
+          res.status(200).json(classes);
         }
       } catch (error) {
         console.log(error)
@@ -36,14 +36,14 @@ const handler: NextApiHandler = async (req, res) => {
     case "PUT": {
       try {
         if (className) {
-          const updatedClassroom = await prisma.classroom.update({
+          const updatedClass = await prisma.class.update({
             where: { id: Number(id) },
             data: { ...body, class: { connectOrCreate: { where: { name: className }, create: { name: className } } } }
           })
-          return res.status(200).json(updatedClassroom);
+          return res.status(200).json(updatedClass);
         } else {
-          const updatedClassroom = await prisma.classroom.update({ where: { id: Number(id) }, data: { ...body } })
-          return res.status(200).json(updatedClassroom);
+          const updatedClass = await prisma.class.update({ where: { id: Number(id) }, data: { ...body } })
+          return res.status(200).json(updatedClass);
         }
       } catch (error) {
         console.log(error)
@@ -53,8 +53,8 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case "DELETE": {
       try {
-        const deletedClassroom = await prisma.classroom.delete({ where: { id: Number(id) } });
-        res.status(200).json(deletedClassroom);
+        const deletedClass = await prisma.class.delete({ where: { id: Number(id) } });
+        res.status(200).json(deletedClass);
       } catch (error) {
         console.log(error)
         res.status(500).json(error)

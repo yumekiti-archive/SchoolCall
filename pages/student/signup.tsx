@@ -19,24 +19,34 @@ import { useRouter } from "next/router"
 
 import { useCreateStudent } from "@/hooks/useStudent"
 
+import { useReadClassByName } from "@/hooks/useClass"
+
 const StudentRegister = () => {
   const { createStudent } = useCreateStudent()
+  const { readClassByName } = useReadClassByName()
   const router = useRouter()
 
   const [ name, setName ] = useState<string>('山田 太郎')
   const [ studentNumber, setStudentNumber ] = useState<number>(220000)
   const [ attendanceNumber, setAttendanceNumber ] = useState<number>(1)
+  const [ className, setClassName ] = useState<string>('IE3A')
 
   const handleClick = () => {
-    const body = {
-      name,
-      studentNumber,
-      attendanceNumber
-    }
+    readClassByName(className).then((data) => {
+      if (!data) alert('クラス名が間違っているか、存在しません')
+      else {
+        const body = {
+          name,
+          studentNumber,
+          attendanceNumber,
+          classId: data.id,
+        }
 
-    createStudent(body).then((data) => {
-      localStorage.setItem('studentNumber', data.studentNumber)
-      router.push('/student')
+        createStudent(body).then((data) => {
+          localStorage.setItem('studentNumber', data.studentNumber)
+          router.push('/student')
+        })
+      }
     })
   }
 
@@ -47,6 +57,10 @@ const StudentRegister = () => {
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>名前</span>
             <input type="text" className='w-1/2 rounded-lg p-1' defaultValue={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
+            <span>クラス名</span>
+            <input type="text" className='w-1/2 rounded-lg p-1' defaultValue={className} onChange={(e) => setClassName(e.target.value)} />
           </div>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>学籍番号</span>

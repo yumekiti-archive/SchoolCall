@@ -2,7 +2,7 @@ import type { NextApiHandler } from "next"
 import prisma from "../../libs/prisma"
 
 const handler: NextApiHandler = async (req, res) => {
-  const { method, body, query: { id, classroom_id, class_id } } = req;
+  const { method, body, query: { id, classroomId, classId } } = req;
 
   switch (method) {
     case "POST": {
@@ -17,11 +17,11 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case "GET": {
       try {
-        if (classroom_id && class_id) {
+        if (classroomId && classId) {
           const desks = await prisma.desk.findMany({
             where: {
-              classroomId: Number(classroom_id),
-              classId: Number(class_id)
+              classroomId: Number(classroomId),
+              classId: Number(classId)
             },
             include: {
               student: true

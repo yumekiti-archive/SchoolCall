@@ -75,3 +75,16 @@ export const useAddClass = () => {
 
   return { addClass }
 }
+
+export const useReadClassroomByName = () => {
+  const fetch = fetchInstance();
+
+  const readClassroomByName = async (className: any) => {
+    const { data } = await fetch.get(url, {
+      params: { className }
+    });
+    return data;
+  }
+  
+  return { readClassroomByName }
+}

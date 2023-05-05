@@ -25,7 +25,7 @@ model Student {
 
 model Classroom {
   id        Int         @id @default(autoincrement())
-  name      String
+  name      String      @unique
   breadth   Int
   gaps      Int[]
   split     Int
