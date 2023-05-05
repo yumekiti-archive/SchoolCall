@@ -51,7 +51,7 @@ const StudentRegister = () => {
   return (
     <Layout title='順番管理' href='/student'>
       <div className='w-full h-full flex justify-center items-center'>
-        <div className='w-1/2 h-1/2 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'>
+        <div className='w-11/12 h-4/6 md:w-1/2 md:h-1/2 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-2/6 rounded-lg'>
             <span>教室名</span>
             <input type="text" className='w-1/2 rounded-lg p-1' min="1" defaultValue={classroomName} onChange={(e) => setClassroomName(e.target.value)} />
