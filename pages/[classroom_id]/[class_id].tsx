@@ -54,7 +54,7 @@ const ClassroomRegister = () => {
 
   return (
     classroom &&
-    <Layout title='座席表'>
+    <Layout title={`${classroom.name} 座席表`}>
       {/* <Classroom desks={desks} call_orders={call_orders} classroom={classroom} placements={placements} /> */}
       <ClassroomTable desks={desks} classroom={classroom} placements={classroom.placement} call_orders={call_orders} />
     </Layout>
