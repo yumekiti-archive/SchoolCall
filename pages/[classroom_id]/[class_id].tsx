@@ -42,6 +42,16 @@ const ClassroomRegister = () => {
     setLoading(false);
   }
 
+  // 一定時間ごとに更新
+  useEffect(() => {
+    const interval = setInterval(() => {
+      readCallorderByClassroomId(classroom_id).then((res) => {
+        setCallOrders(res);
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     classroom &&
     <Layout title='座席表'>

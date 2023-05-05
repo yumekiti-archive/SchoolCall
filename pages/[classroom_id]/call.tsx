@@ -30,6 +30,16 @@ const ClassroomRegister = () => {
 
   const { readClassroomById } = useReadClassroomById();
 
+  // 一定時間ごとに更新
+  useEffect(() => {
+    const interval = setInterval(() => {
+      readCallorderByClassroomId(classroom_id).then((res) => {
+        setCallOrders(res);
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   if (classroom_id && loading) {
     readCallorderByClassroomId(classroom_id).then((res) => {
       setCallOrders(res);
