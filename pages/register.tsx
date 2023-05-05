@@ -3,13 +3,15 @@ import { useRouter } from 'next/router'
 import Layout from '@/components/template/Layout';
 import { useState } from 'react';
 
-import { usePostClassroom } from '@/hooks/useClassroom';
+import { useCreateClassroom } from '@/hooks/useClassroom';
 
 const ClassroomRegister = () => {
   const router = useRouter();
   const [name, setName] = useState('3601');
   const [breadth, setBreadth] = useState(48);
   const [gaps, setGaps] = useState('1,8,9,16,17,24,25,32,33,40,48');
+
+  const { createClassroom } = useCreateClassroom();
 
   const handleClick = () => {
     const body = {
@@ -18,7 +20,7 @@ const ClassroomRegister = () => {
       gaps: gaps.split(',').map((g) => Number(g)),
     };
 
-    usePostClassroom(body);
+    createClassroom(body);
 
     router.push('/');
   }

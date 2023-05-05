@@ -2,43 +2,61 @@ import { fetchInstance } from '../libs/fetchInstance';
 
 const url = '/classroom';
 
-export const useGetClassroom = async () => {
+export const useReadClassroom = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.get(url);
-  return data;
-};
+  const readClassroom = async () => {
+    const { data } = await fetch.get(url);
+    return data;
+  }
 
-export const useGetClassroomById = async (id: any) => {
-  const fetch = fetchInstance();
-
-  const { data } = await fetch.get(url, {
-    params: { id }
-  });
-  return data;
+  return { readClassroom }
 }
 
-export const usePostClassroom = async (classroom: any) => {
+export const useReadClassroomById = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.post(url, classroom);
-  return data;
+  const readClassroomById = async (id: any) => {
+    const { data } = await fetch.get(url, {
+      params: { id }
+    });
+    return data;
+  }
+  
+  return { readClassroomById }
 }
 
-export const usePutClassroom = async (classroom: any) => {
+export const useCreateClassroom = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.put(url, classroom, {
-    params: { id: classroom.id }
-  });
-  return data;
+  const createClassroom = async (body: any) => {
+    const { data } = await fetch.post(url, body);
+    return data;
+  }
+
+  return { createClassroom }
 }
 
-export const useDeleteClassroom = async (id: any) => {
+export const useUpdateClassroom = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.delete(url, {
-    params: { id }
-  });
-  return data;
+  const updateClassroom = async (body: any) => {
+    const { data } = await fetch.put(url, body);
+    return data;
+  }
+
+  return { updateClassroom }
+}
+
+export const useDeleteClassroom = () => {
+  const fetch = fetchInstance();
+
+  const deleteClassroom = async (id: any) => {
+    const { data } = await fetch.delete(url, {
+      params: { id }
+    });
+    return data;
+  }
+
+  return { deleteClassroom }
 }

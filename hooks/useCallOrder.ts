@@ -2,52 +2,74 @@ import { fetchInstance } from '../libs/fetchInstance';
 
 const url = '/callorder';
 
-export const useGetCallorder = async () => {
+export const useReadCallOrder = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.get(url);
-  return data;
-};
+  const readCallOrder = async () => {
+    const { data } = await fetch.get(url);
+    return data;
+  }
 
-export const useGetCallorderByClassroomId = async (classroom_id: any) => {
+  return { readCallOrder }
+}
+
+export const useReadCallorderByClassroomId = () => {
   const fetch = fetchInstance();
+
+  const readCallorderByClassroomId = async (classroomId: any) => {
+    const { data } = await fetch.get(url, {
+      params: { classroomId }
+    });
+    return data;
+  }
   
-  const { data } = await fetch.get(url, {
-    params: { classroom_id }
-  });
-  return data;
+  return { readCallorderByClassroomId }
 }
 
-export const useGetCallorderById = async (id: any) => {
+export const useReadCallOrderById = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.get(url, {
-    params: { id }
-  });
-  return data;
+  const readCallOrderById = async (id: any) => {
+    const { data } = await fetch.get(url, {
+      params: { id }
+    });
+    return data;
+  }
+  
+  return { readCallOrderById }
 }
 
-export const usePostCallorder = async (callorder: any) => {
+export const useCreateCallOrder = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.post(url, callorder);
-  return data;
+  const createCallOrder = async (body: any) => {
+    const { data } = await fetch.post(url, body);
+    return data;
+  }
+
+  return { createCallOrder }
 }
 
-export const usePutCallorder = async (callorder: any) => {
+export const useUpdateCallOrder = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.put(url, callorder, {
-    params: { id: callorder.id }
-  });
-  return data;
+  const updateCallOrder = async (body: any) => {
+    const { data } = await fetch.put(url, body);
+    return data;
+  }
+
+  return { updateCallOrder }
 }
 
-export const useDeleteCallorder = async (id: any) => {
+export const useDeleteCallOrder = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.delete(url, {
-    params: { id }
-  });
-  return data;
+  const deleteCallOrder = async (id: any) => {
+    const { data } = await fetch.delete(url, {
+      params: { id }
+    });
+    return data;
+  }
+
+  return { deleteCallOrder }
 }

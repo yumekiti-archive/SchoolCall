@@ -2,52 +2,74 @@ import { fetchInstance } from '../libs/fetchInstance';
 
 const url = '/desk';
 
-export const useGetDesk = async () => {
+export const useReadDesk = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.get(url);
-  return data;
-};
+  const readDesk = async () => {
+    const { data } = await fetch.get(url);
+    return data;
+  }
 
-export const useGetDeskByClassroomIdandClassId = async (classroom_id: any, class_id: any) => {
-  const fetch = fetchInstance();
-
-  const { data } = await fetch.get(url, {
-    params: { classroom_id, class_id }
-  });
-  return data;
+  return { readDesk }
 }
 
-export const useGetDeskById = async (id: any) => {
+export const useReadDeskByClassroomIdandClassId = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.get(url, {
-    params: { id }
-  });
-  return data;
+  const readDeskByClassroomIdandClassId = async (classroomId: any, classId: any) => {
+    const { data } = await fetch.get(url, {
+      params: { classroomId, classId }
+    });
+    return data;
+  }
+
+  return { readDeskByClassroomIdandClassId }
 }
 
-export const usePostDesk = async (desk: any) => {
+export const useReadDeskById = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.post(url, desk);
-  return data;
+  const readDeskById = async (id: any) => {
+    const { data } = await fetch.get(url, {
+      params: { id }
+    });
+    return data;
+  }
+  
+  return { readDeskById }
 }
 
-export const usePutDesk = async (desk: any) => {
+export const useCreateDesk = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.put(url, desk, {
-    params: { id: desk.id }
-  });
-  return data;
+  const createDesk = async (body: any) => {
+    const { data } = await fetch.post(url, body);
+    return data;
+  }
+
+  return { createDesk }
 }
 
-export const useDeleteDesk = async (id: any) => {
+export const useUpdateDesk = () => {
   const fetch = fetchInstance();
 
-  const { data } = await fetch.delete(url, {
-    params: { id }
-  });
-  return data;
+  const updateDesk = async (body: any) => {
+    const { data } = await fetch.put(url, body);
+    return data;
+  }
+
+  return { updateDesk }
+}
+
+export const useDeleteDesk = () => {
+  const fetch = fetchInstance();
+
+  const deleteDesk = async (id: any) => {
+    const { data } = await fetch.delete(url, {
+      params: { id }
+    });
+    return data;
+  }
+
+  return { deleteDesk }
 }

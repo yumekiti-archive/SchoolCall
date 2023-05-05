@@ -4,15 +4,16 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Classroom from '@/types/classroom';
-import { useGetClassroomById } from '@/hooks/useClassroom';
+import { useReadClassroomById } from '@/hooks/useClassroom';
 
 const ClassroomRegister = () => {
   const router = useRouter();
   const { classroom_id } = router.query;
   const [classroom, setClassroom] = useState<Classroom>();
+  const { readClassroomById } = useReadClassroomById();
 
   if (classroom_id && !classroom) {
-    useGetClassroomById(classroom_id).then((res) => {
+    readClassroomById(classroom_id).then((res) => {
       setClassroom(res);
     });
   }

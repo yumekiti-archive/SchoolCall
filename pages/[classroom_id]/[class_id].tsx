@@ -10,11 +10,11 @@ import Placement from '@/types/placement';
 
 import ClassroomTable from '@/components/organisms/ClassroomTable';
 
-import { useGetClassroomById } from '@/hooks/useClassroom';
+import { useReadClassroomById } from '@/hooks/useClassroom';
 
-import { useGetDeskByClassroomIdandClassId } from '@/hooks/useDesk';
+import { useReadDeskByClassroomIdandClassId } from '@/hooks/useDesk';
 
-import { useGetCallorderByClassroomId } from '@/hooks/useCallOrder';
+import { useReadCallorderByClassroomId } from '@/hooks/useCallOrder';
 
 const ClassroomRegister = () => {
   const router = useRouter();
@@ -23,20 +23,25 @@ const ClassroomRegister = () => {
   const [desks, setDesks] = useState<Desk[]>();
   const [call_orders, setCallOrders] = useState<CallOrder[]>();
 
+  const { readDeskByClassroomIdandClassId } = useReadDeskByClassroomIdandClassId();
+  const { readCallorderByClassroomId } = useReadCallorderByClassroomId();
+
+  const { readClassroomById } = useReadClassroomById();
+
   if (classroom_id && !classroom) {
-    useGetClassroomById(classroom_id).then((res) => {
+    readClassroomById(classroom_id).then((res) => {
       setClassroom(res);
     });
   }
 
   if (classroom_id && class_id && !desks) {
-    useGetDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
+    readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
       setDesks(res);
     });
   }
 
   if (classroom_id && !call_orders) {
-    useGetCallorderByClassroomId(classroom_id).then((res) => {
+    readCallorderByClassroomId(classroom_id).then((res) => {
       setCallOrders(res);
     });
   }
