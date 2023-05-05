@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Desk from '@/types/desk';
-import CallOrder from '@/types/callorder';
+import CallOrder from '@/types/callOrder';
 import Classroom from '@/types/classroom';
 import Placement from '@/types/placement';
 

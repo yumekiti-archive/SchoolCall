@@ -1,8 +1,18 @@
+import Desk from "./desk";
+import CallOrder from "./callOrder";
+import Class from "./class";
+
 type Student = {
   id: number;
   name: string;
-  created_at: string;
-  updated_at: string;
+  studentNumber: number;
+  attendanceNumber: number;
+  classId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  Desk: Desk[];
+  CallOrder: CallOrder[];
+  Class: Class;
 };
 
 export default Student;

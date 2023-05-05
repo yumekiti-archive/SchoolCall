@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import DeskTable from '../molecules/DeskTable';
 import Desk from '../../types/desk';
-import CallOrder from '../../types/callorder';
+import CallOrder from '../../types/callOrder';
 import Classroom from '../../types/classroom';
 import Placement from '../../types/placement';
 
