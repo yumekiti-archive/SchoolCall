@@ -54,7 +54,9 @@ export const useUpdateCallOrder = () => {
   const fetch = fetchInstance();
 
   const updateCallOrder = async (body: any) => {
-    const { data } = await fetch.put(url, body);
+    const { data } = await fetch.put(url, body, {
+      params: { id: body.id }
+    });
     return data;
   }
 

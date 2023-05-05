@@ -54,7 +54,9 @@ export const useUpdateDesk = () => {
   const fetch = fetchInstance();
 
   const updateDesk = async (body: any) => {
-    const { data } = await fetch.put(url, body);
+    const { data } = await fetch.put(url, body, {
+      params: { id: body.id }
+    });
     return data;
   }
 

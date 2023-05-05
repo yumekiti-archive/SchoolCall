@@ -41,7 +41,9 @@ export const useUpdateStudent = () => {
   const fetch = fetchInstance();
 
   const updateStudent = async (body: any) => {
-    const { data } = await fetch.put(url, body);
+    const { data } = await fetch.put(url, body, {
+      params: { id: body.id }
+    });
     return data;
   }
 
