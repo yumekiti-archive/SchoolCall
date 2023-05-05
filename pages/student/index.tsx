@@ -1,24 +1,18 @@
-// model CallOrder {
-//   id          Int       @id @default(autoincrement())
-//   seatNumber  Int
-//   status      Boolean
-//   classroomId Int
-//   studentId   Int
-//   createdAt   DateTime  @default(now())
-//   updatedAt   DateTime  @updatedAt
-//   classroom   Classroom @relation(fields: [classroomId], references: [id])
-//   student     Student   @relation(fields: [studentId], references: [id])
-// }
-
 import Layout from "@/components/template/Layout"
 import { useRouter } from "next/router"
 import Link from "next/link"
 
+import { useState } from "react"
+
 import { useCreateCallOrder } from "@/hooks/useCallOrder"
+
+import Alert from "@/components/atoms/Alert"
 
 const StudentRegister = () => {
   const router = useRouter()
   const { createCallOrder } = useCreateCallOrder()
+  const [alertFlag, setAlertFlag] = useState<boolean>(false)
+  const [alertMessage, setAlertMessage] = useState<string>('')
 
   if (typeof window !== 'undefined') {
     const studentNumber = localStorage.getItem('studentNumber')
@@ -26,6 +20,15 @@ const StudentRegister = () => {
     if(!studentNumber) {
       router.push('/student/signin')
     }
+  }
+
+  const alertSet = (message: string) => {
+    setAlertFlag(true)
+    setAlertMessage(message)
+
+    setTimeout(() => {
+      setAlertFlag(false);
+    }, 3000);
   }
 
   const handleColl = () => {
@@ -42,15 +45,16 @@ const StudentRegister = () => {
       }
 
       createCallOrder(body).then((data) => {
-        alert('順番を取得しました')
+        alertSet('順番を取得しました')
       })
     } else {
-      alert('座席番号が取得できませんでした')
+      alertSet('座席番号が取得できませんでした')
     }
   }
 
   return (
     <Layout title='順番管理' href='/student'>
+      { alertFlag && <Alert message={alertMessage} /> }
       <div className="flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4 w-full h-screen">
         <div className="row-span-1 col-span-1 h-full p-4 m-4">
           <button className="bg-white shadow-md rounded-md w-full h-full flex justify-center items-center hover:bg-gray-200" onClick={handleColl}>

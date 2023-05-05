@@ -1,16 +1,3 @@
-// model Student {
-//   id               Int         @id @default(autoincrement())
-//   name             String
-//   studentNumber    Int
-//   attendanceNumber Int
-//   classId          Int?
-//   createdAt        DateTime    @default(now())
-//   updatedAt        DateTime    @updatedAt
-//   Desk             Desk[]
-//   CallOrder        CallOrder[]
-//   Class            Class?      @relation(fields: [classId], references: [id])
-// }
-
 import Layout from "@/components/template/Layout"
 
 import { useState } from "react"
@@ -20,6 +7,8 @@ import { useRouter } from "next/router"
 import { useCreateStudent } from "@/hooks/useStudent"
 
 import { useReadClassByName } from "@/hooks/useClass"
+
+import Alert from "@/components/atoms/Alert"
 
 const StudentRegister = () => {
   const { createStudent } = useCreateStudent()
@@ -31,9 +20,11 @@ const StudentRegister = () => {
   const [ attendanceNumber, setAttendanceNumber ] = useState<number>(1)
   const [ className, setClassName ] = useState<string>('IE3A')
 
+  const [ alertFlag, setAlertFlag ] = useState<boolean>(false)
+
   const handleClick = () => {
     readClassByName(className).then((data) => {
-      if (!data) alert('クラス名が間違っているか、存在しません')
+      if (!data) setAlertFlag(true)
       else {
         const body = {
           name,
@@ -52,8 +43,9 @@ const StudentRegister = () => {
 
   return (
     <Layout title='順番管理' href='/student'>
+      { alertFlag && <Alert message='クラス名が間違っているか、存在しません' /> }
       <div className='w-full h-full flex justify-center items-center'>
-        <div className='w-11/12 h-4/6 md:w-1/2 md:h-1/2 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'>
+        <div className='w-11/12 h-3/6 md:w-1/2 md:h-1/2 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>名前</span>
             <input type="text" className='w-1/2 rounded-lg p-1' defaultValue={name} onChange={(e) => setName(e.target.value)} />
