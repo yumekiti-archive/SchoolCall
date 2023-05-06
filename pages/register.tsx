@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import Layout from '@/components/template/Layout';
+import Layout from '@/components/templates/Layout';
 import { useState } from 'react';
 
 import { useCreateClassroom } from '@/hooks/useClassroom';

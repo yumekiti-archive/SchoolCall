@@ -1,4 +1,4 @@
-import Layout from '@/components/template/Layout';
+import Layout from '@/components/templates/Layout';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -99,12 +99,12 @@ const ClassroomRegister = () => {
               >
                 詳細
               </Link>
-              <button
+              <Link
+                href={`/${classroom.id}/equipment`}
                 className='col-span-1 rounded-lg p-2 bg-green-400 text-white text-center'
-                onClick={() => handleUpdate(classroom)}
               >
                 備品
-              </button>
+              </Link>
               <button
                 className='col-span-1 rounded-lg p-2 bg-blue-400 text-white text-center'
                 onClick={() => handleUpdate(classroom)}

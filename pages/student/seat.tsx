@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import Layout from '@/components/template/Layout';
+import Layout from '@/components/templates/Layout';
 
 import { useRouter } from 'next/router';
 
