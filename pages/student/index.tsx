@@ -13,7 +13,7 @@ const StudentRegister = () => {
   const { createCallOrder } = useCreateCallOrder();
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-  const [alertType, setAlertType] = useState<string>('orange');
+  const [alertType, setAlertType] = useState<string>('error');
 
   if (typeof window !== 'undefined') {
     const studentNumber = localStorage.getItem('studentNumber');
@@ -23,7 +23,7 @@ const StudentRegister = () => {
     }
   }
 
-  const alertSet = (message: string, type: string = 'orange') => {
+  const alertSet = (message: string, type: string = 'error') => {
     setAlertFlag(true);
     setAlertMessage(message);
     setAlertType(type);
@@ -47,7 +47,7 @@ const StudentRegister = () => {
       };
 
       createCallOrder(body).then((data) => {
-        alertSet('順番を取得しました', 'green');
+        alertSet('順番を取得しました', 'success');
       });
     } else {
       alertSet('座席番号が取得できませんでした');

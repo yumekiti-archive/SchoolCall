@@ -5,12 +5,26 @@ type Props = {
   type?: string;
 };
 
-const Alert: FC<Props> = ({ message, type = 'orange' }) => {
+const colors = [
+  {
+    type: 'success',
+    bg: 'bg-green-100',
+    border: 'border-green-500',
+    text: 'text-green-700',
+  },
+  {
+    type: 'error',
+    bg: 'bg-red-100',
+    border: 'border-red-500',
+    text: 'text-red-700',
+  },
+];
+
+const Alert: FC<Props> = ({ message, type = 'error' }) => {
+  const color: any = colors.filter((color) => color.type === type)[0];
+
   return (
-    <div
-      className={`bg-${type}-100 border-l-4 border-${type}-500 text-${type}-700 p-4`}
-      role='alert'
-    >
+    <div className={`${color.bg} border-l-4 ${color.border} ${color.text} p-4`}>
       <p>{message}</p>
     </div>
   );

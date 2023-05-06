@@ -100,7 +100,7 @@ const ClassroomRegister = () => {
                 詳細
               </Link>
               <Link
-                href={`/${classroom.id}/equipment`}
+                href={`/${classroom.id}/placement`}
                 className='col-span-1 rounded-lg p-2 bg-green-400 text-white text-center'
               >
                 備品
