@@ -48,7 +48,6 @@ const StudentRegister = () => {
 
             createDesk(body).then((data) => {
               if (data) {
-                alertSet('登録しました')
                 localStorage.setItem('seatNumber', data.seatNumber)
                 localStorage.setItem('classroomId', data.classroomId)
                 localStorage.setItem('studentId', data.studentId)

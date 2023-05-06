@@ -28,6 +28,11 @@ const StudentRegister = () => {
   }
 
   const handleClick = () => {
+    localStorage.removeItem('studentNumber')
+    localStorage.removeItem('seatNumber')
+    localStorage.removeItem('classroomId')
+    localStorage.removeItem('studentId')
+
     readStudentByStudentNumber(studentNumber).then((data) => {
       if (data == null) alertSet('学籍番号が存在しません')
       else {

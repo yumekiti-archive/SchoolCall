@@ -13,6 +13,7 @@ const StudentRegister = () => {
   const { createCallOrder } = useCreateCallOrder()
   const [alertFlag, setAlertFlag] = useState<boolean>(false)
   const [alertMessage, setAlertMessage] = useState<string>('')
+  const [ alertType, setAlertType ] = useState<string>('orange')
 
   if (typeof window !== 'undefined') {
     const studentNumber = localStorage.getItem('studentNumber')
@@ -22,9 +23,10 @@ const StudentRegister = () => {
     }
   }
 
-  const alertSet = (message: string) => {
+  const alertSet = (message: string, type: string = 'orange') => {
     setAlertFlag(true)
     setAlertMessage(message)
+    setAlertType(type)
 
     setTimeout(() => {
       setAlertFlag(false);
@@ -45,7 +47,7 @@ const StudentRegister = () => {
       }
 
       createCallOrder(body).then((data) => {
-        alertSet('順番を取得しました')
+        alertSet('順番を取得しました', 'green')
       })
     } else {
       alertSet('座席番号が取得できませんでした')
@@ -54,8 +56,8 @@ const StudentRegister = () => {
 
   return (
     <Layout title='順番管理' href='/student/signin'>
-      { alertFlag && <Alert message={alertMessage} /> }
-      <div className="flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4">
+      { alertFlag && <Alert message={alertMessage} type={alertType} /> }
+      <div className="flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4 h-full">
         <div className="row-span-1 col-span-1 h-full p-4 m-4">
           <button className="bg-white shadow-md rounded-md w-full h-full flex justify-center items-center hover:bg-gray-200" onClick={handleColl}>
             <div className="flex flex-wrap justify-center items-center">
