@@ -36,7 +36,7 @@ next-env.d.ts
 
 # prisma
 .env
-db
+data
 
 # PWA files
 **/public/sw.js

@@ -1,5 +1,5 @@
-import Placement from "./placement";
-import Class from "./class";
+import Placement from './placement';
+import Class from './class';
 
 type Classroom = {
   id: number;

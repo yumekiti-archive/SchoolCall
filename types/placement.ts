@@ -5,6 +5,6 @@ type Placement = {
   classroomId: number;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export default Placement;

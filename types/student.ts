@@ -1,6 +1,6 @@
-import Desk from "./desk";
-import CallOrder from "./callOrder";
-import Class from "./class";
+import Desk from './desk';
+import CallOrder from './callOrder';
+import Class from './class';
 
 type Student = {
   id: number;

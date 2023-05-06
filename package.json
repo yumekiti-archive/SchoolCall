@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ./**/*.{ts,tsx}"
+    "format": "prettier --write --ignore-path .gitignore ./**/*.{ts,tsx}"
   },
   "dependencies": {
     "@prisma/client": "^4.13.0",

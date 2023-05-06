@@ -1,7 +1,7 @@
 import Layout from '@/components/template/Layout';
 import { useEffect, useState } from 'react';
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Desk from '@/types/desk';
 import CallOrder from '@/types/callOrder';
@@ -24,7 +24,8 @@ const ClassroomRegister = () => {
   const [call_orders, setCallOrders] = useState<CallOrder[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
-  const { readDeskByClassroomIdandClassId } = useReadDeskByClassroomIdandClassId();
+  const { readDeskByClassroomIdandClassId } =
+    useReadDeskByClassroomIdandClassId();
   const { readCallorderByClassroomId } = useReadCallorderByClassroomId();
 
   const { readClassroomById } = useReadClassroomById();
@@ -56,11 +57,17 @@ const ClassroomRegister = () => {
   }, [classroom_id, class_id]);
 
   return (
-    classroom &&
-    <Layout title={`${classroom.name} 座席表`}>
-      {/* <Classroom desks={desks} call_orders={call_orders} classroom={classroom} placements={placements} /> */}
-      <ClassroomTable desks={desks} classroom={classroom} placements={classroom.placement} call_orders={call_orders} />
-    </Layout>
+    classroom && (
+      <Layout title={`${classroom.name} 座席表`}>
+        {/* <Classroom desks={desks} call_orders={call_orders} classroom={classroom} placements={placements} /> */}
+        <ClassroomTable
+          desks={desks}
+          classroom={classroom}
+          placements={classroom.placement}
+          call_orders={call_orders}
+        />
+      </Layout>
+    )
   );
 };
 

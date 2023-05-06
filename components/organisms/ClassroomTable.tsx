@@ -12,21 +12,37 @@ type Props = {
   placements?: Placement[];
 };
 
-const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }) => {
+const ClassroomTable: FC<Props> = ({
+  desks,
+  call_orders,
+  classroom,
+  placements,
+}) => {
   let positions: any = [];
   let seat_number = 1;
   for (let i = 1; i <= classroom.breadth; i++) {
-    if(classroom.gaps.includes(i)) {
-      if (placements && placements.filter((placement) => placement.potionNumber === i).length !== 0) {
-        positions.push(placements.filter((placement) => placement.potionNumber === i)[0]);
-      } else {       
-        positions.push({seatNumber: 0});
+    if (classroom.gaps.includes(i)) {
+      if (
+        placements &&
+        placements.filter((placement) => placement.potionNumber === i)
+          .length !== 0
+      ) {
+        positions.push(
+          placements.filter((placement) => placement.potionNumber === i)[0],
+        );
+      } else {
+        positions.push({ seatNumber: 0 });
       }
     } else {
-      if (desks && desks.filter((desk) => desk.seatNumber === seat_number).length !== 0) {
-        positions.push(desks.filter((desk) => desk.seatNumber === seat_number)[0]);
+      if (
+        desks &&
+        desks.filter((desk) => desk.seatNumber === seat_number).length !== 0
+      ) {
+        positions.push(
+          desks.filter((desk) => desk.seatNumber === seat_number)[0],
+        );
       } else {
-        positions.push({seatNumber: seat_number});
+        positions.push({ seatNumber: seat_number });
       }
       seat_number++;
     }
@@ -49,35 +65,39 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
       <div className='bg-white w-full h-full'>
         <table className='h-full w-full'>
           <tbody className='h-full w-full flex'>
-            {
-              split_positions.map((row, index) => (
-                <tr className='w-1/6 h-full grid grid-row-8' key={index}>
-                  {
-                    row.map((seat: any, row_index: number) => (
-                      shaping_call_orders?.filter((call) => call.seatNumber === seat.seatNumber).map((call) => (
+            {split_positions.map((row, index) => (
+              <tr className='w-1/6 h-full grid grid-row-8' key={index}>
+                {row.map(
+                  (seat: any, row_index: number) =>
+                    shaping_call_orders
+                      ?.filter((call) => call.seatNumber === seat.seatNumber)
+                      .map((call) => (
                         <DeskTable
                           key={row_index}
                           connect={index % 2 === 1}
                           seat_number={seat.seatNumber}
                           name={call.student?.name}
-                          turn_num={shaping_call_orders && shaping_call_orders.findIndex((call) => call.seatNumber === seat.seatNumber) + 1}
+                          turn_num={
+                            shaping_call_orders &&
+                            shaping_call_orders.findIndex(
+                              (call) => call.seatNumber === seat.seatNumber,
+                            ) + 1
+                          }
                           status={call.status}
                         />
                       ))[0] || (
-                        <DeskTable
-                          key={row_index}
-                          connect={index % 2 === 1}
-                          seat_number={seat.seatNumber}
-                          name={seat.student?.name || seat.name}
-                          turn_num={0}
-                          status={true}
-                        />
-                      )
-                    ))
-                  }
-                </tr>
-              ))
-            }
+                      <DeskTable
+                        key={row_index}
+                        connect={index % 2 === 1}
+                        seat_number={seat.seatNumber}
+                        name={seat.student?.name || seat.name}
+                        turn_num={0}
+                        status={true}
+                      />
+                    ),
+                )}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
