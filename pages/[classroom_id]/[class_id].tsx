@@ -43,14 +43,17 @@ const ClassroomRegister = () => {
     });
 
     socket.on('reload', () => {
+      setLoading(true);
       readClassroomById(classroom_id).then((res) => {
         setClassroom(res);
-      });
-      readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
-        setDesks(res);
-      });
-      readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res);
+      }).finally(() => {
+        readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
+          setDesks(res);
+        });
+        readCallorderByClassroomId(classroom_id).then((res) => {
+          setCallOrders(res);
+        });
+        setLoading(false);
       });
     });
   }, []);
@@ -58,15 +61,18 @@ const ClassroomRegister = () => {
   if (loading && classroom_id && class_id) {
     readClassroomById(classroom_id).then((res) => {
       setClassroom(res);
+    }).finally(() => {
+      readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
+        setDesks(res);
+      });
+      readCallorderByClassroomId(classroom_id).then((res) => {
+        setCallOrders(res);
+      });
+      setLoading(false);
     });
-    readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
-      setDesks(res);
-    });
-    readCallorderByClassroomId(classroom_id).then((res) => {
-      setCallOrders(res);
-    });
-    setLoading(false);
   }
+
+  if(loading) return <Layout title="座席表">Loading...</Layout>;
 
   return (
     classroom && (

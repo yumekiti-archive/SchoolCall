@@ -79,29 +79,33 @@ const ClassroomRegister = () => {
     (call_order) => !call_order.status,
   );
 
+  if (loading) return <Layout title='座席表'>loading...</Layout>;
+
   return (
     <Layout title='座席表'>
       {filterCallOrders.length !== 0 ? (
         filterCallOrders.map((call_order) => (
-          <div
-            key={call_order.id}
-            className='bg-white shadow-md rounded-md p-4 m-4'
-          >
-            <div className='flex justify-between items-center'>
-              <div className='text-lg font-bold'>
-                <span>{call_order.student?.attendanceNumber}</span>
-                <span className='ml-4 border-l-2 pl-4'>
-                  {call_order.student.name} さん
-                </span>
+          call_order && (
+            <div
+              key={call_order.id}
+              className='bg-white shadow-md rounded-md p-4 m-4'
+            >
+              <div className='flex justify-between items-center'>
+                <div className='text-lg font-bold'>
+                  <span>{call_order.student?.attendanceNumber}</span>
+                  <span className='ml-4 border-l-2 pl-4'>
+                    {call_order.student.name} さん
+                  </span>
+                </div>
+                <button
+                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                  onClick={() => handleComplete(call_order.id)}
+                >
+                  完了
+                </button>
               </div>
-              <button
-                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                onClick={() => handleComplete(call_order.id)}
-              >
-                完了
-              </button>
             </div>
-          </div>
+          )
         ))
       ) : (
         <div>現在呼び出し中の生徒はいません</div>
