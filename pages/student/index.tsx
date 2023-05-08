@@ -1,12 +1,11 @@
-import Layout from '@/components/templates/Layout';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { FC, useState } from 'react';
+import Layout from '@/components/templates/Layout';
+import Alert from '@/components/atoms/Alert';
 
 import { useCreateCallOrder } from '@/hooks/useCallOrder';
-
-import Alert from '@/components/atoms/Alert';
 
 type Props = {
   socket: any;

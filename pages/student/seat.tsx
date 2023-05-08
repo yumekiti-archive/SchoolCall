@@ -1,30 +1,25 @@
-import Link from 'next/link';
 import { FC, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import Layout from '@/components/templates/Layout';
-
-import { useRouter } from 'next/router';
+import Alert from '@/components/atoms/Alert';
 
 import { useReadStudentByStudentNumber } from '@/hooks/useStudent';
 import { useReadClassroomByName } from '@/hooks/useClassroom';
 import { useCreateDesk } from '@/hooks/useDesk';
-
-import Alert from '@/components/atoms/Alert';
 
 type Props = {
   socket: any;
 };
 
 const StudentRegister: FC<Props> = ({ socket }) => {
+  const router = useRouter();
   const { readStudentByStudentNumber } = useReadStudentByStudentNumber();
   const { readClassroomByName } = useReadClassroomByName();
   const { createDesk } = useCreateDesk();
 
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-
-  const router = useRouter();
-
   const [seatNumber, setSeatNumber] = useState<number>(1);
   const [classroomName, setClassroomName] = useState<string>('3601');
 
@@ -41,32 +36,30 @@ const StudentRegister: FC<Props> = ({ socket }) => {
     readClassroomByName(classroomName).then((classroom) => {
       if (!classroom) alertSet('教室名が間違っています');
       else {
-        readStudentByStudentNumber(localStorage.getItem('studentNumber')).then(
-          (student) => {
-            if (student) {
-              const body = {
-                seatNumber,
-                classroomId: classroom.id,
-                studentId: student.id,
-                classId: student.classId,
-              };
+        readStudentByStudentNumber(localStorage.getItem('studentNumber')).then((student) => {
+          if (student) {
+            const body = {
+              seatNumber,
+              classroomId: classroom.id,
+              studentId: student.id,
+              classId: student.classId,
+            };
 
-              createDesk(body).then((data) => {
-                if (data) {
-                  localStorage.setItem('seatNumber', data.seatNumber);
-                  localStorage.setItem('classroomId', data.classroomId);
-                  localStorage.setItem('studentId', data.studentId);
+            createDesk(body).then((data) => {
+              if (data) {
+                localStorage.setItem('seatNumber', data.seatNumber);
+                localStorage.setItem('classroomId', data.classroomId);
+                localStorage.setItem('studentId', data.studentId);
 
-                  socket.emit('reload');
+                socket.emit('reload');
 
-                  router.push('/student');
-                } else {
-                  alertSet('登録に失敗しました');
-                }
-              });
-            }
-          },
-        );
+                router.push('/student');
+              } else {
+                alertSet('登録に失敗しました');
+              }
+            });
+          }
+        });
       }
     });
   };
@@ -97,10 +90,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
             />
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
-            <button
-              className='w-1/4 rounded-lg p-2 bg-blue-400 text-white text-center'
-              onClick={handleClick}
-            >
+            <button className='w-1/4 rounded-lg p-2 bg-blue-400 text-white text-center' onClick={handleClick}>
               登録
             </button>
           </div>

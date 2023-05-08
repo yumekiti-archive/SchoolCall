@@ -1,16 +1,11 @@
 import Layout from '@/components/templates/Layout';
-import { useState } from 'react';
+import Loading from '@/components/atoms/Loading';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-import {
-  useReadClassroom,
-  useUpdateClassroom,
-  useDeleteClassroom,
-} from '@/hooks/useClassroom';
+import { useReadClassroom, useUpdateClassroom, useDeleteClassroom } from '@/hooks/useClassroom';
 
 const ClassroomRegister = () => {
-  const router = useRouter();
   const { readClassroom } = useReadClassroom();
   const { updateClassroom } = useUpdateClassroom();
   const { deleteClassroom } = useDeleteClassroom();
@@ -18,31 +13,32 @@ const ClassroomRegister = () => {
   const [classrooms, setClassrooms] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  if (loading && classrooms.length === 0) {
+  useEffect(() => {
     readClassroom().then((res) => {
       setClassrooms(res);
+      setLoading(false);
     });
-    setLoading(false);
-  }
+  }, []);
 
   const handleDelete = (body: any) => {
-    deleteClassroom(body);
-    router.reload();
+    deleteClassroom(body).then((res) => {
+      setClassrooms(classrooms.filter((classroom: any) => classroom.id !== res.id));
+    });
   };
 
   const handleUpdate = (updatedClassroom: any) => {
     updateClassroom(updatedClassroom);
   };
 
-  if (loading) return <></>;
+  if (loading) return <Loading />;
 
   return (
     <Layout title='教室作成' href='/register'>
-      <div className='w-full h-full grid grid-cols-3 md:grid-cols-2 grid-rows-4 gap-4 p-4'>
+      <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 p-4'>
         {classrooms.map((classroom: any) => (
           <div
             key={classroom.id}
-            className='col-span-1 row-span-2 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'
+            className='col-span-1 row-span-1 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'
           >
             <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
               <span>教室の名前</span>

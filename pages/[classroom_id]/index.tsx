@@ -1,5 +1,6 @@
 import Layout from '@/components/templates/Layout';
-import { useState } from 'react';
+import Loading from '@/components/atoms/Loading';
+import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -9,20 +10,20 @@ import { useAddClass } from '@/hooks/useClassroom';
 
 const ClassroomRegister = () => {
   const router = useRouter();
-  const { classroom_id } = router.query;
-  const [classroom, setClassroom] = useState<Classroom>();
-  const [loading, setLoading] = useState<boolean>(true);
   const { readClassroomById } = useReadClassroomById();
   const { addClass } = useAddClass();
 
+  const { classroom_id } = router.query;
+  const [loading, setLoading] = useState<boolean>(true);
+  const [classroom, setClassroom] = useState<Classroom>();
   const [className, setClassName] = useState<string>('IE3A');
 
-  if (loading && classroom_id) {
+  useEffect(() => {
     readClassroomById(classroom_id).then((res) => {
       setClassroom(res);
+      setLoading(false);
     });
-    setLoading(false);
-  }
+  }, []);
 
   const handleAddClass = () => {
     if (!classroom) return;
@@ -33,6 +34,8 @@ const ClassroomRegister = () => {
     addClass(newClassroom, className);
     router.reload();
   };
+
+  if (loading) return <Loading />;
 
   return (
     <Layout title='クラス一覧'>
@@ -61,10 +64,7 @@ const ClassroomRegister = () => {
             />
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
-            <button
-              className='w-1/2 rounded-lg p-2 bg-blue-400 text-white'
-              onClick={handleAddClass}
-            >
+            <button className='w-1/2 rounded-lg p-2 bg-blue-400 text-white' onClick={handleAddClass}>
               作成
             </button>
           </div>

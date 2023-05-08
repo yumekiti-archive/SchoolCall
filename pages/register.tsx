@@ -1,18 +1,18 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Layout from '@/components/templates/Layout';
-import { useState } from 'react';
 
 import { useCreateClassroom } from '@/hooks/useClassroom';
 
 const ClassroomRegister = () => {
   const router = useRouter();
+  const { createClassroom } = useCreateClassroom();
+
   const [name, setName] = useState('3601');
   const [breadth, setBreadth] = useState(48);
   const [gaps, setGaps] = useState('1,8,9,16,17,24,25,32,33,40,48');
   const [split, setSplit] = useState(8);
-
-  const { createClassroom } = useCreateClassroom();
 
   const handleClick = () => {
     const body = {
@@ -23,9 +23,7 @@ const ClassroomRegister = () => {
     };
 
     createClassroom(body).then((res) => {
-      if (res.status === 200) {
-        router.push('/');
-      }
+      router.push('/');
     });
   };
 
@@ -74,10 +72,7 @@ const ClassroomRegister = () => {
             />
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
-            <button
-              className='w-1/2 rounded-lg p-2 bg-blue-400 text-white'
-              onClick={handleClick}
-            >
+            <button className='w-1/2 rounded-lg p-2 bg-blue-400 text-white' onClick={handleClick}>
               作成
             </button>
           </div>

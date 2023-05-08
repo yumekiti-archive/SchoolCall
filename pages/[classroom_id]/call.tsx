@@ -1,65 +1,39 @@
-import Layout from '@/components/templates/Layout';
 import { FC, useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Desk from '@/types/desk';
+import Loading from '@/components/atoms/Loading';
+import Layout from '@/components/templates/Layout';
+
 import CallOrder from '@/types/callOrder';
-import Classroom from '@/types/classroom';
-import Placement from '@/types/placement';
 
-import ClassroomTable from '@/components/organisms/ClassroomTable';
-
-import { useReadClassroomById } from '@/hooks/useClassroom';
-
-import { useReadDeskByClassroomIdandClassId } from '@/hooks/useDesk';
-
-import {
-  useReadCallorderByClassroomId,
-  useUpdateCallOrder,
-} from '@/hooks/useCallOrder';
+import { useReadCallorderByClassroomId, useUpdateCallOrder } from '@/hooks/useCallOrder';
 
 type Props = {
   socket: any;
 };
 
 const ClassroomRegister: FC<Props> = ({ socket }) => {
-  const router = useRouter();
-  const { classroom_id, class_id } = router.query;
-  const [classroom, setClassroom] = useState<Classroom>();
-  const [desks, setDesks] = useState<Desk[]>();
-  const [call_orders, setCallOrders] = useState<CallOrder[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const { readDeskByClassroomIdandClassId } =
-    useReadDeskByClassroomIdandClassId();
   const { readCallorderByClassroomId } = useReadCallorderByClassroomId();
   const { updateCallOrder } = useUpdateCallOrder();
+  const router = useRouter();
 
-  const { readClassroomById } = useReadClassroomById();
+  const { classroom_id } = router.query;
+  const [loading, setLoading] = useState<boolean>(true);
+  const [call_orders, setCallOrders] = useState<CallOrder[]>([]);
 
-  useEffect(() => {
-    socket.on('connect', () => {
-      console.log('socket connected');
-    });
-
-    socket.on('disconnect', () => {
-      console.log('socket disconnected');
-    });
-
-    socket.on('reload', () => {
-      readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res.filter((call_order: any) => call_order.status === false));
-      });
-    });
-  }, []);
-
-  if (classroom_id && loading) {
+  const fetchData = () => {
+    if (!classroom_id) return;
     readCallorderByClassroomId(classroom_id).then((res) => {
       setCallOrders(res.filter((call_order: any) => call_order.status === false));
+      setLoading(false);
     });
-    setLoading(false);
-  }
+  };
+
+  useEffect(() => {
+    socket.on('reload', () => fetchData());
+
+    fetchData();
+  }, [classroom_id]);
 
   const handleComplete = (call_order_id: number) => {
     const body = {
@@ -76,20 +50,17 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     socket.emit('reload');
   };
 
+  if (loading) return <Loading />;
+
   return (
     <Layout title='座席表'>
       {call_orders && call_orders.length !== 0 ? (
         call_orders.map((call_order) => (
-          <div
-            key={call_order.id}
-            className='bg-white shadow-md rounded-md p-4 m-4'
-          >
+          <div key={call_order.id} className='bg-white shadow-md rounded-md p-4 m-4'>
             <div className='flex justify-between items-center'>
               <div className='text-lg font-bold'>
                 <span>{call_order.student?.attendanceNumber}</span>
-                <span className='ml-4 border-l-2 pl-4'>
-                  {call_order.student?.name} さん
-                </span>
+                <span className='ml-4 border-l-2 pl-4'>{call_order.student?.name} さん</span>
               </div>
               <button
                 className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'

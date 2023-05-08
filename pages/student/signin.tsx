@@ -1,21 +1,18 @@
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Layout from '@/components/templates/Layout';
 import Alert from '@/components/atoms/Alert';
 
-import { useRouter } from 'next/router';
-
 import { useReadStudentByStudentNumber } from '@/hooks/useStudent';
 
 const StudentRegister = () => {
+  const router = useRouter();
   const { readStudentByStudentNumber } = useReadStudentByStudentNumber();
 
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-
-  const router = useRouter();
-
   const [studentNumber, setStudentNumber] = useState<number>(220000);
 
   const alertSet = (message: string) => {
@@ -59,16 +56,10 @@ const StudentRegister = () => {
             />
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
-            <Link
-              href={'/student/signup'}
-              className='w-1/4 rounded-lg p-2 bg-green-400 text-white text-center'
-            >
+            <Link href={'/student/signup'} className='w-1/4 rounded-lg p-2 bg-green-400 text-white text-center'>
               作成
             </Link>
-            <button
-              className='w-1/4 rounded-lg p-2 bg-blue-400 text-white ml-2'
-              onClick={handleClick}
-            >
+            <button className='w-1/4 rounded-lg p-2 bg-blue-400 text-white ml-2' onClick={handleClick}>
               認証
             </button>
           </div>

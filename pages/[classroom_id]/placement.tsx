@@ -1,46 +1,34 @@
-// model Placement {
-//   id           Int        @id @default(autoincrement())
-//   potionNumber Int
-//   name         String
-//   classroomId  Int?
-//   createdAt    DateTime   @default(now())
-//   updatedAt    DateTime   @updatedAt
-//   Classroom    Classroom? @relation(fields: [classroomId], references: [id])
-// }
-
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Layout from '@/components/templates/Layout';
 import Alert from '@/components/atoms/Alert';
-
-import { useState } from 'react';
+import Loading from '@/components/atoms/Loading';
 
 import Classroom from '@/types/classroom';
 
 import { useReadClassroomById } from '@/hooks/useClassroom';
-
 import { useCreatePlacement } from '@/hooks/usePlacement';
 
 const Equipment = () => {
   const router = useRouter();
-  const { classroom_id } = router.query;
-  const [classroom, setClassroom] = useState<Classroom>();
   const { readClassroomById } = useReadClassroomById();
-  const [loading, setLoading] = useState<boolean>(true);
   const { createPlacement } = useCreatePlacement();
 
+  const { classroom_id } = router.query;
+  const [classroom, setClassroom] = useState<Classroom>();
+  const [loading, setLoading] = useState<boolean>(true);
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [alertType, setAlertType] = useState<string>('error');
-
   const [name, setName] = useState<string>('');
   const [potionNumber, setPotionNumber] = useState<number>(0);
 
   if (loading && classroom_id) {
     readClassroomById(Number(classroom_id)).then((res) => {
       setClassroom(res);
+      setLoading(false);
     });
-    setLoading(false);
   }
 
   const alertSet = (message: string, type: string = 'error') => {
@@ -65,6 +53,8 @@ const Equipment = () => {
     });
   };
 
+  if (loading) return <Loading />;
+
   return (
     <Layout title='備品追加'>
       {alertFlag && <Alert message={alertMessage} type={alertType} />}
@@ -81,10 +71,7 @@ const Equipment = () => {
           </div>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>配置場所</span>
-            <select
-              className='w-1/2 rounded-lg p-1'
-              onChange={(e) => setPotionNumber(Number(e.target.value))}
-            >
+            <select className='w-1/2 rounded-lg p-1' onChange={(e) => setPotionNumber(Number(e.target.value))}>
               {classroom?.gaps.map((gap) => {
                 return (
                   <option key={gap} value={gap}>
@@ -95,10 +82,7 @@ const Equipment = () => {
             </select>
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
-            <button
-              className='w-1/2 rounded-lg p-2 bg-blue-400 text-white'
-              onClick={handleClick}
-            >
+            <button className='w-1/2 rounded-lg p-2 bg-blue-400 text-white' onClick={handleClick}>
               作成
             </button>
           </div>

@@ -12,35 +12,19 @@ type Props = {
   placements?: Placement[];
 };
 
-const ClassroomTable: FC<Props> = ({
-  desks,
-  call_orders,
-  classroom,
-  placements,
-}) => {
+const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }) => {
   let positions: any = [];
   let seat_number = 1;
   for (let i = 1; i <= classroom.breadth; i++) {
     if (classroom.gaps.includes(i)) {
-      if (
-        placements &&
-        placements.filter((placement) => placement.potionNumber === i)
-          .length !== 0
-      ) {
-        positions.push(
-          placements.filter((placement) => placement.potionNumber === i)[0],
-        );
+      if (placements && placements.filter((placement) => placement.potionNumber === i).length !== 0) {
+        positions.push(placements.filter((placement) => placement.potionNumber === i)[0]);
       } else {
         positions.push({ seatNumber: 0 });
       }
     } else {
-      if (
-        desks &&
-        desks.filter((desk) => desk.seatNumber === seat_number).length !== 0
-      ) {
-        positions.push(
-          desks.filter((desk) => desk.seatNumber === seat_number)[0],
-        );
+      if (desks && desks.filter((desk) => desk.seatNumber === seat_number).length !== 0) {
+        positions.push(desks.filter((desk) => desk.seatNumber === seat_number)[0]);
       } else {
         positions.push({ seatNumber: seat_number });
       }
@@ -59,9 +43,7 @@ const ClassroomTable: FC<Props> = ({
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
-      <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>
-        入口
-      </div>
+      <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>入口</div>
       <div className='bg-white w-full h-full'>
         <table className='h-full w-full'>
           <tbody className='h-full w-full flex'>
@@ -79,9 +61,7 @@ const ClassroomTable: FC<Props> = ({
                           name={call.student?.name}
                           turn_num={
                             shaping_call_orders &&
-                            shaping_call_orders.findIndex(
-                              (call) => call.seatNumber === seat.seatNumber,
-                            ) + 1
+                            shaping_call_orders.findIndex((call) => call.seatNumber === seat.seatNumber) + 1
                           }
                           status={call.status}
                         />

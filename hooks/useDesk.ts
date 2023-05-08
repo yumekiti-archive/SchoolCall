@@ -16,10 +16,7 @@ export const useReadDesk = () => {
 export const useReadDeskByClassroomIdandClassId = () => {
   const fetch = fetchInstance();
 
-  const readDeskByClassroomIdandClassId = async (
-    classroomId: any,
-    classId: any,
-  ) => {
+  const readDeskByClassroomIdandClassId = async (classroomId: any, classId: any) => {
     const { data } = await fetch.get(url, {
       params: { classroomId, classId },
     });

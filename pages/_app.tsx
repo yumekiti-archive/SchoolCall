@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
     return () => {
       newSocket.close();
-    }
+    };
   }, []);
 
   return <Component {...pageProps} socket={socket} />;

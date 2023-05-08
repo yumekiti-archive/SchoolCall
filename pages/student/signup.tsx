@@ -1,25 +1,21 @@
-import Layout from '@/components/templates/Layout';
-
 import { useState } from 'react';
-
 import { useRouter } from 'next/router';
 
 import { useCreateStudent } from '@/hooks/useStudent';
-
 import { useReadClassByName } from '@/hooks/useClass';
 
+import Layout from '@/components/templates/Layout';
 import Alert from '@/components/atoms/Alert';
 
 const StudentRegister = () => {
+  const router = useRouter();
   const { createStudent } = useCreateStudent();
   const { readClassByName } = useReadClassByName();
-  const router = useRouter();
 
   const [name, setName] = useState<string>('山田 太郎');
   const [studentNumber, setStudentNumber] = useState<number>(220000);
   const [attendanceNumber, setAttendanceNumber] = useState<number>(1);
   const [className, setClassName] = useState<string>('IE3A');
-
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
 
@@ -95,10 +91,7 @@ const StudentRegister = () => {
             />
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
-            <button
-              className='w-1/2 rounded-lg p-2 bg-blue-400 text-white'
-              onClick={handleClick}
-            >
+            <button className='w-1/2 rounded-lg p-2 bg-blue-400 text-white' onClick={handleClick}>
               作成
             </button>
           </div>
