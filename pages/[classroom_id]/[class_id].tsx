@@ -44,17 +44,20 @@ const ClassroomRegister = () => {
 
     socket.on('reload', () => {
       setLoading(true);
-      readClassroomById(classroom_id).then((res) => {
-        setClassroom(res);
-      }).finally(() => {
-        readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
-          setDesks(res);
+      
+      if (loading && classroom_id && class_id) {
+        readClassroomById(classroom_id).then((res) => {
+          setClassroom(res);
+        }).finally(() => {
+          readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
+            setDesks(res);
+          });
+          readCallorderByClassroomId(classroom_id).then((res) => {
+            setCallOrders(res);
+          });
+          setLoading(false);
         });
-        readCallorderByClassroomId(classroom_id).then((res) => {
-          setCallOrders(res);
-        });
-        setLoading(false);
-      });
+      }
     });
   }, []);
 
