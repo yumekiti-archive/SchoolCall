@@ -6,6 +6,7 @@ type Classroom = {
   name: string;
   breadth: number;
   gaps: number[];
+  split: number;
   created_at: string;
   updated_at: string;
   placement: Placement[];

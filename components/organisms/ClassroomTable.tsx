@@ -50,8 +50,8 @@ const ClassroomTable: FC<Props> = ({
 
   // 8人ずつに分割
   let split_positions = [];
-  for (let i = 0; i < positions.length; i += 8) {
-    split_positions.push(positions.slice(i, i + 8));
+  for (let i = 0; i < positions.length; i += classroom.split) {
+    split_positions.push(positions.slice(i, i + classroom.split));
   }
 
   // statusがfalseのものを抽出
