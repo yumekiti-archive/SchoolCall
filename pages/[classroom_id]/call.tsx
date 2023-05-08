@@ -71,6 +71,8 @@ const ClassroomRegister = () => {
         setCallOrders(res);
       });
     });
+
+    socket.emit('reload');
   };
 
   const filterCallOrders = call_orders.filter(
