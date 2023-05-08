@@ -4,12 +4,15 @@ import { useState } from 'react';
 import Layout from '@/components/templates/Layout';
 
 import { useRouter } from 'next/router';
+import io from 'socket.io-client';
 
 import { useReadStudentByStudentNumber } from '@/hooks/useStudent';
 import { useReadClassroomByName } from '@/hooks/useClassroom';
 import { useCreateDesk } from '@/hooks/useDesk';
 
 import Alert from '@/components/atoms/Alert';
+
+const socket = io();
 
 const StudentRegister = () => {
   const { readStudentByStudentNumber } = useReadStudentByStudentNumber();
@@ -52,6 +55,8 @@ const StudentRegister = () => {
                   localStorage.setItem('seatNumber', data.seatNumber);
                   localStorage.setItem('classroomId', data.classroomId);
                   localStorage.setItem('studentId', data.studentId);
+
+                  socket.emit('reload');
 
                   router.push('/student');
                 } else {

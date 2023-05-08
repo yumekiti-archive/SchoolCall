@@ -1,12 +1,15 @@
 import Layout from '@/components/templates/Layout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import io from 'socket.io-client';
 
 import { useState } from 'react';
 
 import { useCreateCallOrder } from '@/hooks/useCallOrder';
 
 import Alert from '@/components/atoms/Alert';
+
+const socket = io();
 
 const StudentRegister = () => {
   const router = useRouter();
@@ -27,6 +30,8 @@ const StudentRegister = () => {
     setAlertFlag(true);
     setAlertMessage(message);
     setAlertType(type);
+
+    socket.emit('reload');
 
     setTimeout(() => {
       setAlertFlag(false);

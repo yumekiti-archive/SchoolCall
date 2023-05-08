@@ -2,6 +2,7 @@ import Layout from '@/components/templates/Layout';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import io from 'socket.io-client';
 
 import Desk from '@/types/desk';
 import CallOrder from '@/types/callOrder';
@@ -15,6 +16,8 @@ import { useReadClassroomById } from '@/hooks/useClassroom';
 import { useReadDeskByClassroomIdandClassId } from '@/hooks/useDesk';
 
 import { useReadCallorderByClassroomId } from '@/hooks/useCallOrder';
+
+const socket = io();
 
 const ClassroomRegister = () => {
   const router = useRouter();
@@ -30,6 +33,28 @@ const ClassroomRegister = () => {
 
   const { readClassroomById } = useReadClassroomById();
 
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('socket connected');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('socket disconnected');
+    });
+
+    socket.on('reload', () => {
+      readClassroomById(classroom_id).then((res) => {
+        setClassroom(res);
+      });
+      readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
+        setDesks(res);
+      });
+      readCallorderByClassroomId(classroom_id).then((res) => {
+        setCallOrders(res);
+      });
+    });
+  }, []);
+
   if (loading && classroom_id && class_id) {
     readClassroomById(classroom_id).then((res) => {
       setClassroom(res);
@@ -42,19 +67,6 @@ const ClassroomRegister = () => {
     });
     setLoading(false);
   }
-
-  // 一定時間ごとに更新
-  useEffect(() => {
-    const interval = setInterval(() => {
-      readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res);
-      });
-      readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
-        setDesks(res);
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [classroom_id, class_id]);
 
   return (
     classroom && (

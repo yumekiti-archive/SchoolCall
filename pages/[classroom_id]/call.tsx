@@ -2,6 +2,7 @@ import Layout from '@/components/templates/Layout';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import io from 'socket.io-client';
 
 import Desk from '@/types/desk';
 import CallOrder from '@/types/callOrder';
@@ -19,6 +20,8 @@ import {
   useUpdateCallOrder,
 } from '@/hooks/useCallOrder';
 
+const socket = io();
+
 const ClassroomRegister = () => {
   const router = useRouter();
   const { classroom_id, class_id } = router.query;
@@ -34,15 +37,21 @@ const ClassroomRegister = () => {
 
   const { readClassroomById } = useReadClassroomById();
 
-  // 一定時間ごとに更新
   useEffect(() => {
-    const interval = setInterval(() => {
+    socket.on('connect', () => {
+      console.log('socket connected');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('socket disconnected');
+    });
+
+    socket.on('reload', () => {
       readCallorderByClassroomId(classroom_id).then((res) => {
         setCallOrders(res);
       });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [classroom_id]);
+    });
+  }, []);
 
   if (classroom_id && loading) {
     readCallorderByClassroomId(classroom_id).then((res) => {
@@ -78,7 +87,7 @@ const ClassroomRegister = () => {
           >
             <div className='flex justify-between items-center'>
               <div className='text-lg font-bold'>
-                <span>{call_order.student.attendanceNumber}</span>
+                <span>{call_order.student?.attendanceNumber}</span>
                 <span className='ml-4 border-l-2 pl-4'>
                   {call_order.student.name} さん
                 </span>
