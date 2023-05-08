@@ -1,8 +1,7 @@
 import Layout from '@/components/templates/Layout';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import io from 'socket.io-client';
 
 import Desk from '@/types/desk';
 import CallOrder from '@/types/callOrder';
@@ -20,9 +19,11 @@ import {
   useUpdateCallOrder,
 } from '@/hooks/useCallOrder';
 
-const socket = io();
+type Props = {
+  socket: any;
+};
 
-const ClassroomRegister = () => {
+const ClassroomRegister: FC<Props> = ({ socket }) => {
   const router = useRouter();
   const { classroom_id, class_id } = router.query;
   const [classroom, setClassroom] = useState<Classroom>();

@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import Layout from '@/components/templates/Layout';
 
 import { useRouter } from 'next/router';
-import io from 'socket.io-client';
 
 import { useReadStudentByStudentNumber } from '@/hooks/useStudent';
 import { useReadClassroomByName } from '@/hooks/useClassroom';
@@ -12,9 +11,11 @@ import { useCreateDesk } from '@/hooks/useDesk';
 
 import Alert from '@/components/atoms/Alert';
 
-const socket = io();
+type Props = {
+  socket: any;
+};
 
-const StudentRegister = () => {
+const StudentRegister: FC<Props> = ({ socket }) => {
   const { readStudentByStudentNumber } = useReadStudentByStudentNumber();
   const { readClassroomByName } = useReadClassroomByName();
   const { createDesk } = useCreateDesk();

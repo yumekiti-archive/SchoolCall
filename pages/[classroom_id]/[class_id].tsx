@@ -1,8 +1,7 @@
 import Layout from '@/components/templates/Layout';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import io from 'socket.io-client';
 
 import Desk from '@/types/desk';
 import CallOrder from '@/types/callOrder';
@@ -17,9 +16,11 @@ import { useReadDeskByClassroomIdandClassId } from '@/hooks/useDesk';
 
 import { useReadCallorderByClassroomId } from '@/hooks/useCallOrder';
 
-const socket = io();
+type Props = {
+  socket: any;
+};
 
-const ClassroomRegister = () => {
+const ClassroomRegister: FC<Props> = ({ socket }) => {
   const router = useRouter();
   const { classroom_id, class_id } = router.query;
   const [classroom, setClassroom] = useState<Classroom>();
@@ -34,14 +35,6 @@ const ClassroomRegister = () => {
   const { readClassroomById } = useReadClassroomById();
 
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log('socket connected');
-    });
-
-    socket.on('disconnect', () => {
-      console.log('socket disconnected');
-    });
-
     socket.on('reload', () => {
       setLoading(true);
       
@@ -76,17 +69,20 @@ const ClassroomRegister = () => {
   }
 
   return (
-    classroom && (
-      <Layout title={`${classroom.name} 座席表`}>
-        {/* <Classroom desks={desks} call_orders={call_orders} classroom={classroom} placements={placements} /> */}
-        <ClassroomTable
-          desks={desks}
-          classroom={classroom}
-          placements={classroom.placement}
-          call_orders={call_orders}
-        />
-      </Layout>
-    )
+    <>
+      {
+        classroom &&
+        <Layout title={`${classroom.name} 座席表`}>
+          {/* <Classroom desks={desks} call_orders={call_orders} classroom={classroom} placements={placements} /> */}
+          <ClassroomTable
+            desks={desks}
+            classroom={classroom}
+            placements={classroom.placement}
+            call_orders={call_orders}
+          />
+        </Layout>
+      }
+    </>
   );
 };
 

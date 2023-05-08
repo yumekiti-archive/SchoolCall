@@ -1,17 +1,18 @@
 import Layout from '@/components/templates/Layout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import io from 'socket.io-client';
 
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useCreateCallOrder } from '@/hooks/useCallOrder';
 
 import Alert from '@/components/atoms/Alert';
 
-const socket = io();
+type Props = {
+  socket: any;
+};
 
-const StudentRegister = () => {
+const StudentRegister: FC<Props> = ({ socket }) => {
   const router = useRouter();
   const { createCallOrder } = useCreateCallOrder();
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
