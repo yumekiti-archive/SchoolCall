@@ -22,9 +22,11 @@ const ClassroomRegister = () => {
       gaps: gaps.split(',').map((g) => Number(g)),
     };
 
-    createClassroom(body);
-
-    router.push('/');
+    createClassroom(body).then((res) => {
+      if (res.status === 200) {
+        router.push('/');
+      }
+    });
   };
 
   return (
