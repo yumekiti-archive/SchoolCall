@@ -72,8 +72,6 @@ const ClassroomRegister = () => {
     });
   }
 
-  if(loading) return <Layout title="座席表">Loading...</Layout>;
-
   return (
     classroom && (
       <Layout title={`${classroom.name} 座席表`}>

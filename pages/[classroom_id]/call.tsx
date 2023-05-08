@@ -79,8 +79,6 @@ const ClassroomRegister = () => {
     (call_order) => !call_order.status,
   );
 
-  if (loading) return <Layout title='座席表'>loading...</Layout>;
-
   return (
     <Layout title='座席表'>
       {filterCallOrders.length !== 0 ? (
