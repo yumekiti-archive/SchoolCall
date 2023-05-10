@@ -5,7 +5,7 @@ const handler: NextApiHandler = async (req, res) => {
   const {
     method,
     body,
-    query: { id, classroomId, classId },
+    query: { id, classroomId },
   } = req;
 
   switch (method) {
@@ -21,11 +21,10 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case 'GET': {
       try {
-        if (classroomId && classId) {
+        if (classroomId) {
           const desks = await prisma.desk.findMany({
             where: {
               classroomId: Number(classroomId),
-              classId: Number(classId),
             },
             include: {
               student: true,

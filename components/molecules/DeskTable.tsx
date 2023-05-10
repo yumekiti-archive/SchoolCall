@@ -16,7 +16,7 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
       {!connect ? (
         <div className='w-full h-full flex'>
           <div
-            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-xs ${
+            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative ${
               turn_num ? 'bg-green-200' : ''
             }`}
           >
@@ -35,7 +35,7 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
             <p className='text-right'>{seat_number === 0 || !seat_number ? <>&nbsp;</> : seat_number}</p>
           </div>
           <div
-            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-xs ${
+            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative ${
               !status && turn_num ? 'bg-green-200' : ''
             }`}
           >

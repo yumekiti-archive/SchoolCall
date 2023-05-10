@@ -52,7 +52,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     socket.on('refetch', () => fetchData());
 
     fetchData();
-  }, [classroom_id]);
+  }, [socket, classroom_id]);
 
   if (loading) return <Loading />;
 
