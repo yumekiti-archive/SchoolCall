@@ -42,7 +42,6 @@ const StudentRegister: FC<Props> = ({ socket }) => {
               seatNumber,
               classroomId: classroom.id,
               studentId: student.id,
-              classId: student.classId,
             };
 
             createDesk(body).then((data) => {
@@ -51,7 +50,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
                 localStorage.setItem('classroomId', data.classroomId);
                 localStorage.setItem('studentId', data.studentId);
 
-                socket.emit('reload');
+                socket.emit('refetch');
 
                 router.push('/student');
               } else {

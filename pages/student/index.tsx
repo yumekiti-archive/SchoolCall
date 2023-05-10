@@ -31,7 +31,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
     setAlertMessage(message);
     setAlertType(type);
 
-    socket.emit('reload');
+    socket.emit('refetch');
 
     setTimeout(() => {
       setAlertFlag(false);
@@ -60,7 +60,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
   };
 
   return (
-    <Layout title='順番管理' href='/student/signin'>
+    <Layout title='認証' href='/student/signin'>
       {alertFlag && <Alert message={alertMessage} type={alertType} />}
       <div className='flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4 h-full'>
         <div className='row-span-1 col-span-1 h-full p-4 m-4'>

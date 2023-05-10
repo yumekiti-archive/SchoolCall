@@ -2,54 +2,34 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { useCreateStudent } from '@/hooks/useStudent';
-import { useReadClassByName } from '@/hooks/useClass';
 
 import Layout from '@/components/templates/Layout';
-import Alert from '@/components/atoms/Alert';
 
 const StudentRegister = () => {
   const router = useRouter();
   const { createStudent } = useCreateStudent();
-  const { readClassByName } = useReadClassByName();
 
   const [name, setName] = useState<string>('山田 太郎');
   const [studentNumber, setStudentNumber] = useState<number>(220000);
   const [attendanceNumber, setAttendanceNumber] = useState<number>(1);
   const [className, setClassName] = useState<string>('IE3A');
-  const [alertFlag, setAlertFlag] = useState<boolean>(false);
-  const [alertMessage, setAlertMessage] = useState<string>('');
-
-  const alertSet = (message: string) => {
-    setAlertFlag(true);
-    setAlertMessage(message);
-
-    setTimeout(() => {
-      setAlertFlag(false);
-    }, 3000);
-  };
 
   const handleClick = () => {
-    readClassByName(className).then((data) => {
-      if (!data) alertSet('クラス名が間違っているか、存在しません');
-      else {
-        const body = {
-          name,
-          studentNumber,
-          attendanceNumber,
-          classId: data.id,
-        };
+    const body = {
+      name,
+      studentNumber,
+      attendanceNumber,
+      className,
+    };
 
-        createStudent(body).then((data) => {
-          localStorage.setItem('studentNumber', data.studentNumber);
-          router.push('/student');
-        });
-      }
+    createStudent(body).then((data) => {
+      localStorage.setItem('studentNumber', data.studentNumber);
+      router.push('/student');
     });
   };
 
   return (
     <Layout title='順番管理' href='/student'>
-      {alertFlag && <Alert message={alertMessage} />}
       <div className='w-full h-full flex justify-center items-center'>
         <div className='w-11/12 h-3/6 md:w-1/2 md:h-1/2 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>

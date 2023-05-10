@@ -49,7 +49,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
 
   useEffect(() => {
     if (!socket) return;
-    socket.on('reload', () => fetchData());
+    socket.on('refetch', () => fetchData());
 
     fetchData();
   }, [classroom_id, class_id]);

@@ -8,8 +8,8 @@ const PORT = 8080;
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on('reload', () => {
-    io.emit('reload');
+  socket.on('refetch', () => {
+    io.emit('refetch');
   });
 
   socket.on('disconnect', () => {

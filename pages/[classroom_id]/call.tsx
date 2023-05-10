@@ -30,7 +30,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
   };
 
   useEffect(() => {
-    socket.on('reload', () => fetchData());
+    socket.on('refetch', () => fetchData());
 
     fetchData();
   }, [classroom_id]);
@@ -47,7 +47,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
       });
     });
 
-    socket.emit('reload');
+    socket.emit('refetch');
   };
 
   if (loading) return <Loading />;
