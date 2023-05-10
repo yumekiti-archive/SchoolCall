@@ -1,10 +1,13 @@
+import Classroom from './classroom';
+
 type Placement = {
   id: number;
   name: string;
-  potionNumber: number;
+  positionNumber: number;
   classroomId: number;
   createdAt: string;
   updatedAt: string;
+  Classroom: Classroom;
 };
 
 export default Placement;

@@ -1,13 +1,15 @@
 import Student from './student';
+import Classroom from './classroom';
 
 type CallOrder = {
   id: number;
-  classroomId: number;
-  studentId: number;
   seatNumber: number;
   status: boolean;
+  classroomId: number;
+  studentId: number;
   createdAt: string;
   updatedAt: string;
+  Classroom: Classroom;
   student: Student;
 };
 

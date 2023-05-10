@@ -15,12 +15,11 @@ model Student {
   name             String
   studentNumber    Int         @unique
   attendanceNumber Int
-  classId          Int?
+  className        String
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
   Desk             Desk[]
   CallOrder        CallOrder[]
-  Class            Class?      @relation(fields: [classId], references: [id])
 }
 
 model Classroom {
@@ -29,10 +28,9 @@ model Classroom {
   breadth   Int
   gaps      Int[]
   split     Int
-  placement Placement[]
-  class     Class[]
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  placement Placement[]
   Desk      Desk[]
   CallOrder CallOrder[]
 }
@@ -47,17 +45,16 @@ model Desk {
   updatedAt   DateTime  @updatedAt
   classroom   Classroom @relation(fields: [classroomId], references: [id])
   student     Student?  @relation(fields: [studentId], references: [id])
-  class       Class?    @relation(fields: [classId], references: [id])
 }
 
 model Placement {
-  id           Int        @id @default(autoincrement())
-  potionNumber Int
-  name         String
-  classroomId  Int?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  Classroom    Classroom? @relation(fields: [classroomId], references: [id])
+  id             Int        @id @default(autoincrement())
+  name           String
+  positionNumber Int
+  classroomId    Int?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  Classroom      Classroom? @relation(fields: [classroomId], references: [id])
 }
 
 model CallOrder {
@@ -70,15 +67,4 @@ model CallOrder {
   updatedAt   DateTime  @updatedAt
   classroom   Classroom @relation(fields: [classroomId], references: [id])
   student     Student   @relation(fields: [studentId], references: [id])
-}
-
-model Class {
-  id          Int         @id @default(autoincrement())
-  name        String      @unique
-  classroomId Int[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  Student     Student[]
-  Desk        Desk[]
-  Classroom   Classroom[]
 }

@@ -1,5 +1,6 @@
 import Placement from './placement';
-import Class from './class';
+import Desk from './desk';
+import CallOrder from './callOrder';
 
 type Classroom = {
   id: number;
@@ -7,10 +8,11 @@ type Classroom = {
   breadth: number;
   gaps: number[];
   split: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   placement: Placement[];
-  class: Class[];
+  Desk: Desk[];
+  CallOrder: CallOrder[];
 };
 
 export default Classroom;
