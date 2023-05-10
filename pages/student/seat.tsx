@@ -33,10 +33,13 @@ const StudentRegister: FC<Props> = ({ socket }) => {
   };
 
   const handleClick = () => {
+    const studentNumber = localStorage.getItem('studentNumber');
+
+    if (!studentNumber) router.push('/student');
     readClassroomByName(classroomName).then((classroom) => {
       if (!classroom) alertSet('教室名が間違っています');
       else {
-        readStudentByStudentNumber(localStorage.getItem('studentNumber')).then((student) => {
+        readStudentByStudentNumber(studentNumber).then((student) => {
           if (student) {
             const body = {
               seatNumber,
