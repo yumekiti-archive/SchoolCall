@@ -5,20 +5,23 @@ import CallOrder from '../../types/callOrder';
 import Classroom from '../../types/classroom';
 import Placement from '../../types/placement';
 
+import { useRouter } from 'next/router';
+
 type Props = {
   classroom: Classroom;
   desks?: Desk[];
   call_orders?: CallOrder[];
   placements?: Placement[];
+  reverse: boolean;
 };
 
-const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }) => {
+const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, reverse }) => {
   let positions: any = [];
   let seat_number = 1;
   for (let i = 1; i <= classroom.breadth; i++) {
     if (classroom.gaps.includes(i)) {
-      if (placements && placements.filter((placement) => placement.potionNumber === i).length !== 0) {
-        positions.push(placements.filter((placement) => placement.potionNumber === i)[0]);
+      if (placements && placements.filter((placement) => placement.positionNumber === i).length !== 0) {
+        positions.push(placements.filter((placement) => placement.positionNumber === i)[0]);
       } else {
         positions.push({ seatNumber: 0 });
       }
@@ -32,6 +35,8 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
     }
   }
 
+  if (!reverse) positions.reverse();
+
   // 8人ずつに分割
   let split_positions = [];
   for (let i = 0; i < positions.length; i += classroom.split) {
@@ -43,7 +48,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
-      <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>入口</div>
+      { reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>入口</div> }
       <div className='bg-white w-full h-full'>
         <table className='h-full w-full'>
           <tbody className='h-full w-full flex'>
@@ -81,6 +86,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements }
           </tbody>
         </table>
       </div>
+      { !reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>入口</div> }
     </main>
   );
 };

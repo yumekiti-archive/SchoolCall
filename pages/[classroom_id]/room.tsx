@@ -19,6 +19,7 @@ type Props = {
 
 const ClassroomRegister: FC<Props> = ({ socket }) => {
   const router = useRouter();
+  const { reverse } = router.query;
   const { readDeskByClassroomIdandClassId } = useReadDeskByClassroomIdandClassId();
   const { readCallorderByClassroomId } = useReadCallorderByClassroomId();
   const { readClassroomById } = useReadClassroomById();
@@ -64,6 +65,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
             classroom={classroom}
             placements={classroom.placement}
             call_orders={call_orders}
+            reverse={reverse == 'true'}
           />
         </Layout>
       )}
