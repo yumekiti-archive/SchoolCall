@@ -40,7 +40,6 @@ model Desk {
   seatNumber  Int
   classroomId Int
   studentId   Int?
-  classId     Int?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   classroom   Classroom @relation(fields: [classroomId], references: [id])
@@ -60,7 +59,8 @@ model Placement {
 model CallOrder {
   id          Int       @id @default(autoincrement())
   seatNumber  Int
-  status      Boolean
+  check       Boolean   @default(false)
+  status      Boolean   @default(false)
   classroomId Int
   studentId   Int
   createdAt   DateTime  @default(now())

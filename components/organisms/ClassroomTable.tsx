@@ -48,7 +48,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
-      { reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>入口</div> }
+      { reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>出入口</div> }
       <div className='bg-white w-full h-full'>
         <table className='h-full w-full'>
           <tbody className='h-full w-full flex'>
@@ -86,7 +86,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
           </tbody>
         </table>
       </div>
-      { !reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>入口</div> }
+      { !reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>出入口</div> }
     </main>
   );
 };

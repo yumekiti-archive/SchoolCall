@@ -11,7 +11,7 @@ import ClassroomTable from '@/components/organisms/ClassroomTable';
 
 import { useReadClassroomById } from '@/hooks/useClassroom';
 import { useReadCallorderByClassroomId } from '@/hooks/useCallOrder';
-import { useReadDeskByClassroomIdandClassId } from '@/hooks/useDesk';
+import { useReadDeskByClassroomId } from '@/hooks/useDesk';
 
 type Props = {
   socket: any;
@@ -20,24 +20,24 @@ type Props = {
 const ClassroomRegister: FC<Props> = ({ socket }) => {
   const router = useRouter();
   const { reverse } = router.query;
-  const { readDeskByClassroomIdandClassId } = useReadDeskByClassroomIdandClassId();
+  const { readDeskByClassroomId } = useReadDeskByClassroomId();
   const { readCallorderByClassroomId } = useReadCallorderByClassroomId();
   const { readClassroomById } = useReadClassroomById();
 
-  const { classroom_id, class_id } = router.query;
+  const { classroom_id } = router.query;
   const [loading, setLoading] = useState<boolean>(true);
   const [classroom, setClassroom] = useState<Classroom>();
   const [desks, setDesks] = useState<Desk[]>();
   const [call_orders, setCallOrders] = useState<CallOrder[]>();
 
   const fetchData = () => {
-    if (!classroom_id && !class_id) return;
+    if (!classroom_id) return;
     readClassroomById(classroom_id)
       .then((res) => {
         setClassroom(res);
       })
       .finally(() => {
-        readDeskByClassroomIdandClassId(classroom_id, class_id).then((res) => {
+        readDeskByClassroomId(classroom_id).then((res) => {
           setDesks(res);
         });
         readCallorderByClassroomId(classroom_id).then((res) => {
@@ -52,7 +52,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     socket.on('refetch', () => fetchData());
 
     fetchData();
-  }, [classroom_id, class_id]);
+  }, [classroom_id]);
 
   if (loading) return <Loading />;
 

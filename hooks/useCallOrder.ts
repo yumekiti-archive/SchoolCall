@@ -75,3 +75,16 @@ export const useDeleteCallOrder = () => {
 
   return { deleteCallOrder };
 };
+
+export const useReadCallOrderByStudentId = () => {
+  const fetch = fetchInstance();
+
+  const readCallOrderByStudentId = async (studentId: any) => {
+    const { data } = await fetch.get(url, {
+      params: { studentId },
+    });
+    return data;
+  };
+
+  return { readCallOrderByStudentId };
+}

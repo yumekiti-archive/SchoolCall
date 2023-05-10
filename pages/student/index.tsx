@@ -6,6 +6,7 @@ import Layout from '@/components/templates/Layout';
 import Alert from '@/components/atoms/Alert';
 
 import { useCreateCallOrder } from '@/hooks/useCallOrder';
+import { useReadCallOrderByStudentId } from '@/hooks/useCallOrder';
 
 type Props = {
   socket: any;
@@ -14,6 +15,7 @@ type Props = {
 const StudentRegister: FC<Props> = ({ socket }) => {
   const router = useRouter();
   const { createCallOrder } = useCreateCallOrder();
+  const { readCallOrderByStudentId } = useReadCallOrderByStudentId();
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [alertType, setAlertType] = useState<string>('error');
@@ -44,15 +46,20 @@ const StudentRegister: FC<Props> = ({ socket }) => {
     const studentId = localStorage.getItem('studentId');
 
     if (seatNumber && classroomId && studentId) {
-      const body = {
-        seatNumber: Number(seatNumber),
-        status: false,
-        classroomId: Number(classroomId),
-        studentId: Number(studentId),
-      };
-
-      createCallOrder(body).then((data) => {
-        alertSet('順番を取得しました', 'success');
+      // すでに順番を取得している場合は、順番を取得できませんと表示する
+      readCallOrderByStudentId(studentId).then((data) => {
+        if (data) alertSet('すでに順番を取得しています');
+        else {
+          const body = {
+            seatNumber: Number(seatNumber),
+            classroomId: Number(classroomId),
+            studentId: Number(studentId),
+          };
+    
+          createCallOrder(body).then((data) => {
+            alertSet('順番を取得しました', 'success');
+          });
+        }
       });
     } else {
       alertSet('座席番号が取得できませんでした');
@@ -60,7 +67,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
   };
 
   return (
-    <Layout title='認証' href='/student/signin'>
+    <Layout title='認証画面へ' href='/student/signin'>
       {alertFlag && <Alert message={alertMessage} type={alertType} />}
       <div className='flex justify-center items-center grid grid-row-2 grid-cols-1 gap-4 h-full'>
         <div className='row-span-1 col-span-1 h-full p-4 m-4'>

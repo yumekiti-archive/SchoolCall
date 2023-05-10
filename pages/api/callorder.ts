@@ -5,7 +5,7 @@ const handler: NextApiHandler = async (req, res) => {
   const {
     method,
     body,
-    query: { id, classroomId },
+    query: { id, classroomId, studentId },
   } = req;
 
   switch (method) {
@@ -23,7 +23,12 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case 'GET': {
       try {
-        if (classroomId) {
+        if (studentId) {
+          const callOrder = await prisma.callOrder.findFirst({
+            where: { status: false, student : { id: Number(studentId) } },
+          });
+          res.status(200).json(callOrder);
+        } else if (classroomId) {
           const callOrders = await prisma.callOrder.findMany({
             where: { classroomId: Number(classroomId) },
             include: { student: true },

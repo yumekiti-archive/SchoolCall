@@ -30,10 +30,24 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
   };
 
   useEffect(() => {
+    if (!socket) return;
     socket.on('refetch', () => fetchData());
 
     fetchData();
-  }, [classroom_id]);
+  }, [socket, classroom_id]);
+
+  const handleCheck = (call_order_id: number) => {
+    const body = {
+      id: call_order_id,
+      check: true,
+    };
+
+    updateCallOrder(body).then((res) => {
+      readCallorderByClassroomId(classroom_id).then((res) => {
+        setCallOrders(res.filter((call_order: any) => call_order.status === false));
+      });
+    });
+  };
 
   const handleComplete = (call_order_id: number) => {
     const body = {
@@ -56,18 +70,27 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     <Layout title='座席表'>
       {call_orders && call_orders.length !== 0 ? (
         call_orders.map((call_order) => (
-          <div key={call_order.id} className='bg-white shadow-md rounded-md p-4 m-4'>
+          <div key={call_order.id} className={`bg-white shadow-md rounded-md p-4 m-4 ${call_order.check ? 'bg-yellow-100' : ''}`}>
             <div className='flex justify-between items-center'>
               <div className='text-lg font-bold'>
-                <span>{call_order.student?.attendanceNumber}</span>
+                <span className='ml-4 border-l-2 pl-4'>{call_order.student?.className}</span>
                 <span className='ml-4 border-l-2 pl-4'>{call_order.student?.name} さん</span>
+                <span className='ml-4 border-l-2 pl-4'>出席番号 {call_order.student?.attendanceNumber}</span>
               </div>
-              <button
-                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                onClick={() => handleComplete(call_order.id)}
-              >
-                完了
-              </button>
+              <div>
+                <button
+                  className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-4'
+                  onClick={() => handleCheck(call_order.id)}
+                >
+                  確認中
+                </button>
+                <button
+                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                  onClick={() => handleComplete(call_order.id)}
+                >
+                  完了
+                </button>
+              </div>
             </div>
           </div>
         ))

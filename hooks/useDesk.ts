@@ -13,17 +13,17 @@ export const useReadDesk = () => {
   return { readDesk };
 };
 
-export const useReadDeskByClassroomIdandClassId = () => {
+export const useReadDeskByClassroomId = () => {
   const fetch = fetchInstance();
 
-  const readDeskByClassroomIdandClassId = async (classroomId: any, classId: any) => {
+  const readDeskByClassroomId = async (classroomId: any) => {
     const { data } = await fetch.get(url, {
-      params: { classroomId, classId },
+      params: { classroomId },
     });
     return data;
   };
 
-  return { readDeskByClassroomIdandClassId };
+  return { readDeskByClassroomId };
 };
 
 export const useReadDeskById = () => {
