@@ -3,7 +3,6 @@
   "background_color": "#45e9f8",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/student",
   "name": "schoolcall",
   "short_name": "schoolcall",
   "icons": [
