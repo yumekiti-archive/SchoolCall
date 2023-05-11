@@ -64,7 +64,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     };
 
     updateCallOrder(body).then((res) => fetchData());
-  }
+  };
 
   if (loading) return <Loading />;
 

@@ -18,14 +18,12 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
         <div className='w-full h-full flex'>
           <div
             className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
-            ${ turn_num ? 'bg-green-200' : '' }
-            ${ today ? 'bg-gray-200' : '' }
+            ${turn_num ? 'bg-green-200' : ''}
+            ${today ? 'bg-gray-200' : ''}
             `}
           >
             <div className='w-60'>
-              <p className='truncate'>
-                {name ? name : <>&nbsp;</>}
-              </p>
+              <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
             </div>
 
             <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold text-gray-700'>
@@ -43,14 +41,12 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
           </div>
           <div
             className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
-            ${ !status && turn_num ? 'bg-green-200' : '' }
-            ${ today ? 'bg-gray-200' : '' }
+            ${!status && turn_num ? 'bg-green-200' : ''}
+            ${today ? 'bg-gray-200' : ''}
             `}
           >
             <div className='w-60'>
-              <p className='truncate'>
-                {name ? name : <>&nbsp;</>}
-              </p>
+              <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
             </div>
 
             <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold text-gray-700'>
