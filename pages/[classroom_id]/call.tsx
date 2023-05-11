@@ -94,13 +94,13 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
                   確認中
                 </button>
                 <button
-                  className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+                  className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4'
                   onClick={() => handleToday(call_order.id, call_order.today)}
                 >
                   課題完了
                 </button>
                 <button
-                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4'
+                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                   onClick={() => handleComplete(call_order.id)}
                 >
                   確認完了
