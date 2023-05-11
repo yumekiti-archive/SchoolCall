@@ -38,12 +38,14 @@ const QRCodeGenerator: FC = () => {
           生成
         </button>
       </div>
-      <div className='mt-4 flex flex-wrap justify-center'>
-        {paths.map((path) => (
-          <div key={path} className='w-64 h-64 m-6'>
-            <QRCode value={path} />
-          </div>
-        ))}
+      <div className='flex flex-col items-center justify-center'>
+        <div className='mt-4 flex flex-wrap justify-start'>
+          {paths.map((path) => (
+            <div key={path} className='w-64 h-64 m-6'>
+              <QRCode value={path} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
