@@ -76,8 +76,8 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
             key={call_order.id}
             className={`shadow-md rounded-md p-4 m-4
             ${!call_order.check && !call_order.today ? 'bg-white' : ''}
+            ${!call_order.today && call_order.check ? 'bg-yellow-100' : ''}
             ${call_order.today ? 'bg-green-100' : ''}
-            ${call_order.check ? 'bg-yellow-100' : ''}
             `}
           >
             <div className='flex justify-between items-center grid grid-row-2 grid-cols-1 sm:flex'>
