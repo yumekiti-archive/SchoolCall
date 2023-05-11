@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
+import QRCode from "react-qr-code";
 
 const QRCodeGenerator: FC = () => {
   // http://localhost/student/qr?classroomName=3601&seatNumber=6
 
-  const [classroomName, setClassroomName] = useState('');
-  const [volumeNumber, setVolumeNumber] = useState(1);
+  const [classroomName, setClassroomName] = useState('3601');
+  const [volumeNumber, setVolumeNumber] = useState(40);
   const [paths, setPaths] = useState<string[]>([]);
 
   const handleVolumeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,11 +38,10 @@ const QRCodeGenerator: FC = () => {
           生成
         </button>
       </div>
-      <div className='mt-4 flex flex-wrap'>
+      <div className='mt-4 flex flex-wrap justify-center'>
         {paths.map((path) => (
-          <div key={path} className='m-4'>
-            <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${path}`} />
-            <p>{path}</p>
+          <div key={path} className='w-64 h-64 m-6'>
+            <QRCode value={path} />
           </div>
         ))}
       </div>
