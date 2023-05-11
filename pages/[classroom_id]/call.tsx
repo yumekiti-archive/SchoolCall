@@ -25,7 +25,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     if (!classroom_id) return;
     setLoading(true);
     readCallorderByClassroomId(classroom_id).then((res) => {
-      setCallOrders(res);
+      setCallOrders(res.filter((call_order: any) => call_order.status === false));
       setLoading(false);
     });
   };
@@ -43,11 +43,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
       check: !check,
     };
 
-    updateCallOrder(body).then((res) => {
-      readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res);
-      });
-    });
+    updateCallOrder(body).then((res) => fetchData());
   };
 
   const handleComplete = (call_order_id: number) => {
@@ -56,11 +52,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
       status: true,
     };
 
-    updateCallOrder(body).then((res) => {
-      readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res);
-      });
-    });
+    updateCallOrder(body).then((res) => fetchData());
 
     socket.emit('refetch');
   };
@@ -71,11 +63,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
       today: !today,
     };
 
-    updateCallOrder(body).then((res) => {
-      readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res);
-      });
-    });
+    updateCallOrder(body).then((res) => fetchData());
   }
 
   if (loading) return <Loading />;
@@ -86,15 +74,16 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
         call_orders.map((call_order) => (
           <div
             key={call_order.id}
-            className={`bg-white shadow-md rounded-md p-4 m-4
+            className={`shadow-md rounded-md p-4 m-4
+            ${!call_order.check && !call_order.today ? 'bg-white' : ''}
             ${call_order.check ? 'bg-yellow-100' : ''}
-            ${call_order.today ? 'bg-gray-500' : ''}
+            ${call_order.today ? 'bg-green-100' : ''}
             `}
           >
             <div className='flex justify-between items-center grid grid-row-2 grid-cols-1 sm:flex'>
               <div className='text-lg font-bold row-span-1 flex items-center justify-center mb-2 sm:mb-0'>
                 <span>{call_order.student?.className}</span>
-                <span className='ml-2 border-l-2 pl-2'>{call_order.student?.name} さん</span>
+                <span className='ml-2 border-l-2 pl-2 w-36 truncate'>{call_order.student?.name} さん</span>
                 <span className='ml-2 border-l-2 pl-2'>出席番号 {call_order.student?.attendanceNumber}</span>
               </div>
               <div className='flex justify-end items-center row-span-1'>
