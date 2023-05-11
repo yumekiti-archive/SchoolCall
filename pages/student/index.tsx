@@ -69,7 +69,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
             classroomId: Number(classroomId),
             studentId: Number(studentId),
           };
-    
+
           createCallOrder(body).then((data) => {
             alertSet('順番を取得しました', 'success');
           });

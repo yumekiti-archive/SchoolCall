@@ -25,7 +25,7 @@ const handler: NextApiHandler = async (req, res) => {
       try {
         if (studentId) {
           const callOrder = await prisma.callOrder.findFirst({
-            where: { status: false, student : { id: Number(studentId) } },
+            where: { status: false, student: { id: Number(studentId) } },
           });
           res.status(200).json(callOrder);
         } else if (classroomId) {

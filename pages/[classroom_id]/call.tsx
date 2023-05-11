@@ -72,7 +72,10 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     <Layout title='座席表'>
       {call_orders && call_orders.length !== 0 ? (
         call_orders.map((call_order) => (
-          <div key={call_order.id} className={`bg-white shadow-md rounded-md p-4 m-4 ${call_order.check ? 'bg-yellow-100' : ''}`}>
+          <div
+            key={call_order.id}
+            className={`bg-white shadow-md rounded-md p-4 m-4 ${call_order.check ? 'bg-yellow-100' : ''}`}
+          >
             {/* smの場合グリッドを消す‘‘ */}
             <div className='flex justify-between items-center grid grid-row-2 grid-cols-1 sm:flex'>
               <div className='text-lg font-bold row-span-1 flex items-center justify-center mb-2 sm:mb-0'>

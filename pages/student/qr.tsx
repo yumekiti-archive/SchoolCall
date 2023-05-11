@@ -22,7 +22,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
 
   if (!seatNumber && !classroomName) return <></>;
 
-  const studentNumber = localStorage.getItem('studentNumber')
+  const studentNumber = localStorage.getItem('studentNumber');
   if (!studentNumber) router.push('/student');
 
   readClassroomByName(classroomName).then((classroom) => {
@@ -49,7 +49,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
     });
   });
 
-  return <></>
+  return <></>;
 };
 
 export default StudentRegister;
