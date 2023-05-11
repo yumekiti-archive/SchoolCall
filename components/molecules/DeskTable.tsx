@@ -19,7 +19,7 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
           <div
             className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
             ${!today && turn_num ? 'bg-green-200' : ''}
-            ${today ? 'bg-gray-200' : ''}
+            ${today ? 'bg-blue-200' : ''}
             `}
           >
             <div className='w-60'>
@@ -42,7 +42,7 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
           <div
             className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
             ${!today && !status && turn_num ? 'bg-green-200' : ''}
-            ${today ? 'bg-gray-200' : ''}
+            ${today ? 'bg-blue-200' : ''}
             `}
           >
             <div className='w-60'>
