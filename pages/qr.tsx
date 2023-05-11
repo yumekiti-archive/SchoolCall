@@ -7,6 +7,7 @@ const QRCodeGenerator: FC = () => {
   const [classroomName, setClassroomName] = useState('3601');
   const [volumeNumber, setVolumeNumber] = useState(40);
   const [paths, setPaths] = useState<string[]>([]);
+  const [size, setSize] = useState(128);
 
   const handleVolumeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVolumeNumber(Number(e.target.value));
@@ -33,6 +34,10 @@ const QRCodeGenerator: FC = () => {
             <label className='mr-6'>生成数</label>
             <input type="number" value={volumeNumber} onChange={handleVolumeNumber} />
           </div>
+          <div>
+            <label className='mr-6'>サイズ</label>
+            <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))} />
+          </div>
         </div>
         <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={handleGenerate}>
           生成
@@ -41,8 +46,8 @@ const QRCodeGenerator: FC = () => {
       <div className='flex flex-col items-center justify-center'>
         <div className='mt-4 flex flex-wrap justify-start'>
           {paths.map((path) => (
-            <div key={path} className='w-64 h-64 m-6'>
-              <QRCode value={path} />
+            <div key={path} className='m-4'>
+              <QRCode value={path} style={{ width: size, height: size }} />
             </div>
           ))}
         </div>
