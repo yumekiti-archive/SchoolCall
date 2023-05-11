@@ -20,12 +20,12 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
   const { classroom_id } = router.query;
   const [loading, setLoading] = useState<boolean>(true);
   const [call_orders, setCallOrders] = useState<CallOrder[]>([]);
-  const [check, setCheck] = useState<boolean>(false);
 
   const fetchData = () => {
     if (!classroom_id) return;
+    setLoading(true);
     readCallorderByClassroomId(classroom_id).then((res) => {
-      setCallOrders(res.filter((call_order: any) => call_order.status === false));
+      setCallOrders(res);
       setLoading(false);
     });
   };
@@ -37,7 +37,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     fetchData();
   }, [socket, classroom_id]);
 
-  const handleCheck = (call_order_id: number) => {
+  const handleCheck = (call_order_id: number, check: boolean) => {
     const body = {
       id: call_order_id,
       check: !check,
@@ -45,8 +45,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
 
     updateCallOrder(body).then((res) => {
       readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res.filter((call_order: any) => call_order.status === false));
-        setCheck(!check);
+        setCallOrders(res);
       });
     });
   };
@@ -59,12 +58,25 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
 
     updateCallOrder(body).then((res) => {
       readCallorderByClassroomId(classroom_id).then((res) => {
-        setCallOrders(res.filter((call_order: any) => call_order.status === false));
+        setCallOrders(res);
       });
     });
 
     socket.emit('refetch');
   };
+
+  const handleToday = (call_order_id: number, today: boolean) => {
+    const body = {
+      id: call_order_id,
+      today: !today,
+    };
+
+    updateCallOrder(body).then((res) => {
+      readCallorderByClassroomId(classroom_id).then((res) => {
+        setCallOrders(res);
+      });
+    });
+  }
 
   if (loading) return <Loading />;
 
@@ -74,9 +86,11 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
         call_orders.map((call_order) => (
           <div
             key={call_order.id}
-            className={`bg-white shadow-md rounded-md p-4 m-4 ${call_order.check ? 'bg-yellow-100' : ''}`}
+            className={`bg-white shadow-md rounded-md p-4 m-4
+            ${call_order.check ? 'bg-yellow-100' : ''}
+            ${call_order.today ? 'bg-gray-500' : ''}
+            `}
           >
-            {/* smの場合グリッドを消す‘‘ */}
             <div className='flex justify-between items-center grid grid-row-2 grid-cols-1 sm:flex'>
               <div className='text-lg font-bold row-span-1 flex items-center justify-center mb-2 sm:mb-0'>
                 <span>{call_order.student?.className}</span>
@@ -86,15 +100,21 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
               <div className='flex justify-end items-center row-span-1'>
                 <button
                   className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-4'
-                  onClick={() => handleCheck(call_order.id)}
+                  onClick={() => handleCheck(call_order.id, call_order.check)}
                 >
                   確認中
                 </button>
                 <button
-                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4'
                   onClick={() => handleComplete(call_order.id)}
                 >
-                  完了
+                  確認完了
+                </button>
+                <button
+                  className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+                  onClick={() => handleToday(call_order.id, call_order.today)}
+                >
+                  課題完了
                 </button>
               </div>
             </div>

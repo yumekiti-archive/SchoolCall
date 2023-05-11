@@ -10,7 +10,7 @@ const StudentRegister = () => {
   const { createStudent } = useCreateStudent();
 
   const [name, setName] = useState<string>('山田 太郎');
-  const [studentNumber, setStudentNumber] = useState<number>(220000);
+  const [studentNumber, setStudentNumber] = useState<number>(2200000);
   const [attendanceNumber, setAttendanceNumber] = useState<number>(1);
   const [className, setClassName] = useState<string>('IE3A');
 

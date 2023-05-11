@@ -6,6 +6,7 @@ type CallOrder = {
   seatNumber: number;
   status: boolean;
   check: boolean;
+  today: boolean;
   classroomId: number;
   studentId: number;
   createdAt: string;

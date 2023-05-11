@@ -59,8 +59,9 @@ model Placement {
 model CallOrder {
   id          Int       @id @default(autoincrement())
   seatNumber  Int
-  check       Boolean   @default(false)
   status      Boolean   @default(false)
+  check       Boolean   @default(false)
+  today       Boolean   @default(false)
   classroomId Int
   studentId   Int
   createdAt   DateTime  @default(now())

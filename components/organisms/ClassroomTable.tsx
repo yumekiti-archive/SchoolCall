@@ -44,7 +44,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
   }
 
   // statusがfalseのものを抽出
-  let shaping_call_orders = call_orders?.filter((call) => !call.status);
+  let shaping_call_orders = call_orders?.filter((call) => !call.status || call.today);
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
@@ -69,6 +69,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
                             shaping_call_orders.findIndex((call) => call.seatNumber === seat.seatNumber) + 1
                           }
                           status={call.status}
+                          today={call.today}
                         />
                       ))[0] || (
                       <DeskTable

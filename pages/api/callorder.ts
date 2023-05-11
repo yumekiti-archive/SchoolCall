@@ -30,8 +30,11 @@ const handler: NextApiHandler = async (req, res) => {
           res.status(200).json(callOrder);
         } else if (classroomId) {
           const callOrders = await prisma.callOrder.findMany({
-            where: { classroomId: Number(classroomId) },
+            where: { classroomId: Number(classroomId), createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } },
             include: { student: true },
+            orderBy: {
+              id: 'desc',
+            },
           });
           res.status(200).json(callOrders);
         } else if (id) {

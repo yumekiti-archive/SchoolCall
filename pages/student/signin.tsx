@@ -13,7 +13,7 @@ const StudentRegister = () => {
 
   const [alertFlag, setAlertFlag] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-  const [studentNumber, setStudentNumber] = useState<number>(220000);
+  const [studentNumber, setStudentNumber] = useState<number>(2200000);
 
   const alertSet = (message: string) => {
     setAlertFlag(true);
