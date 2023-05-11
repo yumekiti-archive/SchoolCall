@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import QRCode from "react-qr-code";
+import QRCode from 'react-qr-code';
 
 const QRCodeGenerator: FC = () => {
   // http://localhost/student/qr?classroomName=3601&seatNumber=6
@@ -28,18 +28,21 @@ const QRCodeGenerator: FC = () => {
         <div>
           <div>
             <label className='mr-6'>教室名</label>
-            <input type="text" value={classroomName} onChange={(e) => setClassroomName(e.target.value)} />
+            <input type='text' value={classroomName} onChange={(e) => setClassroomName(e.target.value)} />
           </div>
           <div>
             <label className='mr-6'>生成数</label>
-            <input type="number" value={volumeNumber} onChange={handleVolumeNumber} />
+            <input type='number' value={volumeNumber} onChange={handleVolumeNumber} />
           </div>
           <div>
             <label className='mr-6'>サイズ</label>
-            <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))} />
+            <input type='number' value={size} onChange={(e) => setSize(Number(e.target.value))} />
           </div>
         </div>
-        <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={handleGenerate}>
+        <button
+          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+          onClick={handleGenerate}
+        >
           生成
         </button>
       </div>
