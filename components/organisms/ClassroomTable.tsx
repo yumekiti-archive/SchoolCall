@@ -45,6 +45,15 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
 
   // statusがfalseのものを抽出
   let shaping_call_orders = call_orders?.filter((call) => !call.status || call.today);
+  if (shaping_call_orders) {
+    shaping_call_orders.reverse()
+    const today = shaping_call_orders.filter((call) => call.today);
+    const not_today = shaping_call_orders.filter((call) => !call.today);
+
+    shaping_call_orders = not_today.concat(today);
+  }
+
+  console.log(shaping_call_orders);
 
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
