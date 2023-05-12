@@ -22,7 +22,7 @@ const Equipment = () => {
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [alertType, setAlertType] = useState<string>('error');
   const [name, setName] = useState<string>('');
-  const [potionNumber, setPotionNumber] = useState<number>(0);
+  const [positionNumber, setpositionNumber] = useState<number>(0);
 
   if (loading && classroom_id) {
     readClassroomById(Number(classroom_id)).then((res) => {
@@ -44,7 +44,7 @@ const Equipment = () => {
   const handleClick = () => {
     const body = {
       name: name,
-      potionNumber: Number(potionNumber),
+      positionNumber: Number(positionNumber),
       classroomId: Number(classroom_id),
     };
 
@@ -71,7 +71,7 @@ const Equipment = () => {
           </div>
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>配置場所</span>
-            <select className='w-1/2 rounded-lg p-1' onChange={(e) => setPotionNumber(Number(e.target.value))}>
+            <select className='w-1/2 rounded-lg p-1' onChange={(e) => setpositionNumber(Number(e.target.value))}>
               {classroom?.gaps.map((gap) => {
                 return (
                   <option key={gap} value={gap}>
