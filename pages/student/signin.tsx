@@ -57,7 +57,7 @@ const StudentRegister = () => {
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
             <Link href={'/student/signup'} className='w-1/4 rounded-lg p-2 bg-green-400 text-white text-center'>
-              作成
+              登録
             </Link>
             <button className='w-1/4 rounded-lg p-2 bg-blue-400 text-white ml-2' onClick={handleClick}>
               認証

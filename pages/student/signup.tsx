@@ -72,7 +72,7 @@ const StudentRegister = () => {
           </div>
           <div className='flex justify-end items-center w-8/12 rounded-lg'>
             <button className='w-1/2 rounded-lg p-2 bg-blue-400 text-white' onClick={handleClick}>
-              作成
+              登録
             </button>
           </div>
         </div>
