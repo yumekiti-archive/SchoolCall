@@ -19,11 +19,11 @@ const handler: NextApiHandler = async (req, res) => {
           },
         });
         if (callbySeatNumber) {
-          await prisma.callOrder.deleteMany({
-            where: {
-              classroomId: Number(newDesk.classroomId),
-              seatNumber: Number(newDesk.seatNumber),
-            },
+          callbySeatNumber.map(async (call) => {
+            await prisma.callOrder.update({
+              where: { id: call.id },
+              data: { today: false },
+            });
           });
         }
         res.status(200).json(newDesk);

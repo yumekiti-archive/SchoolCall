@@ -25,7 +25,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     if (!classroom_id) return;
     setLoading(true);
     readCallorderByClassroomId(classroom_id).then((res) => {
-      setCallOrders(res.filter((call_order: any) => call_order.status === false));
+      setCallOrders(res.filter((call_order: any) => call_order.status === false).reverse());
       setLoading(false);
     });
   };
