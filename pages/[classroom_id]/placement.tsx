@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Layout from '@/components/templates/Layout';
@@ -10,7 +10,11 @@ import Classroom from '@/types/classroom';
 import { useReadClassroomById } from '@/hooks/useClassroom';
 import { useCreatePlacement } from '@/hooks/usePlacement';
 
-const Equipment = () => {
+type Props = {
+  socket: any;
+};
+
+const Equipment: FC<Props> = ({ socket }) => {
   const router = useRouter();
   const { readClassroomById } = useReadClassroomById();
   const { createPlacement } = useCreatePlacement();
@@ -50,6 +54,7 @@ const Equipment = () => {
 
     createPlacement(body).then((res) => {
       alertSet('備品を追加しました', 'success');
+      socket.emit('refetch');
     });
   };
 
