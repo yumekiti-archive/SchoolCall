@@ -25,7 +25,11 @@ const handler: NextApiHandler = async (req, res) => {
       try {
         if (studentId) {
           const callOrder = await prisma.callOrder.findFirst({
-            where: { status: false, student: { id: Number(studentId) } },
+            where: {
+              status: false,
+              student: { id: Number(studentId) },
+              createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
+            },
           });
           res.status(200).json(callOrder);
         } else if (classroomId) {
@@ -43,7 +47,9 @@ const handler: NextApiHandler = async (req, res) => {
           });
           res.status(200).json(callOrder);
         } else {
-          const callOrders = await prisma.callOrder.findMany();
+          const callOrders = await prisma.callOrder.findMany({
+            where: { createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } },
+          });
           res.status(200).json(callOrders);
         }
       } catch (error) {
