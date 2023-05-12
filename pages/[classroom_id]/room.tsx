@@ -41,7 +41,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
           setDesks(res);
         });
         readCallorderByClassroomId(classroom_id).then((res) => {
-          setCallOrders(res.reverse());
+          setCallOrders(res);
         });
         setLoading(false);
       });
