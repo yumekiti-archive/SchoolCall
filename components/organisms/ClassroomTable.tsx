@@ -78,6 +78,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
                             shaping_call_orders.findIndex((call) => call.seatNumber === seat.seatNumber) + 1
                           }
                           status={call.status}
+                          check={call.check}
                           today={call.today}
                         />
                       ))[0] || (

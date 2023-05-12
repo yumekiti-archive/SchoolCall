@@ -6,10 +6,11 @@ type Props = {
   connect?: boolean;
   turn_num?: number;
   status?: boolean;
+  check?: boolean;
   today?: boolean;
 };
 
-const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, status, today }) => {
+const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, status, check, today }) => {
   return seat_number === 0 && name === undefined ? (
     <td className='h-full row-span-1 text-2xl'>&nbsp;</td>
   ) : (
@@ -18,8 +19,9 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
         <div className='w-full h-full flex'>
           <div
             className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
-            ${!today && turn_num ? 'bg-green-200' : ''}
-            ${today ? 'bg-blue-300' : ''}
+            ${!today && !check && turn_num ? 'bg-blue-200' : ''}
+            ${!today && check ? 'bg-yellow-200' : ''}
+            ${today ? 'bg-green-300' : ''}
             `}
           >
             <div className='w-60'>
@@ -41,8 +43,9 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
           </div>
           <div
             className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
-            ${!today && !status && turn_num ? 'bg-green-200' : ''}
-            ${today ? 'bg-blue-300' : ''}
+            ${!today && !check && !status && turn_num ? 'bg-blue-200' : ''}
+            ${!today && check ? 'bg-yellow-200' : ''}
+            ${today ? 'bg-green-300' : ''}
             `}
           >
             <div className='w-60'>
