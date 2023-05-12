@@ -28,6 +28,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
       setCallOrders(res.filter((call_order: any) => call_order.status === false));
       setLoading(false);
     });
+    socket.emit('refetch');
   };
 
   useEffect(() => {
@@ -53,8 +54,6 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     };
 
     updateCallOrder(body).then((res) => fetchData());
-
-    socket.emit('refetch');
   };
 
   const handleToday = (call_order_id: number, today: boolean) => {
