@@ -37,7 +37,7 @@ const handler: NextApiHandler = async (req, res) => {
             where: { classroomId: Number(classroomId), createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } },
             include: { student: true },
             orderBy: {
-              id: 'desc',
+              id: 'asc',
             },
           });
           res.status(200).json(callOrders);
