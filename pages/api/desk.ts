@@ -12,6 +12,20 @@ const handler: NextApiHandler = async (req, res) => {
     case 'POST': {
       try {
         const newDesk = await prisma.desk.create({ data: { ...body } });
+        const callbySeatNumber = await prisma.callOrder.findMany({
+          where: {
+            classroomId: Number(newDesk.classroomId),
+            seatNumber: Number(newDesk.seatNumber),
+          },
+        });
+        if (callbySeatNumber) {
+          await prisma.callOrder.deleteMany({
+            where: {
+              classroomId: Number(newDesk.classroomId),
+              seatNumber: Number(newDesk.seatNumber),
+            },
+          });
+        }
         res.status(200).json(newDesk);
       } catch (error) {
         console.log(error);
