@@ -14,7 +14,7 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
   return seat_number === 0 && name === undefined ? (
     <td className='h-full row-span-1 text-2xl'>&nbsp;</td>
   ) : (
-    <td className='w-full h-full row-span-1'>
+    <td className='w-full h-full row-span-1 truncate'>
       {!connect ? (
         <div className='w-full h-full flex'>
           <div
@@ -24,11 +24,9 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
             ${today ? 'bg-green-300' : ''}
             `}
           >
-            <div className='w-60'>
-              <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
-            </div>
+            <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
 
-            <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold text-gray-700'>
+            <p className='z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl xl:text-6xl font-bold text-gray-700'>
               {!today && turn_num ? turn_num : ''}
             </p>
           </div>
@@ -48,11 +46,9 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
             ${today ? 'bg-green-300' : ''}
             `}
           >
-            <div className='w-60'>
-              <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
-            </div>
+            <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
 
-            <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold text-gray-700'>
+            <p className='z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl xl:text-6xl font-bold text-gray-900'>
               {!today && !status && turn_num ? turn_num : ''}
             </p>
           </div>

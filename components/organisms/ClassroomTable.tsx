@@ -15,7 +15,7 @@ type Props = {
   reverse: boolean;
 };
 
-const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, reverse }) => {
+const Component: FC<Props> = ({ desks, call_orders, classroom, placements, reverse }) => {
   let positions: any = [];
   let seat_number = 1;
   for (let i = 1; i <= classroom.breadth; i++) {
@@ -46,7 +46,7 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
   // statusがfalseのものを抽出
   let shaping_call_orders = call_orders?.filter((call) => !call.status || call.today);
   if (shaping_call_orders) {
-    shaping_call_orders.reverse()
+    shaping_call_orders.reverse();
     const today = shaping_call_orders.filter((call) => call.today);
     const not_today = shaping_call_orders.filter((call) => !call.today);
 
@@ -60,9 +60,9 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
       {reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>出入口</div>}
       <div className='bg-white w-full h-full'>
         <table className='h-full w-full'>
-          <tbody className='h-full w-full flex'>
+          <tbody className='h-full flex'>
             {split_positions.map((row, index) => (
-              <tr className='w-1/6 h-full grid grid-row-8' key={index}>
+              <tr className='w-full grid grid-row-8' key={index}>
                 {row.map(
                   (seat: any, row_index: number) =>
                     shaping_call_orders
@@ -102,4 +102,4 @@ const ClassroomTable: FC<Props> = ({ desks, call_orders, classroom, placements, 
   );
 };
 
-export default ClassroomTable;
+export default Component;

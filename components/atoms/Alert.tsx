@@ -20,7 +20,7 @@ const colors = [
   },
 ];
 
-const Alert: FC<Props> = ({ message, type = 'error' }) => {
+const AlertComponent: FC<Props> = ({ message, type = 'error' }) => {
   const color: any = colors.filter((color) => color.type === type)[0];
 
   return (
@@ -30,4 +30,4 @@ const Alert: FC<Props> = ({ message, type = 'error' }) => {
   );
 };
 
-export default Alert;
+export default AlertComponent;

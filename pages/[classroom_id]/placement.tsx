@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Layout from '@/components/templates/Layout';
 import Alert from '@/components/atoms/Alert';
 import Loading from '@/components/atoms/Loading';
+import PlacementForm from '@/components/organisms/PlacementForm';
 
 import Classroom from '@/types/classroom';
 
@@ -22,9 +23,7 @@ const Equipment: FC<Props> = ({ socket }) => {
   const { classroom_id } = router.query;
   const [classroom, setClassroom] = useState<Classroom>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [alertFlag, setAlertFlag] = useState<boolean>(false);
-  const [alertMessage, setAlertMessage] = useState<string>('');
-  const [alertType, setAlertType] = useState<string>('error');
+  const [alert, setAlert] = useState<any>({ flag: false, message: '', type: '' });
   const [name, setName] = useState<string>('');
   const [positionNumber, setpositionNumber] = useState<number>(0);
 
@@ -36,13 +35,8 @@ const Equipment: FC<Props> = ({ socket }) => {
   }
 
   const alertSet = (message: string, type: string = 'error') => {
-    setAlertFlag(true);
-    setAlertMessage(message);
-    setAlertType(type);
-
-    setTimeout(() => {
-      setAlertFlag(false);
-    }, 3000);
+    setAlert({ flag: true, message: message, type: type });
+    setTimeout(() => setAlert({ flag: false }), 3000);
   };
 
   const handleClick = () => {
@@ -52,7 +46,7 @@ const Equipment: FC<Props> = ({ socket }) => {
       classroomId: Number(classroom_id),
     };
 
-    createPlacement(body).then((res) => {
+    createPlacement(body).then(() => {
       alertSet('備品を追加しました', 'success');
       socket.emit('refetch');
     });
@@ -62,37 +56,16 @@ const Equipment: FC<Props> = ({ socket }) => {
 
   return (
     <Layout title='備品追加'>
-      {alertFlag && <Alert message={alertMessage} type={alertType} />}
-      <div className='w-full h-full flex justify-center items-center'>
-        <div className='w-1/2 h-1/2 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'>
-          <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
-            <span>備品の名前</span>
-            <input
-              type='text'
-              className='w-1/2 rounded-lg p-1'
-              defaultValue={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
-            <span>配置場所</span>
-            <select className='w-1/2 rounded-lg p-1' onChange={(e) => setpositionNumber(Number(e.target.value))}>
-              {classroom?.gaps.map((gap) => {
-                return (
-                  <option key={gap} value={gap}>
-                    {gap}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className='flex justify-end items-center w-8/12 rounded-lg'>
-            <button className='w-1/2 rounded-lg p-2 bg-blue-400 text-white' onClick={handleClick}>
-              作成
-            </button>
-          </div>
-        </div>
-      </div>
+      {alert.flag && <Alert message={alert.message} type={alert.type} />}
+      {classroom && (
+        <PlacementForm
+          name={name}
+          setName={setName}
+          positionNumber={classroom.gaps}
+          setpositionNumber={setpositionNumber}
+          handleClick={handleClick}
+        />
+      )}
     </Layout>
   );
 };
