@@ -48,9 +48,12 @@ const QRCodeGenerator: FC = () => {
       </div>
       <div className='flex flex-col items-center justify-center'>
         <div className='mt-4 flex flex-wrap justify-start'>
-          {paths.map((path) => (
-            <div key={path} className='m-4'>
-              <QRCode value={path} style={{ width: size, height: size }} />
+          {paths.map((path, index) => (
+            <div key={path} className='flex flex-col items-center justify-center m-4 border-2 border-gray-400 p-4 pb-0 rounded-xl'>
+              <div className='border-2 border-gray-400 p-4'>
+                <QRCode value={path} style={{ width: size, height: size }} />
+              </div>
+              <span className='block text-center my-2'>{(index + 1)}</span>
             </div>
           ))}
         </div>
