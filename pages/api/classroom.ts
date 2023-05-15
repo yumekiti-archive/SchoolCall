@@ -26,7 +26,11 @@ const handler: NextApiHandler = async (req, res) => {
         if (className) {
           const classroom = await prisma.classroom.findUnique({
             where: { name: String(className) },
-            include: { placement: true },
+            include: { placement: {
+              orderBy: {
+                id: 'desc',
+              },
+            }},
           });
           res.status(200).json(classroom);
         } else if (id) {
