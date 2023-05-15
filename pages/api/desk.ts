@@ -30,6 +30,13 @@ const handler: NextApiHandler = async (req, res) => {
               studentId: Number(body.studentId),
             },
           });
+          await prisma.callOrder.updateMany({
+            where: {
+              classroomId: Number(body.classroomId),
+              seatNumber: Number(body.seatNumber),
+            },
+            data: { status: false },
+          });
         }
         const newDesk = await prisma.desk.create({ data: { ...body } });
         const callbySeatNumber = await prisma.callOrder.findMany({
