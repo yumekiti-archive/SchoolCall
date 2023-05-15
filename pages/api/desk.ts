@@ -35,7 +35,7 @@ const handler: NextApiHandler = async (req, res) => {
               classroomId: Number(body.classroomId),
               seatNumber: Number(body.seatNumber),
             },
-            data: { status: false },
+            data: { status: true },
           });
         }
         const newDesk = await prisma.desk.create({ data: { ...body } });
