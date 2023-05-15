@@ -11,6 +11,26 @@ const handler: NextApiHandler = async (req, res) => {
   switch (method) {
     case 'POST': {
       try {
+        const existDesk = await prisma.desk.findFirst({
+          where: {
+            classroomId: Number(body.classroomId),
+            studentId: Number(body.studentId),
+          },
+        });
+        if (existDesk) {
+          await prisma.desk.deleteMany({
+            where: {
+              classroomId: Number(body.classroomId),
+              studentId: Number(body.studentId),
+            },
+          });
+          await prisma.callOrder.deleteMany({
+            where: {
+              classroomId: Number(body.classroomId),
+              studentId: Number(body.studentId),
+            },
+          });
+        }
         const newDesk = await prisma.desk.create({ data: { ...body } });
         const callbySeatNumber = await prisma.callOrder.findMany({
           where: {

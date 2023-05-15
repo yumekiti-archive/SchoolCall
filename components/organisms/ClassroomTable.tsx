@@ -53,8 +53,6 @@ const Component: FC<Props> = ({ desks, call_orders, classroom, placements, rever
     shaping_call_orders = not_today.concat(today);
   }
 
-  console.log(shaping_call_orders);
-
   return (
     <main className='w-full h-full px-12 flex justify-center flex-col items-center'>
       {reverse && <div className='h-12 w-28 bg-white flex items-center justify-center text-xl'>出入口</div>}
