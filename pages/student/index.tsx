@@ -5,7 +5,12 @@ import Layout from '@/components/templates/Layout';
 import Alert from '@/components/atoms/Alert';
 import UpDownButton from '@/components/organisms/UpDownButton';
 
-import { useReadCallOrder, useReadCallOrderBySeatNumber, useCreateCallOrder, useDeleteCallOrder } from '@/hooks/useCallOrder';
+import {
+  useReadCallOrder,
+  useReadCallOrderBySeatNumber,
+  useCreateCallOrder,
+  useDeleteCallOrder,
+} from '@/hooks/useCallOrder';
 
 type Props = {
   socket: any;
@@ -63,8 +68,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
         else if (res.status == 'already') {
           deleteCallOrder(res.callOrder.id);
           alertSet('キャンセルしました', 'success');
-        }
-        else alertSet('順番を取得しました', 'success');
+        } else alertSet('順番を取得しました', 'success');
         socket.emit('refetch');
       });
     } else alertSet('座席を登録してください');

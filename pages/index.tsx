@@ -49,7 +49,12 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
 
   return (
     <Layout title='教室作成' href='/register'>
-      <ClassroomList classrooms={classrooms} handleDelete={handleDelete} handleUpdate={handleUpdate} handleReset={handleReset} />
+      <ClassroomList
+        classrooms={classrooms}
+        handleDelete={handleDelete}
+        handleUpdate={handleUpdate}
+        handleReset={handleReset}
+      />
     </Layout>
   );
 };

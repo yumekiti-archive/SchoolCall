@@ -23,7 +23,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
   if (!seatNumber && !classroomName) return <></>;
 
   const studentNumber = localStorage.getItem('studentNumber');
-  if (!studentNumber) router.push('/student')
+  if (!studentNumber) router.push('/student');
   else {
     readClassroomByName(classroomName).then((classroom) => {
       if (!classroom) router.push('/student');
@@ -35,15 +35,15 @@ const StudentRegister: FC<Props> = ({ socket }) => {
           classroomId: classroom.id,
           studentId: student.id,
         };
-  
+
         createDesk(body).then((data) => {
           if (!data) return;
           localStorage.setItem('seatNumber', data.seatNumber);
           localStorage.setItem('classroomId', data.classroomId);
           localStorage.setItem('studentId', data.studentId);
-  
+
           socket.emit('refetch');
-  
+
           router.push('/student');
         });
       });

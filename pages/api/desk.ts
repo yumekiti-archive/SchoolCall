@@ -108,7 +108,7 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case 'DELETE': {
       try {
-        if(classroomId) {
+        if (classroomId) {
           await prisma.callOrder.deleteMany({
             where: { classroomId: Number(classroomId) },
           });
