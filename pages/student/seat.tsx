@@ -36,35 +36,37 @@ const StudentRegister: FC<Props> = ({ socket }) => {
   const handleClick = () => {
     const studentNumber = localStorage.getItem('studentNumber');
 
-    if (!studentNumber) router.push('/student');
-    readClassroomByName(classroomName).then((classroom) => {
-      if (!classroom) alertSet('教室名が間違っています');
-      else {
-        readStudentByStudentNumber(studentNumber).then((student) => {
-          if (student) {
-            const body = {
-              seatNumber,
-              classroomId: classroom.id,
-              studentId: student.id,
-            };
-
-            createDesk(body).then((data) => {
-              if (data) {
-                localStorage.setItem('seatNumber', data.seatNumber);
-                localStorage.setItem('classroomId', data.classroomId);
-                localStorage.setItem('studentId', data.studentId);
-
-                socket.emit('refetch');
-
-                router.push('/student');
-              } else {
-                alertSet('登録に失敗しました');
-              }
-            });
-          }
-        });
-      }
-    });
+    if (!studentNumber) router.push('/student')
+    else {
+      readClassroomByName(classroomName).then((classroom) => {
+        if (!classroom) alertSet('教室名が間違っています');
+        else {
+          readStudentByStudentNumber(studentNumber).then((student) => {
+            if (student) {
+              const body = {
+                seatNumber,
+                classroomId: classroom.id,
+                studentId: student.id,
+              };
+  
+              createDesk(body).then((data) => {
+                if (data) {
+                  localStorage.setItem('seatNumber', data.seatNumber);
+                  localStorage.setItem('classroomId', data.classroomId);
+                  localStorage.setItem('studentId', data.studentId);
+  
+                  socket.emit('refetch');
+  
+                  router.push('/student');
+                } else {
+                  alertSet('登録に失敗しました');
+                }
+              });
+            }
+          });
+        }
+      });
+    }
   };
 
   return (
