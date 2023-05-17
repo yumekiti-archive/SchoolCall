@@ -11,6 +11,11 @@ type Props = {
 const Component: FC<Props> = ({ call_orders, handleCheck, handleComplete, handleToday }) => {
   return (
     <>
+      <div className='flex justify-center items-center my-4'>
+        <button className='w-11/12 bg-blue-400 hover:bg-blue-300 text-white font-bold py-6 px-4 rounded' onClick={() => location.reload()}>
+          更新
+        </button>
+      </div>
       {call_orders && call_orders.length !== 0 ? (
         call_orders.map((call_order) => (
           <div
