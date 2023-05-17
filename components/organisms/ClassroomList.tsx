@@ -12,7 +12,7 @@ type Props = {
 
 const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete, handleReset }) => {
   return (
-    <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 p-4'>
+    <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 p-4 text-sm md:text-xl'>
       {classrooms.map((classroom: Classroom) => (
         <div
           key={classroom.id}
@@ -66,12 +66,12 @@ const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete, handleRe
               }}
             />
           </div>
-          <div className='flex justify-end items-center w-8/12 rounded-lg grid grid-cols-5 gap-2'>
+          <div className='flex justify-end items-center w-8/12 rounded-lg grid grid-cols-2 md:grid-cols-5 gap-2'>
             <Link href={`/${classroom.id}`} className='col-span-1 rounded-lg p-2 bg-yellow-400 text-white text-center'>
               詳細
             </Link>
             <button
-              className='col-span-1 rounded-lg p-2 bg-orange-400 text-white text-center'
+              className='col-span-1 rounded-lg p-2 bg-orange-400 text-white text-center whitespace-pre'
               onClick={() => handleReset(classroom.id)}
             >
               リセット
