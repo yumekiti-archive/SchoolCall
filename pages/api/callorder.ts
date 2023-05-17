@@ -40,7 +40,7 @@ const handler: NextApiHandler = async (req, res) => {
               data: { status: true },
             });
           } else {
-            res.status(200).json({ status: 'already' });
+            res.status(200).json({ status: 'already', callOrder: existingCallOrder });
             return;
           }
         }

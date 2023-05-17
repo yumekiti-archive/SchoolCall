@@ -75,3 +75,16 @@ export const useDeleteDesk = () => {
 
   return { deleteDesk };
 };
+
+export const useDeleteDeskByClassroomId = () => {
+  const fetch = fetchInstance();
+
+  const deleteDeskByClassroomId = async (classroomId: any) => {
+    const { data } = await fetch.delete(url, {
+      params: { classroomId },
+    });
+    return data;
+  };
+
+  return { deleteDeskByClassroomId };
+}

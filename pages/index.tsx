@@ -5,6 +5,7 @@ import { FC, useState, useEffect } from 'react';
 import ClassroomList from '@/components/organisms/ClassroomList';
 
 import { useReadClassroom, useUpdateClassroom, useDeleteClassroom } from '@/hooks/useClassroom';
+import { useDeleteDeskByClassroomId } from '@/hooks/useDesk';
 
 type Props = {
   socket: any;
@@ -14,6 +15,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
   const { readClassroom } = useReadClassroom();
   const { updateClassroom } = useUpdateClassroom();
   const { deleteClassroom } = useDeleteClassroom();
+  const { deleteDeskByClassroomId } = useDeleteDeskByClassroomId();
 
   const [classrooms, setClassrooms] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,11 +39,17 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     });
   };
 
+  const handleReset = (id: number) => {
+    deleteDeskByClassroomId(id).then(() => {
+      socket.emit('refetch');
+    });
+  };
+
   if (loading) return <Loading />;
 
   return (
     <Layout title='教室作成' href='/register'>
-      <ClassroomList classrooms={classrooms} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+      <ClassroomList classrooms={classrooms} handleDelete={handleDelete} handleUpdate={handleUpdate} handleReset={handleReset} />
     </Layout>
   );
 };

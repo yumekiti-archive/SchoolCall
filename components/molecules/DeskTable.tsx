@@ -18,15 +18,15 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
       {!connect ? (
         <div className='w-full h-full flex'>
           <div
-            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
+            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative truncate
             ${!today && !check && turn_num ? 'bg-blue-200' : ''}
             ${!today && check ? 'bg-yellow-200' : ''}
             ${today ? 'bg-green-300' : ''}
             `}
           >
-            <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
+            <p className='truncate text-xs xl:text-4xl'>{name ? name : <>&nbsp;</>}</p>
 
-            <p className='z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl xl:text-6xl font-bold text-gray-700'>
+            <p className='z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-base xl:text-5xl font-bold text-gray-700'>
               {!today && turn_num ? turn_num : ''}
             </p>
           </div>
@@ -40,15 +40,15 @@ const DeskTable: FC<Props> = ({ seat_number, name, connect = false, turn_num, st
             <p className='text-right'>{seat_number === 0 || !seat_number ? <>&nbsp;</> : seat_number}</p>
           </div>
           <div
-            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative text-2xl truncate
+            className={`w-10/12 h-full flex justify-start items-end pl-2 border border-gray-400 relative truncate
             ${!today && !check && !status && turn_num ? 'bg-blue-200' : ''}
             ${!today && check ? 'bg-yellow-200' : ''}
             ${today ? 'bg-green-300' : ''}
             `}
           >
-            <p className='truncate'>{name ? name : <>&nbsp;</>}</p>
+            <p className='truncate text-xs xl:text-4xl'>{name ? name : <>&nbsp;</>}</p>
 
-            <p className='z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl xl:text-6xl font-bold text-gray-900'>
+            <p className='z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-base xl:text-5xl font-bold text-gray-900'>
               {!today && !status && turn_num ? turn_num : ''}
             </p>
           </div>

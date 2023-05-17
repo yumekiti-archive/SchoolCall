@@ -5,7 +5,7 @@ import Layout from '@/components/templates/Layout';
 import Alert from '@/components/atoms/Alert';
 import UpDownButton from '@/components/organisms/UpDownButton';
 
-import { useReadCallOrder, useReadCallOrderBySeatNumber, useCreateCallOrder } from '@/hooks/useCallOrder';
+import { useReadCallOrder, useReadCallOrderBySeatNumber, useCreateCallOrder, useDeleteCallOrder } from '@/hooks/useCallOrder';
 
 type Props = {
   socket: any;
@@ -16,6 +16,7 @@ const StudentRegister: FC<Props> = ({ socket }) => {
   const { createCallOrder } = useCreateCallOrder();
   const { readCallOrderBySeatNumber } = useReadCallOrderBySeatNumber();
   const { readCallOrder } = useReadCallOrder();
+  const { deleteCallOrder } = useDeleteCallOrder();
   const [waitingNumber, setWaitingNumber] = useState<number>(0);
   const [alert, setAlert] = useState<any>({ flag: false, message: '', type: '' });
 
@@ -57,8 +58,12 @@ const StudentRegister: FC<Props> = ({ socket }) => {
       };
 
       createCallOrder(body).then((res) => {
-        if (res.status == 'noStudent') alertSet('座席を登録してください');
-        else if (res.status == 'already') alertSet('すでに順番を取得しています');
+        if (res.status == 'noDesk') alertSet('座席を登録してください');
+        else if (res.status == 'noStudent') alertSet('座席を登録してください');
+        else if (res.status == 'already') {
+          deleteCallOrder(res.callOrder.id);
+          alertSet('キャンセルしました', 'success');
+        }
         else alertSet('順番を取得しました', 'success');
         socket.emit('refetch');
       });

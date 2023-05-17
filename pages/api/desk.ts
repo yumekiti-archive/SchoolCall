@@ -108,10 +108,20 @@ const handler: NextApiHandler = async (req, res) => {
     }
     case 'DELETE': {
       try {
-        const deletedDesk = await prisma.desk.delete({
-          where: { id: Number(id) },
-        });
-        res.status(200).json(deletedDesk);
+        if(classroomId) {
+          await prisma.callOrder.deleteMany({
+            where: { classroomId: Number(classroomId) },
+          });
+          const deletedDesk = await prisma.desk.deleteMany({
+            where: { classroomId: Number(classroomId) },
+          });
+          res.status(200).json(deletedDesk);
+        } else {
+          const deletedDesk = await prisma.desk.delete({
+            where: { id: Number(id) },
+          });
+          res.status(200).json(deletedDesk);
+        }
       } catch (error) {
         console.log(error);
         res.status(500).json(error);

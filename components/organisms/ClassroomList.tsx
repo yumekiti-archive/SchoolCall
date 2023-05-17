@@ -7,9 +7,10 @@ type Props = {
   classrooms: Classroom[];
   handleUpdate: (classroom: Classroom) => void;
   handleDelete: (id: number) => void;
+  handleReset: (id: number) => void;
 };
 
-const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete }) => {
+const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete, handleReset }) => {
   return (
     <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 p-4'>
       {classrooms.map((classroom: Classroom) => (
@@ -65,10 +66,16 @@ const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete }) => {
               }}
             />
           </div>
-          <div className='flex justify-end items-center w-8/12 rounded-lg grid grid-cols-4 gap-2'>
+          <div className='flex justify-end items-center w-8/12 rounded-lg grid grid-cols-5 gap-2'>
             <Link href={`/${classroom.id}`} className='col-span-1 rounded-lg p-2 bg-yellow-400 text-white text-center'>
               詳細
             </Link>
+            <button
+              className='col-span-1 rounded-lg p-2 bg-orange-400 text-white text-center'
+              onClick={() => handleReset(classroom.id)}
+            >
+              リセット
+            </button>
             <Link
               href={`/${classroom.id}/placement`}
               className='col-span-1 rounded-lg p-2 bg-green-400 text-white text-center'
