@@ -16,7 +16,7 @@ const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete, handleRe
       {classrooms.map((classroom: Classroom) => (
         <div
           key={classroom.id}
-          className='col-span-1 row-span-1 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center'
+          className='col-span-1 row-span-1 bg-white rounded-lg shadow-lg flex flex-col justify-evenly items-center py-2'
         >
           <div className='flex justify-evenly items-center bg-gray-200 w-8/12 h-1/6 rounded-lg'>
             <span>教室の名前</span>
@@ -66,8 +66,8 @@ const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete, handleRe
               }}
             />
           </div>
-          <div className='flex justify-end items-center w-8/12 rounded-lg grid grid-cols-2 md:grid-cols-5 gap-2'>
-            <Link href={`/${classroom.id}`} className='col-span-1 rounded-lg p-2 bg-yellow-400 text-white text-center'>
+          <div className='flex justify-end items-center w-8/12 rounded-lg grid grid-cols-2 md:grid-cols-5 gap-2 py-2'>
+            <Link href={`/${classroom.id}`} className='col-span-1 rounded-lg p-2 bg-yellow-400 text-white text-center whitespace-pre'>
               詳細
             </Link>
             <button
@@ -78,18 +78,18 @@ const Component: FC<Props> = ({ classrooms, handleUpdate, handleDelete, handleRe
             </button>
             <Link
               href={`/${classroom.id}/placement`}
-              className='col-span-1 rounded-lg p-2 bg-green-400 text-white text-center'
+              className='col-span-1 rounded-lg p-2 bg-green-400 text-white text-center whitespace-pre'
             >
               備品
             </Link>
             <button
-              className='col-span-1 rounded-lg p-2 bg-blue-400 text-white text-center'
+              className='col-span-1 rounded-lg p-2 bg-blue-400 text-white text-center whitespace-pre'
               onClick={() => handleUpdate(classroom)}
             >
               更新
             </button>
             <button
-              className='col-span-1 rounded-lg p-2 bg-red-400 text-white text-center'
+              className='col-span-1 rounded-lg p-2 bg-red-400 text-white text-center whitespace-pre'
               onClick={() => handleDelete(classroom.id)}
             >
               削除
