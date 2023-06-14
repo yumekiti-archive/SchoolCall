@@ -9,6 +9,8 @@ import CallOrder from '@/types/callOrder';
 
 import { useReadCallorderByClassroomId, useUpdateCallOrder } from '@/hooks/useCallOrder';
 
+import Push from 'push.js';
+
 type Props = {
   socket: any;
 };
@@ -26,7 +28,9 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     if (!classroom_id) return;
     setLoading(true);
     readCallorderByClassroomId(classroom_id).then((res) => {
-      setCallOrders(res.filter((call_order: any) => call_order.status === false).reverse());
+      const new_call_orders = res.filter((call_order: any) => call_order.status === false);
+      if (new_call_orders.length > 0) Push.create('新しい呼び出しがあります', { timeout: 4000 });
+      setCallOrders(new_call_orders.reverse());
       setLoading(false);
     });
   };
@@ -36,6 +40,7 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
     socket.on('refetch', () => fetchData());
 
     fetchData();
+    Push.Permission.request();
   }, [socket, classroom_id]);
 
   const handleCheck = (call_order_id: number, check: boolean) => {
