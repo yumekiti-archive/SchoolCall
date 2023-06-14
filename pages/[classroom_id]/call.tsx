@@ -23,13 +23,17 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
   const { classroom_id } = router.query;
   const [loading, setLoading] = useState<boolean>(true);
   const [call_orders, setCallOrders] = useState<CallOrder[]>([]);
+  const [calling, setCalling] = useState<number>(0);
 
   const fetchData = () => {
     if (!classroom_id) return;
     setLoading(true);
     readCallorderByClassroomId(classroom_id).then((res) => {
       const new_call_orders = res.filter((call_order: any) => call_order.status === false);
-      if (new_call_orders.length > 0) Push.create('新しい呼び出しがあります', { timeout: 4000 });
+      if (new_call_orders.length > calling) {
+        setCalling(new_call_orders.length);
+        Push.create('新しい呼び出しがあります', { timeout: 4000 });
+      }
       setCallOrders(new_call_orders.reverse());
       setLoading(false);
     });
