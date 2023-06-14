@@ -34,12 +34,17 @@ const ClassroomRegister: FC<Props> = ({ socket }) => {
         setCalling(new_call_orders.length);
         Push.create('新しい呼び出しがあります', { timeout: 4000 });
       }
+      localStorage.setItem('calling', new_call_orders.length.toString());
       setCallOrders(new_call_orders.reverse());
       setLoading(false);
     });
   };
 
   useEffect(() => {
+    if (localStorage.getItem('calling')) {
+      setCalling(Number(localStorage.getItem('calling')));
+    }
+
     if (!socket) return;
     socket.on('refetch', () => fetchData());
 
