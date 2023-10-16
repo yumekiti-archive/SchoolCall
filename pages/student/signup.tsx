@@ -10,9 +10,9 @@ const StudentRegister = () => {
   const router = useRouter();
   const { createStudent } = useCreateStudent();
 
-  const [name, setName] = useState<string>('山田 太郎');
-  const [studentNumber, setStudentNumber] = useState<number>(2200000);
-  const [attendanceNumber, setAttendanceNumber] = useState<number>(1);
+  const [name, setName] = useState<string>('');
+  const [studentNumber, setStudentNumber] = useState<number>(0);
+  const [attendanceNumber, setAttendanceNumber] = useState<number>(0);
   const [className, setClassName] = useState<string>('IE3A');
 
   const handleClick = () => {
@@ -22,6 +22,31 @@ const StudentRegister = () => {
       attendanceNumber,
       className,
     };
+
+    if (name === '') {
+      alert('名前を入力してください');
+      return;
+    }
+
+    if (className === '') {
+      alert('クラス名を入力してください');
+      return;
+    }
+
+    if (studentNumber === 0) {
+      alert('学籍番号を入力してください');
+      return;
+    }
+
+    if (attendanceNumber === 0) {
+      alert('出席番号を入力してください');
+      return;
+    }
+
+    if (!studentNumber.toString().match(/^[0-9]{7}$/)) {
+      alert('学籍番号は7桁の数字で入力してください');
+      return;
+    }
 
     createStudent(body).then((data) => {
       localStorage.setItem('studentNumber', data.studentNumber);

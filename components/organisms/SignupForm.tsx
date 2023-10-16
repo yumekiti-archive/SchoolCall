@@ -31,7 +31,7 @@ const Component: FC<Props> = ({
           <input
             type='text'
             className='w-1/2 rounded-lg p-1'
-            defaultValue={name}
+            placeholder='山田 太郎'
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -40,7 +40,7 @@ const Component: FC<Props> = ({
           <input
             type='text'
             className='w-1/2 rounded-lg p-1'
-            defaultValue={className}
+            placeholder='IE3A'
             onChange={(e) => setClassName(e.target.value)}
           />
         </div>
@@ -50,7 +50,7 @@ const Component: FC<Props> = ({
             type='number'
             className='w-1/2 rounded-lg p-1'
             min='1'
-            defaultValue={studentNumber}
+            placeholder='2200000'
             onChange={(e) => setStudentNumber(Number(e.target.value))}
           />
         </div>
@@ -60,7 +60,7 @@ const Component: FC<Props> = ({
             type='number'
             className='w-1/2 rounded-lg p-1'
             min='1'
-            defaultValue={attendanceNumber}
+            placeholder='1'
             onChange={(e) => setAttendanceNumber(Number(e.target.value))}
           />
         </div>
